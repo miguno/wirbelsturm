@@ -96,7 +96,7 @@ Storm cluster is the default configuration example that ships with Wirbelsturm.
 $ git clone https://github.com/miguno/wirbelsturm.git
 $ cd wirbelsturm
 $ ./bootstrap     # <<< May take a while depending on how fast your Internet connection is.
-$ vagrant up      # <<< May take a while depending on how powerful your computer is.
+$ vagrant up      # <<< ...and this step also depends on how powerful your computer is.
 ```
 
 Done -- you now have a fully functioning Storm cluster up and running on your computer!  The deployment should have
