@@ -1,0 +1,143 @@
+# When using Amazon AWS the domain should be your hosted Route 53 sub-domain.
+domain: your-wirbelsturm-sub.domain.com
+environment: default-environment
+aws:
+  local_user: ec2-user
+  rclocal_url: https://s3.amazonaws.com/yum.miguno.com/bootstrap/aws/rc.local
+  keypair_name: CHANGEME       # Example: wirbelsturm
+  private_key_path: CHANGEME   # Example: ~/.ssh/wirbelsturm.pem
+  # This keypair is used by Vagrant to boot and provision an instance.  It must be allowed to start/stop EC2 instances.
+  deploy_user:
+    aws_access_key: CHANGEME   # Example: ABCDEFGHIJ1234567890
+    aws_secret_key: CHANGEME   # Example: abcdefghijklmnopqrstuvwxyz12345678901234
+  # This keypair is used by Wirbelsturm (not Vagrant) during bootstrapping to update DNS from within the running
+  # instance.  It must be allowed to manage Route 53.
+  in_instance_user:
+    aws_access_key: CHANGEME   # Example: ZYXZYXZYXZ1234567890
+    aws_secret_key: CHANGEME   # Example: zyxzyxzyxzyxzyxzyxzyxzyxzyx1234567890123
+
+nodes:
+  # Deploys ZooKeeper servers.
+  zookeeper_server:
+    count: 1
+    # Do not change the hostname prefix because it is used in the Hiera YAML configuration data.
+    hostname_prefix: zookeeper
+    ip_range_start: 10.0.0.240
+    node_role: zookeeper_server
+    providers:
+      virtualbox:
+        memory: 512
+      aws:
+        instance_type: t1.micro
+        ami: ami-abc12345
+        security_groups:
+          - wirbelsturm
+  # Deploys Storm master machines running Storm's Nimbus and UI daemons.
+  storm_master:
+    # Unless you know what you are doing there should be only one Storm master (Nimbus).
+    count: 1
+    # Do not change the hostname prefix because it is used in the Hiera YAML configuration data.
+    hostname_prefix: nimbus
+    ip_range_start: 10.0.0.250
+    node_role: storm_master
+    providers:
+      virtualbox:
+        memory: 768
+        forwarded_ports:
+          - guest: 8080 # Storm UI
+            host: 28080
+      aws:
+        instance_type: t1.micro
+        ami: ami-abc12345
+        security_groups:
+          - wirbelsturm
+  # Deploys Storm slave machines running Storm's Supervisor daemons.
+  storm_slave:
+    count: 2
+    hostname_prefix: supervisor
+    ip_range_start: 10.0.0.100
+    node_role: storm_slave
+    providers:
+      virtualbox:
+        memory: 1024
+      aws:
+        instance_type: t1.micro
+        ami: ami-abc12345
+        security_groups:
+          - wirbelsturm
+#  # Deploys Kafka brokers.
+#  kafka_broker:
+#    count: 1
+#    hostname_prefix: kafka
+#    ip_range_start: 10.0.0.20
+#    node_role: kafka_broker
+#    providers:
+#      virtualbox:
+#        memory: 1536
+#      aws:
+#        instance_type: t1.micro
+#        ami: ami-abc12345
+#        security_groups:
+#          - wirbelsturm
+#  # Deploys Redis server instances.
+#  redis_server:
+#    count: 1
+#    hostname_prefix: redis
+#    ip_range_start: 10.0.0.30
+#    node_role: redis_server
+#    providers:
+#      virtualbox:
+#        memory: 512
+#      aws:
+#        instance_type: t1.micro
+#        ami: ami-abc12345
+#        security_groups:
+#          - wirbelsturm
+#  # Deploys single-node Storm clusters, with Nimbus/Supervisor/UI (and ZooKeeper) all running on the same machine.
+#  storm_single_node_cluster:
+#    count: 1 # If you want a multi-node cluster, use storm_master and storm_slave above.
+#    hostname_prefix: stormsingle
+#    ip_range_start: 10.0.0.40
+#    node_role: storm_single
+#    providers:
+#      virtualbox:
+#        memory: 2048
+#        forwarded_ports:
+#          - guest: 8080 # Storm UI
+#            host: 28081
+#      aws:
+#        instance_type: m1.large
+#        ami: ami-abc12345
+#        security_groups:
+#          - wirbelsturm
+#  # Deploys Wirbelsturm build servers.
+#  build_server:
+#    count: 1
+#    hostname_prefix: build
+#    ip_range_start: 10.0.0.50
+#    node_role: wirbelsturm_build_server
+#    providers:
+#      virtualbox:
+#        memory: 1024
+#      aws:
+#        instance_type: t1.micro
+#        ami: ami-abc12345
+#        security_groups:
+#          - wirbelsturm
+#  # Deploys monitoring servers running Graphite (through nginx) and Diamond.
+#  monitoring_server:
+#    count: 1
+#    hostname_prefix: monitor
+#    ip_range_start: 10.0.0.60
+#    node_role: monitoring
+#    providers:
+#      virtualbox:
+#        memory: 2048
+#        forwarded_ports:
+#          - guest: 8080 # Graphite Web UI -- login with user "admin" and password "wirbelsturm"
+#            host: 38080
+#      aws:
+#        instance_type: m1.large
+#        ami: ami-abc12345
+#        security_groups:
+#          - wirbelsturm

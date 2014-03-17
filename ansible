@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#
+# File:         ansible
+# Description:  A simple wrapper around `ansible` that pre-configures several
+#               Ansible settings so that it works out of the box with
+#               Wirbelsturm/Vagrant.
+
+MYSELF=`basename $0`
+MY_DIR=`echo $(cd $(dirname $0); pwd)`
+. $MY_DIR/sh/common.sh
+
+ANSIBLE_BIN="ansible"
+
+# Disable SSH host key verification.  Disabling the verification is usually
+# required because of the way Vagrant creates guest VMs (the host keys of
+# the VMs may change in between restarts).
+export ANSIBLE_HOST_KEY_CHECKING=False
+
+# This script queries Vagrant and parses wirbelsturm.yaml to compile a
+# dynamic inventory list of (running) hosts for Ansible.
+EXTERNAL_INVENTORY_SCRIPT="$MY_DIR/lib/ansible_inventory.rb"
+
+which $ANSIBLE_BIN &> /dev/null
+if [ $? -ne 0 ]; then
+  error "Could not find '$ANSIBLE_BIN'"
+  warn "Please install Ansible according to http://www.ansibleworks.com/docs/intro_installation.html"
+  warn "and then re-run ${MYSELF}"
+  exit 1
+fi
+
+$ANSIBLE_BIN -i $EXTERNAL_INVENTORY_SCRIPT "$@"

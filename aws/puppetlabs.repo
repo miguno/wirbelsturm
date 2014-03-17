@@ -1,0 +1,43 @@
+[puppetlabs-products]
+name=Puppet Labs Products El 6 - $basearch
+baseurl=http://yum.puppetlabs.com/el/6/products/$basearch
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs
+enabled=1
+gpgcheck=1
+priority=10
+
+[puppetlabs-deps]
+name=Puppet Labs Dependencies El 6 - $basearch
+baseurl=http://yum.puppetlabs.com/el/6/dependencies/$basearch
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs
+enabled=1
+gpgcheck=1
+
+[puppetlabs-devel]
+name=Puppet Labs Devel El 6 - $basearch
+baseurl=http://yum.puppetlabs.com/el/6/devel/$basearch
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs
+enabled=0
+gpgcheck=1
+
+[puppetlabs-products-source]
+name=Puppet Labs Products El 6 - $basearch - Source
+baseurl=http://yum.puppetlabs.com/el/6/products/SRPMS
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs
+failovermethod=priority
+enabled=0
+gpgcheck=1
+
+[puppetlabs-deps-source]
+name=Puppet Labs Source Dependencies El 6 - $basearch - Source
+baseurl=http://yum.puppetlabs.com/el/6/dependencies/SRPMS
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs
+enabled=0
+gpgcheck=1
+
+[puppetlabs-devel-source]
+name=Puppet Labs Devel El 6 - $basearch - Source
+baseurl=http://yum.puppetlabs.com/el/6/devel/SRPMS
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-puppetlabs
+enabled=0
+gpgcheck=1

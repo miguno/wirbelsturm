@@ -1,0 +1,4 @@
+.librarian/
+# Ignore modules/ and .tmp/ subdirectories because they are managed by librarian-puppet
+modules/
+.tmp/

@@ -1,0 +1,61 @@
+forge 'http://forge.puppetlabs.com'
+
+# Hosted on public Puppet Forge
+#
+mod 'puppetlabs/firewall'
+mod 'puppetlabs/ntp'
+mod 'puppetlabs/stdlib'
+
+# Hosted on GitHub.com
+#
+mod 'diamond',
+  :git => 'https://github.com/miguno/puppet-diamond.git',
+  :ref => '1.0.1'
+
+mod 'graphite',
+  :git => 'https://github.com/miguno/puppet-graphite.git',
+  :ref => '0.0.3'
+
+mod 'kafka',
+  :git => 'https://github.com/miguno/puppet-kafka.git',
+  :ref => '1.0.3'
+
+mod 'limits',
+  :git => 'https://github.com/miguno/puppet-limits.git'
+
+mod 'nginx',
+  :git => 'https://github.com/jfryman/puppet-nginx.git',
+  :ref => '5c36913dcda630f5244e0ecc885e3b436973d45a' # dated March 10, 2014
+
+mod 'redis',
+  :git => 'https://github.com/miguno/puppet-redis.git',
+  :ref => '1.0.2'
+
+mod 'statsd',
+  :git => 'https://github.com/miguno/puppet-statsd.git'
+
+mod 'storm',
+  :git => 'https://github.com/miguno/puppet-storm.git',
+  :ref => '1.0.4'
+
+mod 'supervisor',
+  :git => 'https://github.com/miguno/puppet-supervisor.git'
+
+mod 'sysctl',
+  :git => 'https://github.com/miguno/puppet-sysctl.git'
+
+mod 'wirbelsturm_build',
+  :git => 'https://github.com/miguno/puppet-wirbelsturm_build.git',
+  :ref => '1.0.1'
+
+mod 'wirbelsturm_common',
+  :git => 'https://github.com/miguno/puppet-wirbelsturm_common.git',
+  :ref => '1.0.0'
+
+mod 'wirbelsturm_yumrepos',
+  :git => 'https://github.com/miguno/puppet-wirbelsturm_yumrepos.git',
+  :ref => '1.0.1'
+
+mod 'zookeeper',
+  :git => 'https://github.com/miguno/puppet-zookeeper.git',
+  :ref => '1.0.2'

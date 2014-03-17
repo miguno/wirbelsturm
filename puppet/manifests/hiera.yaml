@@ -1,0 +1,15 @@
+---
+:backends:
+  - yaml
+:yaml:
+  # TODO: Possibly use variable interpolation to dynamically configure :datadir:
+  #       For example by seting a top-level variable in site.pp and then use %{::var_name} here.
+  :datadir: 'manifests/hieradata'
+:hierarchy:
+  # Note: We have observed that in some situations the Puppet fact 'fqdn' is not set.  For this reason we opted to
+  #       define the Hiera hierarchy based on 'hostname' instead.
+  - environments/%{::node_env}/hosts/%{::hostname}  # e.g. => environments/testing/hosts/kafka1.yaml
+  - environments/%{::node_env}/roles/%{::node_role} # e.g. => environments/testing/roles/kafka_broker.yaml
+  - roles/%{::node_role}                            # e.g. => roles/kafka_broker.yaml
+  - environments/%{::node_env}                      # e.g. => environments/testing.yaml
+  - common

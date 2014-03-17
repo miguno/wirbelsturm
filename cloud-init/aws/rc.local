@@ -1,0 +1,148 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+
+# Required environment variables for subsequent commands
+export PATH=$PATH:/opt/aws/bin
+export EC2_HOME=/opt/aws/apitools/ec2
+export JAVA_HOME=/usr/lib/jvm/jre
+export MY_FQDN=$FACTER_DESIRED_FQDN
+export MY_DOMAIN=${MY_FQDN#*.}
+export MY_HOSTNAME=${MY_FQDN%%.*}
+
+# Read API access key and secret key from secured file.  Required for Route53.
+. /etc/aws/aws-credentials.sh
+
+###
+### Configure hostname and FQDN
+###
+
+# Step 1: make run-time change
+hostname $MY_HOSTNAME
+# Step 2: make change persist after reboots
+sed -i 's/^\(HOSTNAME=\)\(.*\)/\1'$MY_HOSTNAME'/' /etc/sysconfig/network
+# Step 3: update 'search' entry in /etc/resolv.conf
+grep -q "^search " /etc/resolv.conf
+if [ $? -eq 0 ]; then
+  sed -i 's/^\(search \)\(.*\)$/\1'$MY_DOMAIN'/g' /etc/resolv.conf
+else
+  echo "search $MY_DOMAIN" >> /etc/resolv.conf
+fi
+# Step 4: update 'domain' entry in /etc/resolv.conf
+grep -q "^domain " /etc/resolv.conf
+if [ $? -eq 0 ]; then
+  sed -i 's/^\(domain \)\(.*\)$/\1'$MY_DOMAIN'/g' /etc/resolv.conf
+else
+  echo "domain $MY_DOMAIN" >> /etc/resolv.conf
+fi
+# Step 5: update /etc/hosts so that 'hostname -f' works, too
+IP_ADDRESS=`facter ipaddress_eth0`
+grep -q "$MY_FQDN" /etc/hosts
+if [ $? -eq 0 ]; then
+  sed -i 's/^.*'$MY_FQDN'.*$/'$IP_ADDRESS'    '$MY_FQDN'    '$MY_HOSTNAME'/g' /etc/hosts
+else
+  echo "# Additional entries added by bootstrap script" >> /etc/hosts
+  echo "$IP_ADDRESS    $MY_FQDN    $MY_HOSTNAME" >> /etc/hosts
+fi
+
+###
+### Configure Route53
+###
+
+# This function tries to add a FQDN to a Route53 managed DNS Zone.
+function add_Route53 {
+  local FQDN="$1"
+  local IP="$2"
+  local DOMAIN=${FQDN#*.}
+  local RETVAL=0
+
+  # check that we have access to Route 53 by looking up the ZoneID
+  local ZONE_ID=`route53 ls | awk '($2 == "ID:"){printf "%s ",$3;getline;printf "%s\n",$3}' | grep $DOMAIN | awk '{print $1}'`
+  if [ -n "$ZONE_ID" ]; then
+    # Add the DNS record
+    # TODO: Decide how to handle cases where the record already exists (e.g. do we want to override it or not?)
+    route53 add_record $ZONE_ID $FQDN A $IP &>/dev/null
+    RETVAL=$?
+    if [ $RETVAL -ne 0 ]; then
+      echo "ERROR: Failed to add $FQDN to Route53: $FQDN IN A $IP"
+    else
+      echo "Successfully added $FQDN to Route53: $FQDN IN A $IP"
+
+      # Add an FQDN-specific clean-up script to remove the DNS record on halt/reboot
+      local R53_CLEANUP_SCRIPT=/etc/rc.d/init.d/route53-remove_${FQDN}
+      local PROCESS_NAME=`basename $R53_CLEANUP_SCRIPT`
+      cat >$R53_CLEANUP_SCRIPT <<EOT
+#!/bin/bash
+#
+# chkconfig: 345 99 01
+# description: Removes this machine's DNS record(s) from Route53 during halt or reboot.
+# processname: $PROCESS_NAME
+
+. /etc/aws/aws-credentials.sh
+
+RETVAL=0
+WAIT_SECONDS=10
+
+start() {
+  touch /var/lock/subsys/$PROCESS_NAME
+}
+
+stop() {
+  echo "Removing DNS record for $FQDN from Route 53 ..."
+  route53 del_record $ZONE_ID $FQDN A $IP
+  RETVAL=\$?
+  sleep \$WAIT_SECONDS
+  return \$RETVAL
+}
+
+case "\$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  *)
+    echo "Usage: \$0 {start|stop}"
+    RETVAL=1
+    ;;
+esac
+exit \$RETVAL
+EOT
+      chmod +x $R53_CLEANUP_SCRIPT
+      touch /var/lock/subsys/$PROCESS_NAME
+
+      # Register the Route53 clean-up.
+      #
+      # Note: The clean-up script's actual work is triggered when it is called with "stop" (and not "start") as
+      # parameter.  For this reason we must register it at the usual runlevels instead of 0 and 6.
+      chkconfig --add $PROCESS_NAME
+    fi
+  else
+    echo "WARNING: Cannot find/access the Route53 DNS zone $DOMAIN"
+    RETVAL=99
+  fi
+  return $RETVAL
+}
+
+INT_IP=`curl -s --fail http://169.254.169.254/latest/meta-data/local-ipv4`
+INT_FQDN=`facter fqdn`
+EXT_IP=`curl -s --fail http://169.254.169.254/latest/meta-data/public-ipv4`
+EXT_FQDN=`curl -s --fail http://169.254.169.254/latest/meta-data/public-hostname`
+
+if [ -n "$INT_FQDN" -a -n "$INT_IP" ]; then
+  add_Route53 "$INT_FQDN" "$INT_IP"
+fi
+if [ -n "$EXT_FQDN" -a -n "$EXT_IP" ]; then
+  add_Route53 "$EXT_FQDN" "$EXT_IP"
+fi
+
+# TODO: When not using Vagrant for provisioning (via Puppet), we must at this point start download the latest Puppet
+#       manifests to this box and run 'puppet apply' once (don't forget to add a cron job later).  When using Vagrant
+#       this is not required because Vagrant will upload the Puppet manifests itself and trigger a 'puppet apply'.
+
+echo "$0 run completed"

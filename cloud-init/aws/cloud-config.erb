@@ -1,0 +1,48 @@
+Content-Type: multipart/mixed; boundary="===============8357495029070803742=="
+MIME-Version: 1.0
+
+--===============8357495029070803742==
+Content-Type: text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="boothook.sh"
+
+#!/bin/bash
+
+--===============8357495029070803742==
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config"
+
+#cloud-config
+
+packages:
+  - wget
+  - git
+  - screen
+  - python-boto
+
+runcmd:
+  - [ sh, -c, 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" >> /etc/resolv.conf' ]
+  - [ yum, update, -y ]
+  - [ sh, -c, 'echo "export FACTER_DESIRED_FQDN=<%= @fqdn %>" >> /etc/environment' ]
+  - [ sh, -c, 'echo "export FACTER_ROLE=<%= @role %>" >> /etc/environment' ]
+  - [ sh, -c, 'echo "export FACTER_PROVIDER=aws" >> /etc/environment' ]
+  # Make your that subsequent commands -- notably Puppet -- have the FACTER_* facts available in their shell env
+  - . /etc/environment
+  - [ mkdir, -p, /etc/aws ]
+  - [ chmod, 750, /etc/aws ]
+  - [ sh, -c, 'echo "# Credentials of deploy IAM user" > /etc/aws/aws-credentials.sh' ]
+  - [ sh, -c, 'echo "export AWS_ACCESS_KEY=<%= @aws_access_key %>" >> /etc/aws/aws-credentials.sh' ]
+  - [ sh, -c, 'echo "export AWS_SECRET_KEY=<%= @aws_secret_key %>" >> /etc/aws/aws-credentials.sh' ]
+  - [ sh, -c, 'echo "# For boto -- same information but different variables" >> /etc/aws/aws-credentials.sh' ]
+  - [ sh, -c, 'echo "export AWS_ACCESS_KEY_ID=\$AWS_ACCESS_KEY" >> /etc/aws/aws-credentials.sh' ]
+  - [ sh, -c, 'echo "export AWS_SECRET_ACCESS_KEY=\$AWS_SECRET_KEY" >> /etc/aws/aws-credentials.sh' ]
+  - [ chmod, 400, /etc/aws/aws-credentials.sh ]
+  - [ wget, "<%= @aws_rclocal_url %>", -O, "/etc/rc.d/rc.local" ]
+  - [ chown, "root:root", /etc/rc.d/rc.local ]
+  - [ chmod, 755, /etc/rc.d/rc.local ]
+  - [ /etc/rc.d/rc.local ]
+
+--===============8357495029070803742==--

@@ -1,0 +1,86 @@
+#!/bin/bash
+#
+# File:         deploy
+# Description:  This script boots guest machines sequentially but provisions them in parallel.
+#
+# This script is derived from https://github.com/joemiller/sensu-tests/blob/master/para-vagrant.sh.
+# (See our NOTICE file.)
+#
+
+MY_DIR=`echo $(cd $(dirname $0); pwd)`
+. $MY_DIR/sh/common.sh
+
+### CONFIGURATION: BEGIN
+
+# Any valid 'parallel' argument will work here, such as "-P 3".
+PARALLEL_OPTS="-P 10"
+
+### CONFIGURATION: END
+
+check_requirements() {
+  which parallel &>/dev/null
+  if [ $? -ne 0 ]; then
+    error "ERROR: 'parallel' not found."
+    case $OS in
+      $OS_MAC)
+        puts "Install via 'brew install parallel'"
+        ;;
+      $OS_LINUX)
+        puts "=> 1) Install via 'sudo yum install parallel' (RHEL/CentOS/Fedora)"
+        puts "      or 'sudo apt-get install parallel' (Debian/Ubuntu)"
+        puts "   2) Edit /etc/parallel/config and change '--tollef' to '--gnu'"
+        ;;
+      $OS_UNKNOWN)
+        warn "Could not detect your OS, so I can't tell you what the command is to install 'parallel'."
+        ;;
+    esac
+    exit 1
+  fi
+
+  which vagrant &>/dev/null
+  if [ $? -ne 0 ]; then
+    error "ERROR: 'vagrant' not found.  Install according to http://www.vagrantup.com/"
+    exit 1
+  fi
+}
+
+prepare_local_environment() {
+  mkdir -p $LOG_DIR &> /dev/null
+  rm -f $LOG_DIR/*.log
+}
+
+parallel_provision() {
+    while read box; do
+        echo $box
+     done | parallel $PARALLEL_OPTS -I"NODE" "$MY_DIR/sh/provision-node.sh NODE"
+}
+
+print_provisioning_results() {
+    failures=$(egrep  -h '^FAILURE' $LOG_DIR/*.log | sed -e 's/^/  /')
+    successes=$(egrep -h '^SUCCESS' $LOG_DIR/*.log | sed -e 's/^/  /')
+
+    echo
+    error "Failures:"
+    echo '------------------'
+    error "$failures"
+    echo
+    success "Successes:"
+    echo '------------------'
+    echo "$successes"
+}
+
+### Main
+
+check_requirements
+prepare_local_environment
+
+# Start boxes sequentially to avoid vbox explosions
+puts '[Wirbelsturm] Calling 'vagrant up' to boot the boxes ...'
+vagrant up --no-provision $@
+
+# But run provision tasks in parallel
+config_file=${WIRBELSTURM_CONFIG_FILE:-wirbelsturm.yaml}
+puts "[Wirbelsturm] Beginning parallel 'vagrant provision' processes ... (it may take some time until you see further output)"
+ruby -rjson -I $MY_DIR/lib -r wirbelsturm -e "include Wirbelsturm; puts nodes = JSON.parse(compile_node_catalog('$config_file'), :symbolize_names => true).keys.map{ |h| h.to_s }"  | parallel_provision
+
+print_provisioning_results

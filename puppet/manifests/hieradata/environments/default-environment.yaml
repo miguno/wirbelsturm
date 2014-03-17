@@ -1,0 +1,37 @@
+---
+classes:
+  - supervisor
+  - wirbelsturm_yumrepos::epel
+  - wirbelsturm_yumrepos::miguno
+  - wirbelsturm_yumrepos::nginx
+  - wirbelsturm_yumrepos::puppetlabs
+
+# Common settings
+wirbelsturm_common::ipv6_disable: true
+wirbelsturm_common::ipv6_manage: true
+wirbelsturm_common::manage_ntp: true
+
+# Storm
+storm::zookeeper_servers:
+  - 'zookeeper1'
+storm::nimbus_host: 'nimbus1'
+storm::nimbus_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::ui_childopts:         '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::supervisor_childopts: '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::worker_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::supervisor_slots_ports:
+  - 6700
+  - 6701
+
+# Supervisord
+supervisor::logfile_maxbytes: '20MB'
+supervisor::logfile_backups: 5
+supervisor::autoupgrade: true
+
+# ZooKeeper
+# If you want to use a quorum (of usually 3 or 5 ZooKeeper servers), use a configuration similar as the following.
+# Make sure to set 'zookeeper::myid' appropriately for the machines in the quorum (myid must match 'server.X').
+#zookeeper::quorum:
+#  - 'server.1=zookeeper1:2888:3888'
+#  - 'server.2=zookeeper2:2888:3888'
+#  - 'server.3=zookeeper3:2888:3888'

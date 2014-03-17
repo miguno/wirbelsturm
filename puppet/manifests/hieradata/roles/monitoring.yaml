@@ -1,0 +1,91 @@
+---
+classes:
+  - diamond
+  - graphite
+  - nginx
+  #- statsd  # Some statsd?  Add puppet-statsd to Puppetfile, and then uncomment this line and the section at the bottom.
+
+
+## Diamond
+diamond::graphite_host: 'monitor1'
+diamond::collectors:
+  CPUCollector: {}
+#    options:
+#      path: cpu
+  DiskSpaceCollector: {}
+  DiskUsageCollector: {}
+  LoadAverageCollector: {}
+  MemoryCollector: {}
+  NetworkCollector: {}
+  SockstatCollector: {}
+  VMStatCollector: {}
+
+## Graphite
+#
+# Note: If clients connecting to carbon-cache are experiencing errors such as connection refused by the daemon, a common
+# reason is a shortage of file descriptors (ulimit -n).  A value of 8192 or more may be necessary depending on how many
+# clients are simultaneously connecting to the carbon-cache daemon.
+graphite::carbon::aggregator_enable: true
+graphite::carbon::cache_enable: true
+graphite::carbon::storage_rules:
+  'stats':
+    pattern: '^stats.*'
+    retentions: '10s:6h,1min:7d,10min:5y'
+    order: '1'
+  'prod_apps':
+    pattern: '^prod\.apps\.'
+    retentions: '10s:2d'
+    order: '2'
+  'test_apps':
+    pattern: '^test\.apps\.'
+    retentions: '10s:2d'
+    order: '3'
+graphite::carbon::limits_manage: true
+graphite::carbon::limits_nofile: 65536
+graphite::web::admin_email: 'foo@example.com'
+graphite::web::django_secret_key: 'o4ointa4098w3haql;kjtg098yh#%&ISZFGH'
+graphite::web::limits_manage: true
+graphite::web::limits_nofile: 65536
+
+## Nginx
+nginx::manage_repo: false
+nginx::nginx_upstreams:
+  'gunicorn_app_server':
+    ensure: 'present'
+    members:
+      - 'localhost:8081 fail_timeout=0'
+nginx::nginx_vhosts:
+  '_':
+    www_root: '/usr/share/graphite/webapp/content'
+    ipv6_enable: false
+    listen_port: 8080
+    access_log: '/var/log/nginx/graphite-web.access.log'
+    error_log:  '/var/log/nginx/graphite-web.error.log'
+    vhost_cfg_append:
+      client_max_body_size: '64M'
+      keepalive_timeout: 5
+    location_cfg_append:
+      proxy_pass_header: 'Server'
+      proxy_redirect: 'off'
+      'proxy_set_header X-Real-IP': '$remote_addr'
+      'proxy_set_header Host': '$http_host'
+      'proxy_set_header X-Scheme': '$scheme'
+      proxy_connect_timeout: 10
+      proxy_read_timeout: 10
+      proxy_pass: 'http://gunicorn_app_server'
+nginx::nginx_locations:
+  'media':
+    vhost: '_'
+    location: '/media/'
+    www_root: '/usr/lib/python2.6/site-packages/django/contrib/admin'
+
+## Statsd
+##
+## Uncomment the lines below if you want to play with statsd.  Make sure you also enable the `classes` entry for statsd
+## at the top of this file.
+##
+#statsd::graphite_server: 'localhost'
+#statsd::flush_interval: 10000 # flush every 10 seconds to Graphite
+#statsd::config_variables:
+#  'graphite':
+#    'legacyNamespace': false

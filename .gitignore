@@ -1,0 +1,8 @@
+.vagrant/
+provisioning-logs/
+env-*.txt
+shared/
+.idea/
+wirbelsturm.iml
+# Wirbelsturm config might contain sensitive data (user credentials)
+wirbelsturm.yaml

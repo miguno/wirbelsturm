@@ -1,0 +1,149 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    ispavailability/file_concat (0.1.0)
+    puppetlabs/apt (1.4.2)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/concat (1.1.0-rc1)
+      puppetlabs/stdlib (>= 3.0.0)
+    puppetlabs/firewall (1.0.2)
+    puppetlabs/nodejs (0.4.0)
+      puppetlabs/apt (>= 0.0.3)
+      puppetlabs/stdlib (>= 2.0.0)
+    puppetlabs/ntp (3.0.3)
+      puppetlabs/stdlib (>= 0.1.6)
+    puppetlabs/stdlib (4.1.0)
+
+GIT
+  remote: https://github.com/jfryman/puppet-nginx.git
+  ref: 5c36913dcda630f5244e0ecc885e3b436973d45a
+  sha: 5c36913dcda630f5244e0ecc885e3b436973d45a
+  specs:
+    nginx (0.0.7)
+      puppetlabs/apt (>= 1.0.0)
+      puppetlabs/concat (>= 1.0.0)
+      puppetlabs/stdlib (>= 0.1.6)
+
+GIT
+  remote: https://github.com/miguno/puppet-diamond.git
+  ref: 1.0.1
+  sha: 48fe3d3b7bf6e6ec0af29baaf19dea32e8ef7dcd
+  specs:
+    diamond (1.0.1)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-graphite.git
+  ref: 0.0.3
+  sha: 430deb18ef8c82d674ffe611bf115ccb484526cc
+  specs:
+    graphite (0.0.2)
+      ispavailability/file_concat (>= 0.0.2)
+      puppetlabs/stdlib (>= 3.0.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-kafka.git
+  ref: 1.0.3
+  sha: e803a44b45541f772564c707d679fd2b4fcfe018
+  specs:
+    kafka (1.0.2)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-limits.git
+  ref: master
+  sha: 13a6ddc1e98f1606d9367fc4047aa6b8c90b822d
+  specs:
+    limits (0.0.1)
+
+GIT
+  remote: https://github.com/miguno/puppet-redis.git
+  ref: 1.0.2
+  sha: 3e2b44efa6fa4dc3867436a45f2e8a278fd1b3d0
+  specs:
+    redis (1.0.0)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-statsd.git
+  ref: master
+  sha: de49d8b1a0368f97a595fc5a3cca1a4a03cb4485
+  specs:
+    statsd (1.0.3)
+      puppetlabs/nodejs (>= 0.2.0)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-storm.git
+  ref: 1.0.4
+  sha: 44325932f9ba1561f24cba3e88fa7440c720ac73
+  specs:
+    storm (1.0.3)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-supervisor.git
+  ref: master
+  sha: 003b2ac6bb2f36fa9c73c08d3a73533815f60968
+  specs:
+    supervisor (1.0.0)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-sysctl.git
+  ref: master
+  sha: e810a48487e7c3deb89b0d77b08a22efb81d33a2
+  specs:
+    sysctl (0.0.1)
+
+GIT
+  remote: https://github.com/miguno/puppet-wirbelsturm_build.git
+  ref: 1.0.1
+  sha: 9b9ccc1c4d89e978ef3763fe956b943ae77354a7
+  specs:
+    wirbelsturm_build (1.0.0)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-wirbelsturm_common.git
+  ref: 1.0.0
+  sha: 7b2b45377f850a932d98a23e107be0064285ec21
+  specs:
+    wirbelsturm_common (1.0.0)
+      puppetlabs/ntp (>= 3.0.3)
+      puppetlabs/stdlib (>= 4.1.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-wirbelsturm_yumrepos.git
+  ref: 1.0.1
+  sha: 704a51f4b5db871d4f5b9c54222e437adb942d7a
+  specs:
+    wirbelsturm_yumrepos (1.0.0)
+
+GIT
+  remote: https://github.com/miguno/puppet-zookeeper.git
+  ref: 1.0.2
+  sha: 1a1ee31bad88ec677fb1fad3c0f158e57cbc9791
+  specs:
+    zookeeper (1.0.0)
+      puppetlabs/stdlib (>= 4.1.0)
+
+DEPENDENCIES
+  diamond (>= 0)
+  graphite (>= 0)
+  kafka (>= 0)
+  limits (>= 0)
+  nginx (>= 0)
+  puppetlabs/firewall (>= 0)
+  puppetlabs/ntp (>= 0)
+  puppetlabs/stdlib (>= 0)
+  redis (>= 0)
+  statsd (>= 0)
+  storm (>= 0)
+  supervisor (>= 0)
+  sysctl (>= 0)
+  wirbelsturm_build (>= 0)
+  wirbelsturm_common (>= 0)
+  wirbelsturm_yumrepos (>= 0)
+  zookeeper (>= 0)
+

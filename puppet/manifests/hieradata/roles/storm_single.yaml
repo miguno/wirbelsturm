@@ -1,0 +1,25 @@
+# Configures a single-node Storm cluster (including ZooKeeper).
+#
+# We override most configuration options of the default 'wirbelsturm' environment settings.
+---
+classes:
+  - storm::nimbus
+  - storm::ui
+  - storm::supervisor
+  - wirbelsturm_yumrepos::cloudera_cdh4
+  - zookeeper::service
+
+# Storm
+storm::zookeeper_servers:
+  - 'stormsingle1'
+storm::nimbus_host: 'stormsingle1'
+storm::nimbus_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::ui_childopts:         '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::supervisor_childopts: '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::worker_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::supervisor_slots_ports:
+  - 6700
+  - 6701
+
+# ZooKeeper
+zookeeper::myid: 1

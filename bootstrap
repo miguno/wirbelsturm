@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+#
+# File:         bootstrap
+# Description:  This script configures Wirbelsturm for first use after a fresh checkout.
+
+MYSELF=`basename $0`
+MY_DIR=`echo $(cd $(dirname $0); pwd)`
+. $MY_DIR/sh/common.sh
+
+puts "+---------------------------+"
+puts "| BOOTSTRAPPING WIRBELSTURM |"
+puts "+---------------------------+"
+
+###
+### Ruby
+###
+puts "Preparing Ruby environment..."
+curl -L https://raw.github.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
+
+###
+### Wirbelsturm
+###
+
+# Create a Wirbelsturm config if none exists yet
+CONFIG_FILE=$MY_DIR/$WIRBELSTURM_CONFIG_FILE
+CONFIG_FILE_TEMPLATE=$MY_DIR/$WIRBELSTURM_CONFIG_FILE_TEMPLATE
+if [ ! -f $CONFIG_FILE ]; then
+  puts "Creating an example Wirbelsturm configuration file at $CONFIG_FILE..."
+  cp $CONFIG_FILE_TEMPLATE $CONFIG_FILE
+  # Restrict access to the config file as it may contain user credentials such as AWS secret keys.
+  chmod 600 $CONFIG_FILE
+fi
+
+###
+### Vagrant
+###
+puts "Checking Vagrant environment..."
+
+puts -n "Checking for Vagrant: "
+which vagrant &>/dev/null
+if [ $? -ne 0 ]; then
+  error "NOT FOUND"
+  warn "Please download and install Vagrant from http://downloads.vagrantup.com/ and then re-run ${MYSELF}"
+  exit 1
+else
+  success "OK"
+fi
+
+puts "Preparing Vagrant environment..."
+
+# Install required Vagrant plugins
+vagrant plugin install vagrant-hosts   # https://github.com/adrienthebo/vagrant-hosts
+vagrant plugin install vagrant-aws     # https://github.com/mitchellh/vagrant-aws/
+vagrant plugin install vagrant-awsinfo # https://github.com/johntdyer/vagrant-awsinfo
+
+# Install Vagrant boxes for the providers we use
+vagrant box add --provider virtualbox centos6-compatible \
+  http://puppet-vagrant-boxes.puppetlabs.com/centos-65-x64-virtualbox-puppet.box
+vagrant box add --provider aws centos6-compatible \
+  https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+
+
+###
+### Puppet
+###
+puts "Checking Puppet environment..."
+
+puts -n "Checking for librarian-puppet: "
+which librarian-puppet &>/dev/null
+if [ $? -ne 0 ]; then
+  error "NOT FOUND"
+  warn "Please run 'bundle install' and then re-run ${MYSELF}"
+  exit 2
+else
+  success "OK"
+fi
+puts "Preparing Puppet environment..."
+cd $MY_DIR/$PUPPET_DIR
+librarian-puppet install
+cd $MY_DIR
+
+
+###
+### Check for known problems that might cause trouble for our users
+###
+puts "Checking for known problems..."
+
+VAGRANT_VERSION=`vagrant --version | awk '{ print $2 }'`
+if [ "$VAGRANT_VERSION" = "1.3.5" ]; then
+  warn "Your Vagrant version has a known bug that causes problems with Wirbelsturm."
+  warn "We have already reported the bug including a fix to the Vagrant project."
+  warn "In the meantime please follow the instructions below to manually fix the bug:"
+  warn
+  warn "    Go to: https://github.com/mitchellh/vagrant/issues/2493"
+  warn
+  warn "Once you have applied the fix please run the following command in the"
+  warn "top-level Wirbelsturm directory:"
+  warn
+  warn "    $ vagrant plugin install vagrant-aws"
+  warn
+  warn "Sorry for any inconvenience!"
+fi

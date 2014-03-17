@@ -1,0 +1,20 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    facter (1.6.18)
+    hiera (1.0.0)
+    json (1.8.0)
+    librarian-puppet (0.9.10)
+      json
+      thor (~> 0.15)
+    puppet (3.0.1)
+      facter (~> 1.6.11)
+      hiera (~> 1.0.0)
+    thor (0.18.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  librarian-puppet
+  puppet (= 3.0.1)
