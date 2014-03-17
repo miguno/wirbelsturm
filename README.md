@@ -90,7 +90,8 @@ Table of Contents
 Assuming you are using a reasonably powerful computer and have already installed [Vagrant](http://www.vagrantup.com/)
 (1.4.x -- 1.5.x is not supported yet) and [VirtualBox](https://www.virtualbox.org/) you can launch a multi-node
 [Apache Storm](http://storm.incubator.apache.org/) cluster on your local machine with the following commands.  This
-Storm cluster is the default configuration example that ships with Wirbelsturm.
+Storm cluster is the default configuration example that ships with Wirbelsturm.  Note that the `bootstrap` command
+needs to be run only once, after a fresh checkout.
 
 ```shell
 $ git clone https://github.com/miguno/wirbelsturm.git
