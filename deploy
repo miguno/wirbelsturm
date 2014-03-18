@@ -9,6 +9,7 @@
 
 MY_DIR=`echo $(cd $(dirname $0); pwd)`
 . $MY_DIR/sh/common.sh
+EFFECTIVE_LOG_DIR=$MY_DIR/$LOG_DIR
 
 ### CONFIGURATION: BEGIN
 
@@ -45,8 +46,8 @@ check_requirements() {
 }
 
 prepare_local_environment() {
-  mkdir -p $LOG_DIR &> /dev/null
-  rm -f $LOG_DIR/*.log
+  mkdir -p $EFFECTIVE_LOG_DIR &> /dev/null
+  rm -f $EFFECTIVE_LOG_DIR/*.log
 }
 
 parallel_provision() {
@@ -56,8 +57,8 @@ parallel_provision() {
 }
 
 print_provisioning_results() {
-    failures=$(egrep  -h '^FAILURE' $LOG_DIR/*.log | sed -e 's/^/  /')
-    successes=$(egrep -h '^SUCCESS' $LOG_DIR/*.log | sed -e 's/^/  /')
+    failures=$(egrep  -h '^FAILURE' $EFFECTIVE_LOG_DIR/*.log | sed -e 's/^/  /')
+    successes=$(egrep -h '^SUCCESS' $EFFECTIVE_LOG_DIR/*.log | sed -e 's/^/  /')
 
     echo
     error "Failures:"

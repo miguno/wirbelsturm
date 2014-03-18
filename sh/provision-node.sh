@@ -5,6 +5,7 @@
 
 MY_DIR=`echo $(cd $(dirname $0); pwd)`
 . $MY_DIR/common.sh
+EFFECTIVE_LOG_DIR=$MY_DIR/../$LOG_DIR
 
 if [ $# -ne 1 ]; then
   echo "ERROR: You must specify the name of the node to be provisioned."
@@ -14,7 +15,7 @@ fi
 
 NODE="$1"
 
-LOG_FILE=$LOG_DIR/${NODE}.log
+LOG_FILE=$EFFECTIVE_LOG_DIR/${NODE}.log
 echo -n "[$NODE] Provisioning. Log: $LOG_FILE, Result: "
 vagrant provision $NODE 2>&1 > $LOG_FILE
 RETVAL=$?
