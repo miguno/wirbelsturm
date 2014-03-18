@@ -868,7 +868,7 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
       Deploys <a href="https://github.com/BrightcoveOS/Diamond">Diamond</a>, a Python-based tool that collects system
       metrics and publishes those to Graphite.
     </td>
-    <td>Yes</td>
+    <td><a href="https://github.com/miguno/wirbelsturm-rpm-diamond">Yes</a></td>
     <td><a href="puppet/manifests/hieradata/roles/monitoring.yaml">monitoring</a></td>
     <td>
       <a href="https://travis-ci.org/miguno/puppet-diamond"><img src="https://travis-ci.org/miguno/puppet-diamond.png?branch=master" alt="Build Status" /></a>
