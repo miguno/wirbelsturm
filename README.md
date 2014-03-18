@@ -857,7 +857,8 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
   <tr>
     <th>Module name</th>
     <th>Description</th>
-    <th>Included in node role*</th>
+    <th>Must build RPM*</th>
+    <th>Included in node role**</th>
     <th>Build status</th>
   </tr>
   <tr>
@@ -866,6 +867,7 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
       Deploys <a href="https://github.com/BrightcoveOS/Diamond">Diamond</a>, a Python-based tool that collects system
       metrics and publishes those to Graphite.
     </td>
+    <td>No</td>
     <td><a href="puppet/manifests/hieradata/roles/monitoring.yaml">monitoring</a></td>
     <td>
       <a href="https://travis-ci.org/miguno/puppet-diamond"><img src="https://travis-ci.org/miguno/puppet-diamond.png?branch=master" alt="Build Status" /></a>
@@ -877,6 +879,7 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
       Deploys <a href="http://kafka.apache.org/">Apache Kafka</a> 0.8.x, a high-throughput distributed messaging
       system.
     </td>
+    <td><a href="https://github.com/miguno/wirbelsturm-rpm-kafka">Yes</a></td>
     <td><a href="puppet/manifests/hieradata/roles/kafka_broker.yaml">kafka_broker</a></td>
     <td>
       <a href="https://travis-ci.org/miguno/puppet-kafka"><img src="https://travis-ci.org/miguno/puppet-kafka.png?branch=master" alt="Build Status" /></a>
@@ -888,12 +891,14 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
       Deploys <a href="http://graphite.wikidot.com/">Graphite</a> 0.9.x, a monitoring-related tool for storing and
       rendering time-series data.
     </td>
+    <td>No</td>
     <td><a href="puppet/manifests/hieradata/roles/monitoring.yaml">monitoring</a></td>
     <td>n/a</td>
   </tr>
   <tr>
     <td><a href="https://github.com/miguno/puppet-redis">puppet-redis</a></td>
     <td>Deploys <a href="http://redis.io/">Redis</a> 2.8+, a key-value store.</td>
+    <td><a href="https://github.com/miguno/wirbelsturm-rpm-redis">Yes</a></td>
     <td><a href="puppet/manifests/hieradata/roles/redis_server.yaml">redis_server</a></td>
     <td>n/a</td>
   </tr>
@@ -903,6 +908,7 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
       Deploys <a href="http://storm.incubator.apache.org/">Apache Storm</a> 0.9.x, a distributed real-time computation
       system.
     </td>
+    <td><a href="https://github.com/miguno/wirbelsturm-rpm-storm">Yes</a></td>
     <td>
       <a href="puppet/manifests/hieradata/roles/storm_master.yaml">storm_master</a>,
       <a href="puppet/manifests/hieradata/roles/storm_slave.yaml">storm_slave</a>,
@@ -918,6 +924,7 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
       Deploys <a href="http://www.supervisord.org/">Supervisord</a> 3.x, a process control system (process
       supervisor).
     </td>
+    <td><a href="https://github.com/miguno/wirbelsturm-rpm-supervisord">Yes</a></td>
     <td>Included in most node roles.</td>
     <td>n/a</td>
   </tr>
@@ -927,13 +934,18 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
       Deploys <a href="http://zookeeper.apache.org/">Apache ZooKeeper</a> 3.4.x, a centralized service for maintaining
       configuration information, naming, providing distributed synchronization, and providing group services.
     </td>
+    <td>No</td>
     <td><a href="puppet/manifests/hieradata/roles/zookeeper_server.yaml">zookeeper_server</a></td>
     <td>n/a</td>
   </tr>
 </table>
 
-_(*) You can use these existing roles directly for the `node_role` parameter in your `wirbelsturm.yaml`._
-_Of course you can modify existing node roles or define your own._
+_(*) You must build an RPM for this software yourself because a suitable official package is not available._
+
+<em>
+(**) You can use these existing roles directly for the `node_role` parameter in your `wirbelsturm.yaml`.
+Of course you can modify existing node roles or define your own.
+</em>
 
 
 <a name="known-issues"></a>
