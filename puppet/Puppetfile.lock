@@ -75,8 +75,8 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-storm.git
-  ref: 1.0.4
-  sha: 44325932f9ba1561f24cba3e88fa7440c720ac73
+  ref: 1.0.5
+  sha: 85731fbc5cda78d4f69c4301229e85e03abd209d
   specs:
     storm (1.0.3)
       puppetlabs/stdlib (>= 4.1.0)

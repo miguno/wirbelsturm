@@ -3,6 +3,7 @@
 # We override most configuration options of the default 'wirbelsturm' environment settings.
 ---
 classes:
+  #- storm::logviewer # Uncomment to enable the logviewer daemon
   - storm::nimbus
   - storm::ui
   - storm::supervisor
