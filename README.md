@@ -350,8 +350,21 @@ Clone this repository and then bootstrap Wirbelsturm:
 ```shell
 $ git clone https://github.com/miguno/wirbelsturm.git
 $ cd wirbelsturm
-$ ./bootstrap
 ```
+
+You have to options on installation procedure:
+ - **Fully automated**: includes RVM, Ruby, Bundler + Gems
+   
+   Just run ```$ ./bootstrap```
+
+ - **Semi automated**: asumes you beeing responsible for the whole Ruby environment
+   
+   ```shell
+   $ bundle install
+   $ ./bootstrap --skip-ruby-bootstrap
+   ```
+
+
 
 The bootstrapping step will create a `wirbelsturm.yaml` from the included
 [wirbelsturm.yaml.template](wirbelsturm.yaml.template).  This YAML configuration file controls which machines will be
