@@ -67,7 +67,7 @@ GIT
 GIT
   remote: https://github.com/miguno/puppet-statsd.git
   ref: master
-  sha: de49d8b1a0368f97a595fc5a3cca1a4a03cb4485
+  sha: 3c6421a54058350178b4a0ac919ca24e44f483b2
   specs:
     statsd (1.0.3)
       puppetlabs/nodejs (>= 0.2.0)
