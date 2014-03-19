@@ -7,6 +7,22 @@ MYSELF=`basename $0`
 MY_DIR=`echo $(cd $(dirname $0); pwd)`
 . $MY_DIR/sh/common.sh
 
+verbose="false"
+skip_ruby="false"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --skip-ruby-bootstrap)
+        skip_ruby="true"
+        shift ;;
+    -v|--verbose)
+        verbose="true"
+        shift ;;
+    *) error "Unexpected option ${1}"
+        exit 1 ;;
+  esac
+done
+
+
 puts "+---------------------------+"
 puts "| BOOTSTRAPPING WIRBELSTURM |"
 puts "+---------------------------+"
@@ -14,8 +30,12 @@ puts "+---------------------------+"
 ###
 ### Ruby
 ###
-puts "Preparing Ruby environment..."
-curl -L https://raw.github.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
+if [[ "${skip_ruby}" == "true" ]]; then
+    puts "Assuming Ruby and Bundler are already installed"
+else
+    puts "Preparing Ruby environment..."
+    curl -L https://raw.github.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
+fi
 
 ###
 ### Wirbelsturm
