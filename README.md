@@ -350,23 +350,23 @@ Clone this repository and then bootstrap Wirbelsturm:
 ```shell
 $ git clone https://github.com/miguno/wirbelsturm.git
 $ cd wirbelsturm
+$ ./bootstrap
 ```
 
-You have to options on installation procedure:
- - **Fully automated**: includes RVM, Ruby, Bundler + Gems
-   
-   Just run ```$ ./bootstrap```
+The bootstrapping step will prepare the local environment of your host machine so that it can properly run Wirbelsturm.
+This includes, for instance, installing a compatible version of Ruby via rvm, required Ruby gems, Vagrant plugins and
+Vagrant boxes, as well as any Puppet modules that are included in Wirbelsturm out of the box (see
+[Puppetfile](puppet/Puppetfile)).
 
- - **Semi automated**: asumes you beeing responsible for the whole Ruby environment
-   
-   ```shell
-   $ bundle install
-   $ ./bootstrap --skip-ruby-bootstrap
-   ```
+Advanced users also have the option to skip the Ruby-related part of the bootstrapping process, e.g. if you prefer to
+stick to a different Ruby version.  Here, replace the `./bootstrap` command above with a sequence such as:
 
+```shell
+$ bundle install
+$ ./bootstrap --skip-ruby
+```
 
-
-The bootstrapping step will create a `wirbelsturm.yaml` from the included
+The bootstrapping step will also create a `wirbelsturm.yaml` from the included
 [wirbelsturm.yaml.template](wirbelsturm.yaml.template).  This YAML configuration file controls which machines will be
 launched and what their configuration will be.
 

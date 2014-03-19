@@ -7,18 +7,30 @@ MYSELF=`basename $0`
 MY_DIR=`echo $(cd $(dirname $0); pwd)`
 . $MY_DIR/sh/common.sh
 
-verbose="false"
-skip_ruby="false"
+print_usage() {
+  echo "Usage: $MYSELF [--skip-ruby|-h]"
+  echo
+  echo "    --skip-ruby                      Do not bootstrap Ruby/rvm/bundler/gems."
+  echo "    -h, --help                       Print this help message and exit."
+}
+
+skip_ruby=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --skip-ruby-bootstrap)
-        skip_ruby="true"
-        shift ;;
-    -v|--verbose)
-        verbose="true"
-        shift ;;
-    *) error "Unexpected option ${1}"
-        exit 1 ;;
+    --skip-ruby)
+      skip_ruby=1
+      shift
+      ;;
+    -h|--help)
+      print_usage
+      exit 98
+      ;;
+    *)
+      error "Unexpected option ${1}"
+      echo
+      print_usage
+      exit 99
+      ;;
   esac
 done
 
@@ -30,12 +42,13 @@ puts "+---------------------------+"
 ###
 ### Ruby
 ###
-if [[ "${skip_ruby}" == "true" ]]; then
-    puts "Assuming Ruby and Bundler are already installed"
+if [ $skip_ruby -eq 1 ]; then
+    puts "Skipping prepration of Ruby environment.  You must take care of this manually!"
 else
     puts "Preparing Ruby environment..."
     curl -L https://raw.github.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
 fi
+
 
 ###
 ### Wirbelsturm
