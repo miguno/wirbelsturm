@@ -84,7 +84,7 @@ GIT
 GIT
   remote: https://github.com/miguno/puppet-supervisor.git
   ref: master
-  sha: 003b2ac6bb2f36fa9c73c08d3a73533815f60968
+  sha: aeac26382bef304cc406588bd72f02057e79fe78
   specs:
     supervisor (1.0.0)
       puppetlabs/stdlib (>= 4.1.0)
