@@ -6,7 +6,7 @@ IMPROVEMENTS
   of Ruby/rvm/bundler/gems. (thanks bzz)
 * Update puppet-storm to 1.0.6, which e.g. supports running the new
   [logviewer](http://storm.incubator.apache.org/2013/12/08/storm090-released.html) daemon.
-* Update puppet-zookeeper to 1.0.4.
+* Update puppet-zookeeper to 1.0.5.
 
 BUG FIXES
 

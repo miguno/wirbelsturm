@@ -122,10 +122,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-zookeeper.git
-  ref: 1.0.4
-  sha: 578bd64ec434f7df7f83cee133294759ee36f501
+  ref: 1.0.5
+  sha: 5e4be09b4c621b1d667f6611e9f2f46ba96576d5
   specs:
-    zookeeper (1.0.4)
+    zookeeper (1.0.5)
       puppetlabs/stdlib (>= 4.1.0)
 
 DEPENDENCIES
