@@ -950,7 +950,9 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
     </td>
     <td>No</td>
     <td><a href="puppet/manifests/hieradata/roles/zookeeper_server.yaml">zookeeper_server</a></td>
-    <td>n/a</td>
+    <td>
+      <a href="https://travis-ci.org/miguno/puppet-zookeeper"><img src="https://travis-ci.org/miguno/puppet-zookeeper.png?branch=master" alt="Build Status" /></a>
+    </td>
   </tr>
 </table>
 
