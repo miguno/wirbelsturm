@@ -350,7 +350,7 @@ Clone this repository and then bootstrap Wirbelsturm:
 ```shell
 $ git clone https://github.com/miguno/wirbelsturm.git
 $ cd wirbelsturm
-$ ./bootstrap
+$ ./bootstrap     # <<< May take a while depending on how fast your Internet connection is.
 ```
 
 The bootstrapping step will prepare the local environment of your host machine so that it can properly run Wirbelsturm.
