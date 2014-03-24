@@ -1,6 +1,7 @@
 ---
 classes:
   - supervisor
+  - timezone
   - wirbelsturm_yumrepos::epel
   - wirbelsturm_yumrepos::miguno
   - wirbelsturm_yumrepos::nginx
@@ -27,6 +28,9 @@ storm::supervisor_slots_ports:
 supervisor::logfile_maxbytes: '20MB'
 supervisor::logfile_backups: 5
 supervisor::autoupgrade: true
+
+# Timezone
+timezone::timezone: 'UTC'
 
 # ZooKeeper
 # If you want to use a quorum (of usually 3 or 5 ZooKeeper servers), use a configuration similar as the following.

@@ -128,6 +128,13 @@ GIT
     zookeeper (1.0.5)
       puppetlabs/stdlib (>= 4.1.0)
 
+GIT
+  remote: https://github.com/saz/puppet-timezone.git
+  ref: v2.0.0
+  sha: aeeaa520b611d2531e37e3979efd8a739d15330f
+  specs:
+    timezone (2.0.0)
+
 DEPENDENCIES
   diamond (>= 0)
   graphite (>= 0)
@@ -142,6 +149,7 @@ DEPENDENCIES
   storm (>= 0)
   supervisor (>= 0)
   sysctl (>= 0)
+  timezone (>= 0)
   wirbelsturm_build (>= 0)
   wirbelsturm_common (>= 0)
   wirbelsturm_yumrepos (>= 0)

@@ -44,6 +44,10 @@ mod 'supervisor',
 mod 'sysctl',
   :git => 'https://github.com/miguno/puppet-sysctl.git'
 
+mod 'timezone',
+  :git => 'https://github.com/saz/puppet-timezone.git',
+  :ref => 'v2.0.0'
+
 mod 'wirbelsturm_build',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_build.git',
   :ref => '1.0.1'
