@@ -106,10 +106,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_common.git
-  ref: 1.0.0
-  sha: 7b2b45377f850a932d98a23e107be0064285ec21
+  ref: 1.0.2
+  sha: 48c3711381912837457717ab1a7619b91a702a4a
   specs:
-    wirbelsturm_common (1.0.0)
+    wirbelsturm_common (1.0.2)
       puppetlabs/ntp (>= 3.0.3)
       puppetlabs/stdlib (>= 4.1.0)
 
