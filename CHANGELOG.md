@@ -5,7 +5,7 @@ IMPROVEMENTS
 * WIRBELSTURM-2: `bootstrap` now supports the `--skip-ruby` parameter.  If set, `bootstrap` will skip the installation
   of Ruby/rvm/bundler/gems. (thanks bzz)
 * Update puppet-kafka to 1.0.4.
-* Update puppet-storm to 1.0.7, which e.g. supports running the new
+* Update puppet-storm to 1.0.8, which e.g. supports running the new
   [logviewer](http://storm.incubator.apache.org/2013/12/08/storm090-released.html) daemon.
 * Update puppet-zookeeper to 1.0.5.
 
