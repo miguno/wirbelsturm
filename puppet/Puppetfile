@@ -18,7 +18,7 @@ mod 'graphite',
 
 mod 'kafka',
   :git => 'https://github.com/miguno/puppet-kafka.git',
-  :ref => '1.0.4'
+  :ref => '1.0.5'
 
 mod 'limits',
   :git => 'https://github.com/miguno/puppet-limits.git'

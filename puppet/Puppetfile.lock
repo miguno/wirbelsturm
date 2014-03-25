@@ -43,10 +43,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-kafka.git
-  ref: 1.0.4
-  sha: f699d22fbca38728fecd2e29c32b3ab861e9e0e8
+  ref: 1.0.5
+  sha: 6ef6cfbaa518a8c4a0392dc96b6debcf5f9338fe
   specs:
-    kafka (1.0.4)
+    kafka (1.0.5)
       puppetlabs/stdlib (>= 4.1.0)
 
 GIT
