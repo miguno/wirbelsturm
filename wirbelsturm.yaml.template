@@ -28,7 +28,7 @@ nodes:
       virtualbox:
         memory: 512
       aws:
-        instance_type: t1.micro
+        instance_type: m1.xlarge
         ami: ami-abc12345
         security_groups:
           - wirbelsturm
@@ -47,7 +47,7 @@ nodes:
           - guest: 8080 # Storm UI
             host: 28080
       aws:
-        instance_type: t1.micro
+        instance_type: m1.xlarge
         ami: ami-abc12345
         security_groups:
           - wirbelsturm
@@ -61,7 +61,7 @@ nodes:
       virtualbox:
         memory: 1024
       aws:
-        instance_type: t1.micro
+        instance_type: c1.xlarge
         ami: ami-abc12345
         security_groups:
           - wirbelsturm
@@ -75,7 +75,7 @@ nodes:
 #      virtualbox:
 #        memory: 1536
 #      aws:
-#        instance_type: t1.micro
+#        instance_type: m2.2xlarge
 #        ami: ami-abc12345
 #        security_groups:
 #          - wirbelsturm
@@ -89,7 +89,7 @@ nodes:
 #      virtualbox:
 #        memory: 512
 #      aws:
-#        instance_type: t1.micro
+#        instance_type: m2.2xlarge
 #        ami: ami-abc12345
 #        security_groups:
 #          - wirbelsturm
@@ -106,7 +106,7 @@ nodes:
 #          - guest: 8080 # Storm UI
 #            host: 28081
 #      aws:
-#        instance_type: m1.large
+#        instance_type: m1.xlarge
 #        ami: ami-abc12345
 #        security_groups:
 #          - wirbelsturm
@@ -137,7 +137,7 @@ nodes:
 #          - guest: 8080 # Graphite Web UI -- login with user "admin" and password "wirbelsturm"
 #            host: 38080
 #      aws:
-#        instance_type: m1.large
+#        instance_type: m2.2xlarge
 #        ami: ami-abc12345
 #        security_groups:
 #          - wirbelsturm
