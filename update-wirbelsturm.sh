@@ -12,7 +12,7 @@ puts "| UPDATING WIRBELSTURM |"
 puts "+----------------------+"
 
 puts
-puts "*** WARNING: This module is a quick hack and is not fully tested yet!***"
+puts "*** WARNING: This script is not fully tested yet!***"
 puts
 
 ###
