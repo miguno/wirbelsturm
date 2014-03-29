@@ -82,7 +82,7 @@ fi
 puts "Preparing Vagrant environment..."
 
 # Install required Vagrant plugins
-vagrant plugin install vagrant-hosts   # https://github.com/adrienthebo/vagrant-hosts
+vagrant plugin install vagrant-hostmanager # https://github.com/smdahlen/vagrant-hostmanager
 vagrant plugin install vagrant-aws     # https://github.com/mitchellh/vagrant-aws/
 vagrant plugin install vagrant-awsinfo # https://github.com/johntdyer/vagrant-awsinfo
 
