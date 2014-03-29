@@ -21,6 +21,12 @@ nodes = JSON.parse(compile_node_catalog(config_file), :symbolize_names => true)
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # TODO: Verify whether hostmanager also works when deploying to Amazon AWS
+  config.hostmanager.enabled = true
+  #config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+
   nodes.each_pair do |node_name,node_opts|
     config.vm.define node_name do |c|
       c.vm.hostname = node_name.to_s
@@ -40,9 +46,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             'modifyvm', :id,
             '--memory', node_opts[:virtualbox][:memory],
         ]
-        # Only configure /etc/hosts entries with vagrant-hosts plugin when using VirtualBox
-        # (because e.g. it is not supported on Amazon EC2)
-        override.vm.provision :hosts
+        # Use hostmanager as provisioner to make sure /etc/hosts is managed before all other provisioners run.
+        # Note: `config.vm.provision ...` must be used, not `c.vm.provision ...`.
+        config.vm.provision :hostmanager
 
         # Configure port forwarding if needed (does not work on AWS)
         if node_opts[:virtualbox][:forwarded_ports]
