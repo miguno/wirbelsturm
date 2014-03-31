@@ -50,7 +50,7 @@ mod 'timezone',
 
 mod 'wirbelsturm_build',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_build.git',
-  :ref => '1.0.1'
+  :ref => '1.0.2'
 
 mod 'wirbelsturm_common',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_common.git',
