@@ -10,60 +10,60 @@ mod 'ispavailability/file_concat', '0.1.x'
 
 # Hosted on GitHub.com
 #
-mod 'diamond',
+mod 'miguno/diamond',
   :git => 'https://github.com/miguno/puppet-diamond.git',
   :ref => '1.0.2'
 
-mod 'graphite',
+mod 'miguno/graphite',
   :git => 'https://github.com/miguno/puppet-graphite.git',
   :ref => '0.0.4'
 
-mod 'kafka',
+mod 'miguno/kafka',
   :git => 'https://github.com/miguno/puppet-kafka.git',
   :ref => '1.0.6'
 
-mod 'limits',
+mod 'miguno/limits',
   :git => 'https://github.com/miguno/puppet-limits.git'
 
-mod 'nginx',
+mod 'jfryman/nginx',
   :git => 'https://github.com/jfryman/puppet-nginx.git',
   :ref => '5c36913dcda630f5244e0ecc885e3b436973d45a' # dated March 10, 2014
 
-mod 'redis',
+mod 'miguno/redis',
   :git => 'https://github.com/miguno/puppet-redis.git',
   :ref => '1.0.3'
 
-mod 'statsd',
+mod 'miguno/statsd',
   :git => 'https://github.com/miguno/puppet-statsd.git',
   :ref => '1.0.4'
 
-mod 'storm',
+mod 'miguno/storm',
   :git => 'https://github.com/miguno/puppet-storm.git',
   :ref => '1.0.9'
 
-mod 'supervisor',
+mod 'miguno/supervisor',
   :git => 'https://github.com/miguno/puppet-supervisor.git',
   :ref => '1.0.1'
 
-mod 'sysctl',
+mod 'miguno/sysctl',
   :git => 'https://github.com/miguno/puppet-sysctl.git'
 
-mod 'timezone',
+mod 'saz/timezone',
   :git => 'https://github.com/saz/puppet-timezone.git',
   :ref => 'v2.0.0'
 
-mod 'wirbelsturm_build',
+mod 'miguno/wirbelsturm_build',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_build.git',
   :ref => '1.0.2'
 
-mod 'wirbelsturm_common',
+mod 'miguno/wirbelsturm_common',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_common.git',
   :ref => '1.0.2'
 
-mod 'wirbelsturm_yumrepos',
+mod 'miguno/wirbelsturm_yumrepos',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_yumrepos.git',
   :ref => '1.0.1'
 
-mod 'zookeeper',
+mod 'miguno/zookeeper',
   :git => 'https://github.com/miguno/puppet-zookeeper.git',
   :ref => '1.0.6'
