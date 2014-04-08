@@ -7,23 +7,19 @@ FORGE
     puppetlabs/concat (1.1.0-rc1)
       puppetlabs/stdlib (>= 3.0.0)
     puppetlabs/firewall (1.0.2)
+    puppetlabs/nodejs (0.2.1)
+      puppetlabs/apt (>= 0.0.3)
+      puppetlabs/stdlib (>= 2.0.0)
     puppetlabs/ntp (3.0.3)
       puppetlabs/stdlib (>= 0.1.6)
     puppetlabs/stdlib (4.1.0)
-
-FORGE
-  remote: https://forge.puppetlabs.com
-  specs:
-    puppetlabs/nodejs (0.4.0)
-      puppetlabs/apt (>= 0.0.3)
-      puppetlabs/stdlib (>= 2.0.0)
 
 GIT
   remote: https://github.com/jfryman/puppet-nginx.git
   ref: 5c36913dcda630f5244e0ecc885e3b436973d45a
   sha: 5c36913dcda630f5244e0ecc885e3b436973d45a
   specs:
-    nginx (0.0.7)
+    jfryman/nginx (0.0.7)
       puppetlabs/apt (>= 1.0.0)
       puppetlabs/concat (>= 1.0.0)
       puppetlabs/stdlib (>= 0.1.6)
@@ -33,42 +29,42 @@ GIT
   ref: 1.0.2
   sha: 800a9587ac64a5160850edd4af05459632352774
   specs:
-    diamond (1.0.2)
+    miguno/diamond (1.0.2)
 
 GIT
   remote: https://github.com/miguno/puppet-graphite.git
   ref: 0.0.4
   sha: c40cbbcba06b6185d518eb825cf7d28097a73e90
   specs:
-    graphite (0.0.4)
+    miguno/graphite (0.0.4)
 
 GIT
   remote: https://github.com/miguno/puppet-kafka.git
   ref: 1.0.6
   sha: d566b575938242d6f977351c6e4857c2b7efd85e
   specs:
-    kafka (1.0.6)
+    miguno/kafka (1.0.6)
 
 GIT
   remote: https://github.com/miguno/puppet-limits.git
   ref: master
   sha: 13a6ddc1e98f1606d9367fc4047aa6b8c90b822d
   specs:
-    limits (0.0.1)
+    miguno/limits (0.0.1)
 
 GIT
   remote: https://github.com/miguno/puppet-redis.git
   ref: 1.0.3
   sha: f17b6b185b522c267d3b2acc48bb58a6223ec5a2
   specs:
-    redis (1.0.3)
+    miguno/redis (1.0.3)
 
 GIT
   remote: https://github.com/miguno/puppet-statsd.git
   ref: 1.0.4
   sha: 6d3ae9456fb752857f995778d9155625c10473bb
   specs:
-    statsd (1.0.4)
+    miguno/statsd (1.0.4)
       puppetlabs/nodejs (>= 0.2.0)
       puppetlabs/stdlib (>= 4.1.0)
 
@@ -77,28 +73,28 @@ GIT
   ref: 1.0.9
   sha: 4e634f9515adca203c893fa41bf45bd5406bb14b
   specs:
-    storm (1.0.9)
+    miguno/storm (1.0.9)
 
 GIT
   remote: https://github.com/miguno/puppet-supervisor.git
   ref: 1.0.1
   sha: 34e19b624c5501993bfa982a5b8565cfac565fd0
   specs:
-    supervisor (1.0.1)
+    miguno/supervisor (1.0.1)
 
 GIT
   remote: https://github.com/miguno/puppet-sysctl.git
   ref: master
   sha: e810a48487e7c3deb89b0d77b08a22efb81d33a2
   specs:
-    sysctl (0.0.1)
+    miguno/sysctl (0.0.1)
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_build.git
   ref: 1.0.2
   sha: 57613beaefe0ca006e18d08830291f816f1182f2
   specs:
-    wirbelsturm_build (1.0.0)
+    miguno/wirbelsturm_build (1.0.0)
       puppetlabs/stdlib (>= 4.1.0)
 
 GIT
@@ -106,7 +102,7 @@ GIT
   ref: 1.0.2
   sha: 48c3711381912837457717ab1a7619b91a702a4a
   specs:
-    wirbelsturm_common (1.0.2)
+    miguno/wirbelsturm_common (1.0.2)
       puppetlabs/ntp (>= 3.0.3)
       puppetlabs/stdlib (>= 4.1.0)
 
@@ -115,7 +111,7 @@ GIT
   ref: 1.0.1
   sha: 704a51f4b5db871d4f5b9c54222e437adb942d7a
   specs:
-    wirbelsturm_yumrepos (1.0.0)
+    miguno/wirbelsturm_yumrepos (1.0.0)
 
 GIT
   remote: https://github.com/miguno/puppet-zookeeper.git
@@ -129,26 +125,27 @@ GIT
   ref: v2.0.0
   sha: aeeaa520b611d2531e37e3979efd8a739d15330f
   specs:
-    timezone (2.0.0)
+    saz/timezone (2.0.0)
 
 DEPENDENCIES
-  diamond (>= 0)
-  graphite (>= 0)
   ispavailability/file_concat (~> 0.1.0)
-  kafka (>= 0)
-  limits (>= 0)
+  jfryman/nginx (>= 0)
+  miguno/diamond (>= 0)
+  miguno/graphite (>= 0)
+  miguno/kafka (>= 0)
+  miguno/limits (>= 0)
+  miguno/redis (>= 0)
+  miguno/statsd (>= 0)
+  miguno/storm (>= 0)
+  miguno/supervisor (>= 0)
+  miguno/sysctl (>= 0)
+  miguno/wirbelsturm_build (>= 0)
+  miguno/wirbelsturm_common (>= 0)
+  miguno/wirbelsturm_yumrepos (>= 0)
   miguno/zookeeper (>= 0)
-  nginx (>= 0)
   puppetlabs/firewall (~> 1.0.0)
+  puppetlabs/nodejs (~> 0.2.0)
   puppetlabs/ntp (~> 3.0.0)
   puppetlabs/stdlib (~> 4.1.0)
-  redis (>= 0)
-  statsd (>= 0)
-  storm (>= 0)
-  supervisor (>= 0)
-  sysctl (>= 0)
-  timezone (>= 0)
-  wirbelsturm_build (>= 0)
-  wirbelsturm_common (>= 0)
-  wirbelsturm_yumrepos (>= 0)
+  saz/timezone (>= 0)
 

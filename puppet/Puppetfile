@@ -3,6 +3,7 @@ forge 'http://forge.puppetlabs.com'
 # Hosted on public Puppet Forge
 #
 mod 'puppetlabs/firewall', '1.0.x'
+mod 'puppetlabs/nodejs', '0.2.x'
 mod 'puppetlabs/ntp', '3.0.x'
 mod 'puppetlabs/stdlib', '4.1.x'
 mod 'ispavailability/file_concat', '0.1.x'
