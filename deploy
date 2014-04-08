@@ -14,7 +14,7 @@ EFFECTIVE_LOG_DIR=$MY_DIR/$LOG_DIR
 ### CONFIGURATION: BEGIN
 
 # Any valid 'parallel' argument will work here, such as "-P 3".
-PARALLEL_OPTS="-P 10"
+PARALLEL_OPTS="--no-notice -P 10"
 
 ### CONFIGURATION: END
 
