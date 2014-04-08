@@ -2,23 +2,24 @@ forge 'http://forge.puppetlabs.com'
 
 # Hosted on public Puppet Forge
 #
-mod 'puppetlabs/firewall'
-mod 'puppetlabs/ntp'
-mod 'puppetlabs/stdlib'
+mod 'puppetlabs/firewall', '1.0.x'
+mod 'puppetlabs/ntp', '3.0.x'
+mod 'puppetlabs/stdlib', '4.1.x'
+mod 'ispavailability/file_concat', '0.1.x'
 
 # Hosted on GitHub.com
 #
 mod 'diamond',
   :git => 'https://github.com/miguno/puppet-diamond.git',
-  :ref => '1.0.1'
+  :ref => '1.0.2'
 
 mod 'graphite',
   :git => 'https://github.com/miguno/puppet-graphite.git',
-  :ref => '0.0.3'
+  :ref => '0.0.4'
 
 mod 'kafka',
   :git => 'https://github.com/miguno/puppet-kafka.git',
-  :ref => '1.0.5'
+  :ref => '1.0.6'
 
 mod 'limits',
   :git => 'https://github.com/miguno/puppet-limits.git'
@@ -29,17 +30,19 @@ mod 'nginx',
 
 mod 'redis',
   :git => 'https://github.com/miguno/puppet-redis.git',
-  :ref => '1.0.2'
+  :ref => '1.0.3'
 
 mod 'statsd',
-  :git => 'https://github.com/miguno/puppet-statsd.git'
+  :git => 'https://github.com/miguno/puppet-statsd.git',
+  :ref => '1.0.4'
 
 mod 'storm',
   :git => 'https://github.com/miguno/puppet-storm.git',
-  :ref => '1.0.8'
+  :ref => '1.0.9'
 
 mod 'supervisor',
-  :git => 'https://github.com/miguno/puppet-supervisor.git'
+  :git => 'https://github.com/miguno/puppet-supervisor.git',
+  :ref => '1.0.1'
 
 mod 'sysctl',
   :git => 'https://github.com/miguno/puppet-sysctl.git'
@@ -62,4 +65,4 @@ mod 'wirbelsturm_yumrepos',
 
 mod 'zookeeper',
   :git => 'https://github.com/miguno/puppet-zookeeper.git',
-  :ref => '1.0.5'
+  :ref => '1.0.6'
