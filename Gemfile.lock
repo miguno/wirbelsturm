@@ -3,14 +3,18 @@ GEM
   specs:
     facter (1.6.18)
     hiera (1.0.0)
-    json (1.8.0)
-    librarian-puppet (0.9.10)
-      json
+    highline (1.6.21)
+    json (1.8.1)
+    librarian (0.1.2)
+      highline
       thor (~> 0.15)
+    librarian-puppet (0.9.17)
+      json
+      librarian (>= 0.1.2)
     puppet (3.0.1)
       facter (~> 1.6.11)
       hiera (~> 1.0.0)
-    thor (0.18.1)
+    thor (0.19.1)
 
 PLATFORMS
   ruby
