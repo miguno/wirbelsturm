@@ -493,9 +493,17 @@ play with Ansible make sure that you have at least one machine up and running.
 
 Here are some examples on how to use Ansible with Wirbelsturm's [ansible](ansible) wrapper script.
 
+    # Show all running boxes
     $ ./ansible all --list-hosts
+
+    # Ping all running boxes
     $ ./ansible all -m ping
+
+    # Install 'tree' on the nimbus1 box
     $ ./ansible nimbus1 -m shell -a 'yum install -y tree' --sudo
+
+    # Check the status of processes running under supervisord on all machines
+    $ ./ansible all -m shell -a 'supervisorctl status' --sudo
 
 
 <a name="configuration"></a>
