@@ -1,14 +1,11 @@
 ---
-kafka::brokers:
-  broker0:
-    config_map:
-      controlled.shutdown.enable: true
-      log.roll.hours: 48
-      log.retention.hours: 48
-    kafka_heap_opts: '-Xms512M -Xmx512M -XX:NewSize=200m -XX:MaxNewSize=200m'
-    kafka_opts: '-XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintTenuringDistribution'
-    zookeeper_connect:
-      - 'zookeeper1:2181'
-
+kafka::config_map:
+  controlled.shutdown.enable: true
+  log.roll.hours: 48
+  log.retention.hours: 48
+kafka::kafka_heap_opts: '-Xms512M -Xmx512M -XX:NewSize=200m -XX:MaxNewSize=200m'
+kafka::kafka_opts: '-XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintTenuringDistribution'
 kafka::limits_manage: true
 kafka::limits_nofile: 65536
+kafka::zookeeper_connect:
+  - 'zookeeper1:2181'
