@@ -15,7 +15,7 @@ IMPROVEMENTS
 * Update puppet-supervisor to 1.0.6.
 * Update puppet-wirbelsturm_build to 1.0.2.
 * Update puppet-wirbelsturm_common to 1.0.2, which hardens the NTP configuration (if NTP management is enabled).
-* Update puppet-zookeeper to 1.0.5.
+* Update puppet-zookeeper to 1.0.7.
 
 BUG FIXES
 

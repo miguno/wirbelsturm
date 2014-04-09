@@ -66,4 +66,4 @@ mod 'miguno/wirbelsturm_yumrepos',
 
 mod 'miguno/zookeeper',
   :git => 'https://github.com/miguno/puppet-zookeeper.git',
-  :ref => '1.0.6'
+  :ref => '1.0.7'

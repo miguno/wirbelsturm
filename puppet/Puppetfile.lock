@@ -115,10 +115,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-zookeeper.git
-  ref: 1.0.6
-  sha: cf3903227efcb7de73a7ebc242dbd50c90bab6c5
+  ref: 1.0.7
+  sha: de3430c11c2a3e308453fb47ab1565274340983f
   specs:
-    miguno/zookeeper (1.0.6)
+    miguno/zookeeper (1.0.7)
 
 GIT
   remote: https://github.com/saz/puppet-timezone.git
