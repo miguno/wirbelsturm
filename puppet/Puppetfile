@@ -39,7 +39,7 @@ mod 'miguno/statsd',
 
 mod 'miguno/storm',
   :git => 'https://github.com/miguno/puppet-storm.git',
-  :ref => '1.0.9'
+  :ref => '1.0.10'
 
 mod 'miguno/supervisor',
   :git => 'https://github.com/miguno/puppet-supervisor.git',

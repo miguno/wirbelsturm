@@ -70,10 +70,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-storm.git
-  ref: 1.0.9
-  sha: 4e634f9515adca203c893fa41bf45bd5406bb14b
+  ref: 1.0.10
+  sha: 00361190a73d9d02c8969990f04f17fc4cae97fc
   specs:
-    miguno/storm (1.0.9)
+    miguno/storm (1.0.10)
 
 GIT
   remote: https://github.com/miguno/puppet-supervisor.git
