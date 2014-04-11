@@ -77,7 +77,7 @@ prepare_local_environment
 
 # Start boxes sequentially to avoid vbox explosions
 puts '[Wirbelsturm] Calling 'vagrant up' to boot the boxes ...'
-vagrant up --no-provision $@
+vagrant up --no-provision $@ || exit 2
 
 # But run provision tasks in parallel
 config_file=${WIRBELSTURM_CONFIG_FILE:-wirbelsturm.yaml}
