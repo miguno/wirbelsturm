@@ -401,6 +401,10 @@ Get information about the newly created image:
     IMAGE ami-abc12345  047336254512/wirbelsturm-base 047336254512  available private   x86_64  machineaki-88aa75e1     ebs paravirtual xen
     BLOCKDEVICEMAPPING  EBS /dev/sda1   snap-d8c7978b 40  true  io1 400
 
+Lastly, terminate the running EC2 instance:
+
+    $ ec2-terminate-instances <instance-id>
+
 
 <a name="deploy"></a>
 
