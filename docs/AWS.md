@@ -483,6 +483,24 @@ See also [Amazon Linux AMI IDs](http://aws.amazon.com/amazon-linux-ami/).
 See [Amazon Linux AMI Instance Type Matrix](http://aws.amazon.com/amazon-linux-ami/instance-type-matrix/).
 
 
+## Amazon Linux and Puppet 3.x
+
+The recent Amazon Linux AMIs (2014 and later) switched the default Ruby version from 1.8 to 2.0.  Unfortunately this
+causes problems when trying to install the latest Puppet version (3.x) from the official PuppetLabs yum repository.
+Before the Amazon Linux change we could use the RHEL6 RPMs from PuppetLabs as-is because Amazon Linux was compatible
+to RHEL6.  The recent changes (of which the change of the Ruby default version is but one) breaks "some" RHEL6
+compatibility as Amazon Linux is trying to move closer to RHEL7.
+
+At this point we are using some workarounds in `aws-prepare-image.sh` to make sure we can still use the latest versions
+of Amazon Linux and Puppet together.
+
+More details at:
+
+* [PUP-2132: Puppet 3.X is now broken on Amazon AWS due to Ruby 2.0 being the default](https://tickets.puppetlabs.com/browse/PUP-2132)
+* [CPR-29: Provide Amazon Linux RPM package](https://tickets.puppetlabs.com/browse/CPR-29)
+* [Puppet fails to run if ruby1.8 is not installed](https://groups.google.com/forum/#!msg/puppet-users/8I17juklvok/41XSay8HxNcJ)
+
+
 # Appendix: Configuring s3cmd
 
 _This section is only needed for Wirbelsturm developers (but not for mere users of Wirbelsturm)._
