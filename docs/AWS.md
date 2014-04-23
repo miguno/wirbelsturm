@@ -360,6 +360,13 @@ entries in `wirbelsturm.yaml`).
         --group wirbelsturm \
         ami-05355a6c
 
+The command above will print an output similar to the following:
+
+    RESERVATION  r-acfa279b  047236524511  wirbelsturm
+    INSTANCE     i-fd8b3dae  ami-bba18dd2  pending      wirbelsturm  0  t1.micro  [...]
+
+Here the instance ID is the first field after `INSTANCE`, in this example it is `i-fd8b3dae`.
+
 Find out the public hostname of the newly launched instance.
 
     $ ec2-describe-instances <instance-id>
