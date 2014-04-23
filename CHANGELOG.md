@@ -10,7 +10,10 @@ IMPROVEMENTS
 * WIRBELSTURM-5: `$MYDIR` in AWS scripts should be `$MY_DIR` (thanks pbwilmot)
 * WIRBELSTURM-2: `bootstrap` now supports the `--skip-ruby` parameter.  If set, `bootstrap` will skip the installation
   of Ruby/rvm/bundler/gems. (thanks bzz)
-* Environment `default_environment`: enforce setting timezone to 'UTC'
+* Environment `default_environment`:
+    * Enforce 'UTC' timezone
+    * Enforce the use of Puppet 3.3.1 to have more deterministic builds compared to the previous setup where we always
+      installed the latest Puppet version currently available.
 * Update puppet-diamond to 1.0.2.
 * Update puppet-graphite to 0.0.4.
 * Update puppet-kafka to 2.0.0, which e.g. adds experimental support for writing Kafka data to tmpfs.
@@ -22,8 +25,6 @@ IMPROVEMENTS
 * Update puppet-wirbelsturm_build to 1.0.2.
 * Update puppet-wirbelsturm_common to 1.0.3, which hardens the NTP configuration (if NTP management is enabled).
 * Update puppet-zookeeper to 1.0.7.
-* Enforce the use of Puppet 3.3.1 to have more deterministic builds compared to the previous setup where we always
-  installed the latest Puppet version currently available.
 
 BUG FIXES
 
