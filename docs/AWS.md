@@ -386,8 +386,8 @@ logout).
 Now save the image for later re-use.
 
     $ ec2-create-image \
-        --name wirbelsturm-base \
-        --description 'Stock ami-05355a6c (Amazon Linux) with Puppet 3.x and fix for vagrant-aws issue #72' \
+        --name wirbelsturm-base-2014.03 \
+        --description 'Stock ami-bba18dd2 (Amazon Linux 2014.03) with Puppet 3.5.x and fix for vagrant-aws issue #72' \
         --region us-east-1 \
         --hide-tags \
         <instance-id>
