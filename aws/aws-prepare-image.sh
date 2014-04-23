@@ -13,7 +13,7 @@ SUDOERS_FILE=/etc/sudoers.d/999-vagrant-cloud-init-requiretty
 sudo resize2fs /dev/sda1
 
 sudo yum update -y
-sudo rpm -ivh https://yum.puppetlabs.com/el/6/products/i386/puppetlabs-release-6-7.noarch.rpm
+sudo rpm -ivh https://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-7.noarch.rpm
 # Ensure we get the latest version of Puppet (3.x) by adding a 'priority' setting to the main Puppet repo
 sudo cp puppetlabs.repo $PUPPET_REPO_FILE
 sudo chown root:root $PUPPET_REPO_FILE
