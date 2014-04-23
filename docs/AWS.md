@@ -84,12 +84,12 @@ $ chmod 600 ~/.bashrc
 
 ### Test drive
 
-In this example we will launch a `t1.micro` instance with the AMI `ami-05355a6c`.
+In this example we will launch a `t1.micro` instance with the AMI `ami-fb8e9292`.
 
 Note: Make sure you replace `YOURKEYPAIR` with the name of your actual key pair.
 
 ```bash
-$ INSTANCE_ID=`ec2-run-instances --user-data-file cloud-config --key YOURKEYPAIR --instance-type t1.micro ami-05355a6c | grep "^INSTANCE" | awk '{ print $2 }'`
+$ INSTANCE_ID=`ec2-run-instances --user-data-file cloud-config --key YOURKEYPAIR --instance-type t1.micro ami-fb8e9292 | grep "^INSTANCE" | awk '{ print $2 }'`
 $ ec2-describe-instances  $INSTANCE_ID
 $ ec2-get-console-output  $INSTANCE_ID
 $ ec2-terminate-instances $INSTANCE_ID
@@ -99,7 +99,7 @@ If you need to specify a custom security group (e.g. `allow-ssh`), use the `--gr
 
 ```bash
 # Same command as above, but additionally sets a custom security group
-$ INSTANCE_ID=`ec2-run-instances --user-data-file cloud-config --key YOURKEYPAIR --instance-type t1.micro --group allow-ssh ami-05355a6c | grep "^INSTANCE" | awk '{ print $2 }'`
+$ INSTANCE_ID=`ec2-run-instances --user-data-file cloud-config --key YOURKEYPAIR --instance-type t1.micro --group allow-ssh ami-fb8e9292 | grep "^INSTANCE" | awk '{ print $2 }'`
 ```
 
 <a name="aws-pre-configuration"></a>
@@ -333,8 +333,8 @@ _VPC however you must specify the security groups by their **id** (e.g. `sg-123a
 
 ## Custom AMI creation
 
-_The instructions below use the older AMI `ami-05355a6c` as the base image.  As of 2014 you may want to use a newer_
-_image such as [ami-bba18dd2](http://aws.amazon.com/amazon-linux-ami/) (PV EBS-Backed 64-bit, US East N. Virginia)._
+_The instructions below use the Amazon Linux 2014.03.1 AMI [ami-fb8e9292](http://aws.amazon.com/amazon-linux-ami/) as_
+_the base image (PV EBS-Backed 64-bit, US East N. Virginia)._
 
 This section describes how to create a custom AMI image for use with Wirbelsturm when deploying to Amazon AWS.
 
@@ -348,7 +348,7 @@ _Note: Recent versions of Vagrant support the (unfortunately not yet documented)
 _setting may solve the provisioning issue above.  However we have not yet tested/integrated this new feature in_
 _Wirbelsturm._
 
-Launch the stock image `ami-05355a6c` that will we modify to come up with our final image.  Make sure you use the
+Launch the stock image `ami-fb8e9292` that will we modify to come up with our final image.  Make sure you use the
 correct settings for `--key` (cf. `keypair_name` in `wirbelsturm.yaml`) and `--group` (cf. the `security_groups`
 entries in `wirbelsturm.yaml`).
 
@@ -358,12 +358,12 @@ entries in `wirbelsturm.yaml`).
         --instance-type t1.micro \
         --block-device-mapping '/dev/sda1=:40:true:io1:400' \
         --group wirbelsturm \
-        ami-05355a6c
+        ami-fb8e9292
 
 The command above will print an output similar to the following:
 
     RESERVATION  r-acfa279b  047236524511  wirbelsturm
-    INSTANCE     i-fd8b3dae  ami-bba18dd2  pending      wirbelsturm  0  t1.micro  [...]
+    INSTANCE     i-fd8b3dae  ami-fb8e9292  pending      wirbelsturm  0  t1.micro  [...]
 
 Here the instance ID is the first field after `INSTANCE`, in this example it is `i-fd8b3dae`.
 
@@ -387,7 +387,7 @@ Now save the image for later re-use.
 
     $ ec2-create-image \
         --name wirbelsturm-base-2014.03 \
-        --description 'Stock ami-bba18dd2 (Amazon Linux 2014.03) with Puppet 3.5.x and fix for vagrant-aws issue #72' \
+        --description 'Stock ami-fb8e9292 (Amazon Linux 2014.03.1) with Puppet 3.5.x and fix for vagrant-aws issue #72' \
         --region us-east-1 \
         --hide-tags \
         <instance-id>
