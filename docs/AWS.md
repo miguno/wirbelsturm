@@ -375,8 +375,8 @@ Upload the code to modify the stock image according to our needs.
 
     # Run the following commands from the top-level Wirbelsturm directory, i.e. where Vagrantfile is.
     $ cd aws/
-    $ scp aws-prepare-image.sh puppetlabs.repo <instance-hostname>:~
-    $ ssh <instance-hostname>
+    $ scp -i ~/.ssh/wirbelsturm.pem aws-prepare-image.sh puppetlabs.repo ec2-user@<instance-hostname>:~
+    $ ssh -i ~/.ssh/wirbelsturm.pem ec2-user@<instance-hostname>
     $ ./aws-prepare-image.sh
 
 Optional but recommended: delete `~/.bash_history` to put the box in a clean state.  You may need to logout and log back
