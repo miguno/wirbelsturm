@@ -401,7 +401,12 @@ Get information about the newly created image:
     IMAGE ami-abc12345  047336254512/wirbelsturm-base 047336254512  available private   x86_64  machineaki-88aa75e1     ebs paravirtual xen
     BLOCKDEVICEMAPPING  EBS /dev/sda1   snap-d8c7978b 40  true  io1 400
 
-Lastly, terminate the running EC2 instance:
+In case you made a mistake you can delete your custom AMI and start from scratch:
+
+    # WARNING: This command DELETES the custom AMI!
+    $ ec2-deregister <image-id>
+
+Lastly, terminate the running EC2 instance that you used for creating the custom AMI:
 
     $ ec2-terminate-instances <instance-id>
 
