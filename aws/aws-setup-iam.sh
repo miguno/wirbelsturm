@@ -4,7 +4,7 @@
 # Description:  This script creates two IAM users for Wirbelsturm.
 
 MY_DIR=`echo $(cd $(dirname $0); pwd)`
-. $MYDIR/../sh/common.sh
+. $MY_DIR/../sh/common.sh
 
 puts "+----------------------------------------+"
 puts "| CREATING AWS IAM USERS FOR WIRBELSTURM |"
@@ -13,9 +13,9 @@ puts "+----------------------------------------+"
 IAM_PATH="/wirbelsturm"
 IAM_GROUP="wirbelsturm"
 IN_INSTANCE_USER="wirbelsturm-ininstance"
-IN_INSTANCE_USER_POLICY_FILE=$MYDIR/in-instance-iam-user.json
+IN_INSTANCE_USER_POLICY_FILE=$MY_DIR/in-instance-iam-user.json
 DEPLOY_USER="wirbelsturm-deploy"
-DEPLOY_USER_POLICY_FILE=$MYDIR/deploy-iam-user.json
+DEPLOY_USER_POLICY_FILE=$MY_DIR/deploy-iam-user.json
 TIMESTAMP=`date +"%Y%m%d-%H%M%S"`
 
 ###

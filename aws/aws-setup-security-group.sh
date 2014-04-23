@@ -4,7 +4,7 @@
 # Description:  This script creates a security group in AWS for a default Wirbelsturm cluster.
 
 MY_DIR=`echo $(cd $(dirname $0); pwd)`
-. $MYDIR/../sh/common.sh
+. $MY_DIR/../sh/common.sh
 
 puts "+---------------------------------------------+"
 puts "| CREATING AWS SECURITY GROUP FOR WIRBELSTURM |"
