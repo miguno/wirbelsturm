@@ -1,5 +1,9 @@
 # 0.6.1 (unreleased)
 
+BACKWARDS INCOMPATIBILITIES
+
+* Requires Vagrant 1.5.4 or later.
+
 IMPROVEMENTS
 
 * WIRBELSTURM-5: `$MYDIR` in AWS scripts should be `$MY_DIR` (thanks pbwilmot)
