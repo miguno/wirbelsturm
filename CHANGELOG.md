@@ -22,6 +22,8 @@ IMPROVEMENTS
 * Update puppet-wirbelsturm_build to 1.0.2.
 * Update puppet-wirbelsturm_common to 1.0.3, which hardens the NTP configuration (if NTP management is enabled).
 * Update puppet-zookeeper to 1.0.7.
+* Enforce the use of Puppet 3.3.1 to have more deterministic builds compared to the previous setup where we always
+  installed the latest Puppet version currently available.
 
 BUG FIXES
 
