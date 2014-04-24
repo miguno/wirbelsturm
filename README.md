@@ -296,6 +296,11 @@ install those packages on that laptop.
 3. Optional: [GNU parallel](http://www.gnu.org/software/parallel/), only needed if you want to benefit from parallel
    provisioning via our [deploy](deploy) script to speed up deployments
 
+Preferably Mac OS X users should also:
+
+* have a working [Homebrew](http://brew.sh/) setup
+* have [bash](https://www.gnu.org/software/bash/) as their default shell
+
 
 ### Install Vagrant
 
@@ -316,7 +321,7 @@ Vagrant version 1.4.3
 * [Download a VirtualBox 4.3.x platform package](https://www.virtualbox.org/wiki/Downloads) for your OS and install
   accordingly.
 
-Note for Mac OS X users:  To uninstall VirtualBox run the `VirtualBox_Uninstall.tool` script that is included in the
+**Note for Mac OS X users:**  To uninstall VirtualBox run the `VirtualBox_Uninstall.tool` script that is included in the
 `.dmg` file.
 
 
