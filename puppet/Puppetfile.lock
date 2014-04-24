@@ -54,10 +54,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-redis.git
-  ref: 1.0.3
-  sha: f17b6b185b522c267d3b2acc48bb58a6223ec5a2
+  ref: 1.0.4
+  sha: d6f3b17c2107d4966afa9affbd0f787bdadced18
   specs:
-    miguno/redis (1.0.3)
+    miguno/redis (1.0.4)
 
 GIT
   remote: https://github.com/miguno/puppet-statsd.git

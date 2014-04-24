@@ -17,7 +17,7 @@ IMPROVEMENTS
 * Update puppet-diamond to 1.0.2.
 * Update puppet-graphite to 0.0.4.
 * Update puppet-kafka to 2.0.1, which e.g. adds experimental support for writing Kafka data to tmpfs.
-* Update puppet-redis to 1.0.3.
+* Update puppet-redis to 1.0.4.
 * Update puppet-statsd to 1.0.4.
 * Update puppet-storm to 1.0.10, which e.g. supports running the new
   [logviewer](http://storm.incubator.apache.org/2013/12/08/storm090-released.html) daemon.
