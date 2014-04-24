@@ -922,7 +922,9 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
     <td>Deploys <a href="http://redis.io/">Redis</a> 2.8+, a key-value store.</td>
     <td><a href="https://github.com/miguno/wirbelsturm-rpm-redis">Yes</a></td>
     <td><a href="puppet/manifests/hieradata/roles/redis_server.yaml">redis_server</a></td>
-    <td>n/a</td>
+    <td>
+      <a href="https://travis-ci.org/miguno/puppet-redis"><img src="https://travis-ci.org/miguno/puppet-redis.png?branch=master" alt="Build Status" /></a>
+    </td>
   </tr>
   <tr>
     <td><a href="https://github.com/miguno/puppet-storm">puppet-storm</a></td>
