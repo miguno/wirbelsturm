@@ -983,12 +983,6 @@ Of course you can modify existing node roles or define your own.
 
 # Known issues and limitations
 
-* Wirbelsturm is not yet compatible with Vagrant 1.5.0+.  The reason is that the plugin
-  [vagrant-hosts](https://github.com/adrienthebo/vagrant-hosts) that we require to manage `/etc/hosts` on deployed
-  machines is not yet compatible with Vagrant 1.5.0+.
-  See [vagrant-hosts issue #27](https://github.com/adrienthebo/vagrant-hosts/issues/27).  Unfortunately, alternative
-  plugins such as [vagrant-hostmanager](https://github.com/smdahlen/vagrant-hostmanager) have similar compatibility
-  problems.  We hope though that these issues will soon be resolved upstream.
 * The upstream Apache Kafka 0.8.1 release has known issues, and most likely the Kafka team will release 0.8.1.1 or
   0.8.2 soon to address these issues.  We recommend to stick to Kafka 0.8.0 at this point.
 
