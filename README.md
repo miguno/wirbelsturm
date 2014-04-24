@@ -1010,7 +1010,7 @@ Puppet-related provisioning code is in [manifests/](puppet/manifests/) and, with
 Set the environment variable `VAGRANT_LOG` accordingly.  Example:
 
 ```shell
-$ env VAGRANT_LOG=debug vagrant up
+$ VAGRANT_LOG=debug vagrant up
 ```
 
 ## Share files between the host and the guest machines?
