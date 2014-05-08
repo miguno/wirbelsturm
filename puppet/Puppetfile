@@ -16,7 +16,7 @@ mod 'miguno/diamond',
 
 mod 'miguno/graphite',
   :git => 'https://github.com/miguno/puppet-graphite.git',
-  :ref => '0.0.4'
+  :ref => '0.0.5'
 
 mod 'miguno/kafka',
   :git => 'https://github.com/miguno/puppet-kafka.git',

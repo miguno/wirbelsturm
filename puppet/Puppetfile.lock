@@ -33,10 +33,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-graphite.git
-  ref: 0.0.4
-  sha: c40cbbcba06b6185d518eb825cf7d28097a73e90
+  ref: 0.0.5
+  sha: d6761d994a30a4708abc0d6a11ad365c7b82bcfb
   specs:
-    miguno/graphite (0.0.4)
+    miguno/graphite (0.0.5)
 
 GIT
   remote: https://github.com/miguno/puppet-kafka.git
