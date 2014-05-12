@@ -81,10 +81,13 @@ fi
 
 puts "Preparing Vagrant environment..."
 
-# Install required Vagrant plugins
-vagrant plugin install vagrant-hosts   # https://github.com/adrienthebo/vagrant-hosts
-vagrant plugin install vagrant-aws     # https://github.com/mitchellh/vagrant-aws/
-vagrant plugin install vagrant-awsinfo # https://github.com/johntdyer/vagrant-awsinfo
+## Install required Vagrant plugins
+# https://github.com/adrienthebo/vagrant-hosts
+vagrant plugin install vagrant-hosts
+# https://github.com/mitchellh/vagrant-aws
+vagrant plugin install vagrant-aws
+# https://github.com/johntdyer/vagrant-awsinfo
+vagrant plugin install vagrant-awsinfo
 
 # Install Vagrant boxes for the providers we use
 vagrant box add --provider virtualbox centos6-compatible \
