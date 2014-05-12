@@ -3,6 +3,7 @@
 BACKWARDS INCOMPATIBILITIES
 
 * Requires Vagrant 1.6.1 or later.
+* Requires vagrant-hosts plugin 2.1.4 or later.
 
 IMPROVEMENTS
 
