@@ -2,7 +2,7 @@
 
 BACKWARDS INCOMPATIBILITIES
 
-* Requires Vagrant 1.5.4 or later.
+* Requires Vagrant 1.6.1 or later.
 
 IMPROVEMENTS
 

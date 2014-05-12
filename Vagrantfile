@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.require_version ">= 1.5.4"
+Vagrant.require_version ">= 1.6.1"
 
 require 'yaml'
 require_relative 'lib/aws_bootstrap'
