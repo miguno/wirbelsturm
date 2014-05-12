@@ -6,6 +6,7 @@ BACKWARDS INCOMPATIBILITIES
 
 IMPROVEMENTS
 
+* WIRBELSTURM-10: source rvm script after ruby-bootstrap so that libarian-puppet is found (thanks neeleshs)
 * WIRBELSTURM-6: Fix Puppet installation on latest Amazon Linux AMI when creating custom AMIs
 * WIRBELSTURM-5: `$MYDIR` in AWS scripts should be `$MY_DIR` (thanks pbwilmot)
 * WIRBELSTURM-2: `bootstrap` now supports the `--skip-ruby` parameter.  If set, `bootstrap` will skip the installation

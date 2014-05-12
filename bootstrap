@@ -49,6 +49,10 @@ else
     curl -L https://raw.github.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
 fi
 
+# Ensure this terminal session knows about rvm
+RVM_SCRIPT="$HOME/.rvm/scripts/rvm" # Note: Do not use `~`, stick with `$HOME`
+[[ -s "$RVM_SCRIPT" ]] && source $RVM_SCRIPT
+
 
 ###
 ### Wirbelsturm
