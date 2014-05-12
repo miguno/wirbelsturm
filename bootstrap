@@ -83,7 +83,7 @@ puts "Preparing Vagrant environment..."
 
 ## Install required Vagrant plugins
 # https://github.com/adrienthebo/vagrant-hosts
-vagrant plugin install vagrant-hosts
+vagrant plugin install vagrant-hosts --plugin-version '>= 2.1.4'
 # https://github.com/mitchellh/vagrant-aws
 vagrant plugin install vagrant-aws
 # https://github.com/johntdyer/vagrant-awsinfo
