@@ -35,13 +35,13 @@ echo $GIT_MSG
 ### Vagrant
 ###
 puts -n "Updating Vagrant environment..."
-# TODO: Update Vagrant plugins once Vagrant 1.5.0 is released via `vagrant plugin update`
+VAGRANT_MSG=`vagrant plugin update`
 if [ $? -ne 0 ]; then
   error "FAILED"
+  error $VAGRANT_MSG
 else
   success "OK"
 fi
-echo "(Not implemented yet.)"
 
 
 ###
