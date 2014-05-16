@@ -12,6 +12,7 @@ IMPROVEMENTS
 * WS-5: `$MYDIR` in AWS scripts should be `$MY_DIR` (thanks pbwilmot)
 * WS-2: `bootstrap` now supports the `--skip-ruby` parameter.  If set, `bootstrap` will skip the installation
   of Ruby/rvm/bundler/gems. (thanks bzz)
+* Improve `update-wirbelsturm.sh`
 * Environment `default_environment`:
     * Enforce 'UTC' timezone
     * Enforce the use of Puppet 3.3.1 to have more deterministic builds compared to the previous setup where we always
