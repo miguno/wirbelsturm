@@ -7,9 +7,9 @@ MYSELF=`basename $0`
 MY_DIR=`echo $(cd $(dirname $0); pwd)`
 . $MY_DIR/sh/common.sh
 
-puts "+----------------------+"
-puts "| UPDATING WIRBELSTURM |"
-puts "+----------------------+"
+puts "+----------------------------------------------------+"
+puts "| UPDATING WIRBELSTURM TO LATEST DEVELOPMENT VERSION |"
+puts "+----------------------------------------------------+"
 
 puts
 puts "*** WARNING: This script is not fully tested yet!***"
@@ -18,7 +18,7 @@ puts
 ###
 ### Wirbelsturm itself
 ###
-puts -n "Updating Wirbelsturm code..."
+puts -n "Updating Wirbelsturm code to latest code from git repository..."
 GIT_MSG=`git pull`
 if [ $? -ne 0 ]; then
   error "FAILED"
