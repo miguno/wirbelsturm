@@ -15,6 +15,7 @@ puts
 puts "*** WARNING: This script is not fully tested yet!***"
 puts
 
+
 ###
 ### Wirbelsturm itself
 ###
@@ -58,3 +59,10 @@ else
 fi
 cd $MY_DIR
 echo $LP_MSG
+
+
+###
+### Check required Vagrant version
+###
+VAGRANT_VERSION_RANGE=`grep '^Vagrant.require_version ' $MY_DIR/Vagrantfile | sed 's/^Vagrant.require_version //'`
+warn "Wirbelsturm requires Vagrant $VAGRANT_VERSION_RANGE -- make sure your Vagrant installation is compatible."
