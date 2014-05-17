@@ -1101,12 +1101,12 @@ You may run into the following error when upgrading from Vagrant 1.4.x to 1.5.x:
 
     /Applications/Vagrant/embedded/lib/ruby/2.0.0/rubygems/version.rb:191:in `initialize': Malformed version number string aws (ArgumentError)
 
-Most likely this means your Vagrant upgrade did not succeed for some reason.  One indication is that the file `~/.vagrant.d/setup_version` contains the
-content `1.5` instead of `1.1\n`.
+Most likely this means your Vagrant upgrade did not succeed for some reason.  One indication is that the file
+`$HOME/.vagrant.d/setup_version` contains the content `1.5` instead of `1.1\n`.
 
 The following command fixes this problem:
 
-    echo "1.1" > ~/.vagrant.d/setup_version
+    echo "1.1" > $HOME/.vagrant.d/setup_version
 
 Now you can try re-running Vagrant.  See the discussion at [Can't start my VM on Vagrant 1.5.1](https://github.com/mitchellh/vagrant/issues/3195) for
 details.
