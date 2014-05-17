@@ -983,8 +983,7 @@ Of course you can modify existing node roles or define your own.
 
 # Known issues and limitations
 
-* The upstream Apache Kafka 0.8.1 release has known issues, and most likely the Kafka team will release 0.8.1.1 or
-  0.8.2 soon to address these issues.  We recommend to stick to Kafka 0.8.0 at this point.
+* None.  Please let us know if you run into any!
 
 
 <a name="faq"></a>
