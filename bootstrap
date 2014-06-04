@@ -46,7 +46,7 @@ if [ $skip_ruby -eq 1 ]; then
     puts "Skipping prepration of Ruby environment.  You must take care of this manually!"
 else
     puts "Preparing Ruby environment..."
-    curl -L https://raw.github.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
+    curl -L https://raw.githubusercontent.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
 fi
 
 # Ensure this terminal session knows about rvm
