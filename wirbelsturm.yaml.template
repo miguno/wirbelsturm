@@ -65,6 +65,23 @@ nodes:
         ami: ami-abc12345
         security_groups:
           - wirbelsturm
+#  storm_drpc:
+#    count: 1
+#    hostname_prefix: drpc
+#    ip_range_start: 10.0.0.230
+#    node_role: storm_drpc
+#    providers:
+#      virtualbox:
+#        memory: 768
+#        forwarded_ports:
+#          - guest: 8080 # Storm UI
+#            host: 28080
+#      aws:
+#        instance_type: m1.xlarge
+#        ami: ami-abc12345
+#        security_groups:
+#          - wirbelsturm
+
 #  # Deploys Kafka brokers.
 #  kafka_broker:
 #    count: 1

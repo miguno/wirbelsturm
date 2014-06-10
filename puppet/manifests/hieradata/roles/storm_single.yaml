@@ -7,6 +7,7 @@ classes:
   - storm::nimbus
   - storm::ui
   - storm::supervisor
+  - storm::drpc
   - wirbelsturm_yumrepos::cloudera_cdh4
   - zookeeper::service
 
@@ -15,6 +16,7 @@ storm::zookeeper_servers:
   - 'stormsingle1'
 storm::nimbus_host: 'stormsingle1'
 storm::nimbus_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::drpc_childopts:       '-Xmx256m -Djava.net.preferIPv4Stack=true'
 storm::ui_childopts:         '-Xmx256m -Djava.net.preferIPv4Stack=true'
 storm::supervisor_childopts: '-Xmx256m -Djava.net.preferIPv4Stack=true'
 storm::worker_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'

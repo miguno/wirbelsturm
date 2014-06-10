@@ -16,11 +16,14 @@ wirbelsturm_common::puppet_package_ensure: '3.3.1-1.el6'
 # Storm
 storm::zookeeper_servers:
   - 'zookeeper1'
+storm::drpc_servers:
+  - 'drpc1'
 storm::nimbus_host: 'nimbus1'
-storm::nimbus_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::nimbus_childopts:     '-Xmx384m -Djava.net.preferIPv4Stack=true'
+storm::drpc_childopts:       '-Xmx256m -Djava.net.preferIPv4Stack=true'
 storm::ui_childopts:         '-Xmx256m -Djava.net.preferIPv4Stack=true'
-storm::supervisor_childopts: '-Xmx256m -Djava.net.preferIPv4Stack=true'
-storm::worker_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::supervisor_childopts: '-Xmx512m -Djava.net.preferIPv4Stack=true'
+storm::worker_childopts:     '-Xmx512m -Djava.net.preferIPv4Stack=true'
 storm::supervisor_slots_ports:
   - 6700
   - 6701
