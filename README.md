@@ -88,7 +88,7 @@ Table of Contents
 # Quick start (local Storm cluster)
 
 Assuming you are using a reasonably powerful computer and have already installed [Vagrant](http://www.vagrantup.com/)
-(1.4.x -- 1.5.x is not supported yet) and [VirtualBox](https://www.virtualbox.org/) you can launch a multi-node
+(1.6.1+) and [VirtualBox](https://www.virtualbox.org/) you can launch a multi-node
 [Apache Storm](http://storm.incubator.apache.org/) cluster on your local machine with the following commands.  This
 Storm cluster is the default configuration example that ships with Wirbelsturm.  Note that the `bootstrap` command
 needs to be run only once, after a fresh checkout.
@@ -291,7 +291,7 @@ Wirbelsturm depends on the following software packages _on the host machine from
 machine on which you execute commands such as `vagrant up`.  So if you are running Wirbelsturm on your laptop, you must
 install those packages on that laptop.
 
-1. [Vagrant](http://www.vagrantup.com/) 1.4.x (1.5.x is not supported yet because it broke many Vagrant plugins)
+1. [Vagrant](http://www.vagrantup.com/) 1.6.1+
 2. [VirtualBox](https://www.virtualbox.org/) 4.3.x
 3. Optional: [GNU parallel](http://www.gnu.org/software/parallel/), only needed if you want to benefit from parallel
    provisioning via our [deploy](deploy) script to speed up deployments
@@ -304,13 +304,13 @@ Preferably Mac OS X users should also:
 
 ### Install Vagrant
 
-* [Download version 1.4.3 of Vagrant](http://downloads.vagrantup.com/) for your OS and install accordingly.
+* [Download version 1.6.3 of Vagrant](http://downloads.vagrantup.com/) for your OS and install accordingly.
 
 Verify the installation of Vagrant:
 
 ```shell
 $ vagrant -v
-Vagrant version 1.4.3
+Vagrant version 1.6.3
 ```
 
 **Note for Mac OS X users:** To uninstall Vagrant run the `uninstall.tool` script that is included in the `.dmg` file.
