@@ -7,6 +7,7 @@ BACKWARDS INCOMPATIBILITIES
 
 IMPROVEMENTS
 
+* Add `ansible-playbook` wrapper script.
 * bootstrap: Use new GitHub.com URL for retrieving raw user content.
 * WS-10: source rvm script after ruby-bootstrap so that libarian-puppet is found (thanks neeleshs)
 * WS-6: Fix Puppet installation on latest Amazon Linux AMI when creating custom AMIs
