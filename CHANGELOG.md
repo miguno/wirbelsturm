@@ -21,7 +21,7 @@ IMPROVEMENTS
       installed the latest Puppet version currently available.
 * Update puppet-diamond to 1.0.2.
 * Update puppet-graphite to 0.0.5.
-* Update puppet-kafka to 2.0.1, which e.g. adds experimental support for writing Kafka data to tmpfs.
+* Update puppet-kafka to 2.0.2, which e.g. adds experimental support for writing Kafka data to tmpfs.
 * Update puppet-redis to 1.0.4.
 * Update puppet-statsd to 1.0.4.
 * Update puppet-storm to 1.0.11, which e.g. supports running the new
