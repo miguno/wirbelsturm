@@ -54,7 +54,7 @@ mod 'saz/timezone',
 
 mod 'miguno/wirbelsturm_build',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_build.git',
-  :ref => '1.0.2'
+  :ref => '1.0.3'
 
 mod 'miguno/wirbelsturm_common',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_common.git',

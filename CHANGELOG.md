@@ -27,7 +27,7 @@ IMPROVEMENTS
 * Update puppet-storm to 1.0.11, which e.g. supports running the new
   [logviewer](http://storm.incubator.apache.org/2013/12/08/storm090-released.html) daemon.
 * Update puppet-supervisor to 1.0.6.
-* Update puppet-wirbelsturm_build to 1.0.2.
+* Update puppet-wirbelsturm_build to 1.0.3.
 * Update puppet-wirbelsturm_common to 1.0.3, which hardens the NTP configuration (if NTP management is enabled).
 * Update puppet-wirbelsturm_yumrepos to 1.0.2.
 * Update puppet-zookeeper to 1.0.7.

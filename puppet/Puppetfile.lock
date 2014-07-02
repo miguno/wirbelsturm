@@ -91,11 +91,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_build.git
-  ref: 1.0.2
-  sha: 57613beaefe0ca006e18d08830291f816f1182f2
+  ref: 1.0.3
+  sha: ca8d77be2f8fe9377e9f004dfba523d1c43a1e31
   specs:
-    miguno/wirbelsturm_build (1.0.0)
-      puppetlabs/stdlib (>= 4.1.0)
+    miguno/wirbelsturm_build (1.0.3)
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_common.git
