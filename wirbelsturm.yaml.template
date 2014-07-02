@@ -65,6 +65,21 @@ nodes:
         ami: ami-abc12345
         security_groups:
           - wirbelsturm
+
+#  storm_drpc:
+#    count: 1
+#    hostname_prefix: drpc
+#    ip_range_start: 10.0.0.230
+#    node_role: storm_drpc
+#    providers:
+#      virtualbox:
+#        memory: 512
+#      aws:
+#        instance_type: c1.xlarge
+#        ami: ami-abc12345
+#        security_groups:
+#          - wirbelsturm
+
 #  # Deploys Kafka brokers.
 #  kafka_broker:
 #    count: 1
@@ -79,6 +94,7 @@ nodes:
 #        ami: ami-abc12345
 #        security_groups:
 #          - wirbelsturm
+
 #  # Deploys Redis server instances.
 #  redis_server:
 #    count: 1
@@ -93,6 +109,7 @@ nodes:
 #        ami: ami-abc12345
 #        security_groups:
 #          - wirbelsturm
+
 #  # Deploys single-node Storm clusters, with Nimbus/Supervisor/UI (and ZooKeeper) all running on the same machine.
 #  storm_single_node_cluster:
 #    count: 1 # If you want a multi-node cluster, use storm_master and storm_slave above.

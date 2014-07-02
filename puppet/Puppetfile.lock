@@ -15,6 +15,13 @@ FORGE
     puppetlabs/stdlib (4.1.0)
 
 GIT
+  remote: https://github.com/andrewserff/puppet-storm.git
+  ref: 1.0.18
+  sha: 25f364b2473b2e1278e35c6eea84b450d2ba1e0b
+  specs:
+    andrewserff/storm (1.0.17)
+
+GIT
   remote: https://github.com/jfryman/puppet-nginx.git
   ref: 5c36913dcda630f5244e0ecc885e3b436973d45a
   sha: 5c36913dcda630f5244e0ecc885e3b436973d45a
@@ -69,13 +76,6 @@ GIT
       puppetlabs/stdlib (>= 4.1.0)
 
 GIT
-  remote: https://github.com/miguno/puppet-storm.git
-  ref: 1.0.11
-  sha: 374aad29c40e6bda56708d4c198cb4c4ac600075
-  specs:
-    miguno/storm (1.0.11)
-
-GIT
   remote: https://github.com/miguno/puppet-supervisor.git
   ref: 1.0.1
   sha: 34e19b624c5501993bfa982a5b8565cfac565fd0
@@ -125,6 +125,7 @@ GIT
     saz/timezone (2.0.0)
 
 DEPENDENCIES
+  andrewserff/storm (>= 0)
   ispavailability/file_concat (~> 0.1.0)
   jfryman/nginx (>= 0)
   miguno/diamond (>= 0)
@@ -133,7 +134,6 @@ DEPENDENCIES
   miguno/limits (>= 0)
   miguno/redis (>= 0)
   miguno/statsd (>= 0)
-  miguno/storm (>= 0)
   miguno/supervisor (>= 0)
   miguno/sysctl (>= 0)
   miguno/wirbelsturm_build (>= 0)
