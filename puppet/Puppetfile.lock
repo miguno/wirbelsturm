@@ -106,10 +106,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_yumrepos.git
-  ref: 1.0.1
-  sha: 704a51f4b5db871d4f5b9c54222e437adb942d7a
+  ref: 1.0.2
+  sha: e5a50a2cb74fbf409d5325d574465ba0dca97b71
   specs:
-    miguno/wirbelsturm_yumrepos (1.0.0)
+    miguno/wirbelsturm_yumrepos (1.0.2)
 
 GIT
   remote: https://github.com/miguno/puppet-zookeeper.git
