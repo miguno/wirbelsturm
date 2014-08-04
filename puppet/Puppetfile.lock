@@ -40,10 +40,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-kafka.git
-  ref: 2.0.2
-  sha: ff8fc0753ec33fb944f1c41ca270d1dee392a600
+  ref: 2.0.3
+  sha: 6e8a40e5d39d17fa769f68299836538ddbdc03c2
   specs:
-    miguno/kafka (2.0.2)
+    miguno/kafka (2.0.3)
 
 GIT
   remote: https://github.com/miguno/puppet-limits.git
