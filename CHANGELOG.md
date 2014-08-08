@@ -24,8 +24,9 @@ IMPROVEMENTS
 * Update puppet-kafka to 2.0.3, which e.g. adds experimental support for writing Kafka data to tmpfs.
 * Update puppet-redis to 1.0.4.
 * Update puppet-statsd to 1.0.4.
-* Update puppet-storm to 1.0.11, which e.g. supports running the new
-  [logviewer](http://storm.incubator.apache.org/2013/12/08/storm090-released.html) daemon.
+* Update puppet-storm to 1.0.12, which e.g. supports running the new
+  [logviewer](http://storm.incubator.apache.org/2013/12/08/storm090-released.html) daemon and
+  [DRPC](https://storm.incubator.apache.org/documentation/Distributed-RPC.html) support.
 * Update puppet-supervisor to 1.0.6.
 * Update puppet-wirbelsturm_build to 1.0.3.
 * Update puppet-wirbelsturm_common to 1.0.4, which hardens the NTP configuration (if NTP management is enabled).
