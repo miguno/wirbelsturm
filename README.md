@@ -250,7 +250,7 @@ The machines are aptly named:
 The default Java version in Wirbelsturm is OpenJDK 6.  That means, for instance, that you must compile your own (Kafka,
 Storm, Hadoop, ...) code with Java 6, too.  If needed you can change the JDK package via the Puppet class parameter
 `$java_package_name` of [puppet-wirbelsturm_common](https://github.com/miguno/puppet-wirbelsturm_common).  Here is how
-to do this via Hiera:
+to do this via Hiera (the example below modifies [common.yaml](puppet/manifests/hieradata/common.yaml)):
 
 ```yaml
 ---
