@@ -1087,6 +1087,58 @@ $ vagrant awsinfo -m nimbus1
 ```
 
 
+## Bootstrap fails while compiling Ruby
+
+On Mac OS X you may run into the following error when running `./bootstrap`:
+
+    ruby-1.9.3-p362 - #compiling....................
+    Error running '__rvm_make -j 1',
+    showing last 15 lines of /Users/brady.doll/.rvm/log/1409157940_ruby-1.9.3-p362/make.log
+    f_rational_new_no_reduce1(VALUE klass, VALUE x)
+    ^
+    6 warnings generated.
+    compiling re.c
+    compiling regcomp.c
+    compiling regenc.c
+    compiling regerror.c
+    compiling regexec.c
+    compiling regparse.c
+    regparse.c:582:15: error: implicit conversion loses integer precision: 'st_index_t' (aka 'unsigned long') to 'int' [-Werror,-Wshorten-64-to-32]
+        return t->num_entries;
+        ~~~~~~ ~~~^~~~~~~~~~~
+    1 error generated.
+    make: *** [regparse.o] Error 1
+    ++ return 2
+    There has been an error while running make. Halting the installation.
+    Installing bundler...
+    ERROR:  While executing gem ... (Gem::FilePermissionError)
+        You don't have write permissions for the /Library/Ruby/Gems/2.0.0 directory.
+    Installing gems (if any)
+    bash: line 200: bundle: command not found
+    Thanks for using ruby-bootstrap.  Happy hacking!
+    ruby-1.9.3-p362 is not installed.
+    To install do: 'rvm install ruby-1.9.3-p362'
+    Checking Vagrant environment...
+    Checking for Vagrant: OK
+
+    <rest removed>
+
+The following steps may fix the problem.
+
+1. Install [MacPorts](http://www.macports.org/), and then run:
+
+        $ sudo port selfupdate
+        $ sudo port install apple-gcc42
+
+2. Compile Ruby manually
+
+        $ CC=/opt/local/bin/gcc-apple-4.2 rvm install ruby-1.9.3-p362 --enable-shared --without-tk --without-tcl
+
+3. Re-run `./bootstrap` -- the install should complete successfully now.
+
+See [Error running Bootstrap on Mac OSX 10.9](https://github.com/miguno/wirbelsturm/issues/19) for details.
+
+
 ## Run on Dell desktop computers?
 
 You may need to tweak the BIOS settings of Dell desktop computers to allow the execution of 64-bit VMs.
@@ -1180,6 +1232,7 @@ _custom fact is only available as a variable to the Puppet manifests/modules._
 
 
 ## DNS configuration
+
 Wirbelsturm uses the Vagrant plugin [vagrant-hosts](https://github.com/adrienthebo/vagrant-hosts) to manage DNS settings
 configured in `/etc/hosts` on the cluster machines.  This only works for the VirtualBox provider though.  Wirbelsturm
 uses a different approach for the DNS configuration ([Route 53](http://aws.amazon.com/route53/)) when deploying to
