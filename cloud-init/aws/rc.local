@@ -6,6 +6,9 @@
 
 touch /var/lock/subsys/local
 
+# Read system-wide environment variables, notably the FACTER_* variables we injected for Puppet facter.
+[ -r /etc/environment ] && . /etc/environment
+
 # Required environment variables for subsequent commands
 export PATH=$PATH:/opt/aws/bin
 export EC2_HOME=/opt/aws/apitools/ec2

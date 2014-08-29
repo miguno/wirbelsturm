@@ -37,6 +37,8 @@ BUG FIXES
 
 * `deploy` now correctly writes its log files to the directory `provisioning-logs/` in the base Wirbelsturm directory,
   even when `deploy` is executed from within sub-directories of Wirbelsturm.
+* Read /etc/environment to make FACTER_* env vars available on reboot.  This makes clusters work properly upon instance
+  reboots on AWS. (thanks stevencdavis) [GH-20]
 
 
 # 0.6.0 (March 17, 2014)
