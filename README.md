@@ -298,7 +298,7 @@ install those packages on that laptop.
 
 Preferably Mac OS X users should also:
 
-* have a working [Homebrew](http://brew.sh/) setup
+* have a working [Homebrew](http://brew.sh/) or [MacPorts](http://www.macports.org/) setup
 * have [bash](https://www.gnu.org/software/bash/) as their default shell
 
 
@@ -334,7 +334,10 @@ Install `parallel` on the _host_ machine:
 
 ```shell
 # Mac
+# - Homebrew
 $ brew install parallel
+# - MacPorts
+$ sudo port install parallel
 
 # RHEL/CentOS/Fedora
 $ sudo yum install parallel
@@ -579,7 +582,7 @@ machines via Puppet:
   `node_role`.
 * The `hostname_prefix` and `count` parameters:  These two parameters determine the hostname of a machine.  If, for
   instance, `hostname_prefix: supervisor` and `count: 3`, then Wirbelsturm will launch three such machines and give them
-  the respectice hostnames `supervisor1`, `supervisor2`, and `supervisor3`.  The hostnames are made available to Puppet
+  the respective hostnames `supervisor1`, `supervisor2`, and `supervisor3`.  The hostnames are made available to Puppet
   as the Puppet fact `hostname`.
 
 The environment name as well as the hostnames of machines are important parameters because you can use them to determine
@@ -1125,7 +1128,15 @@ On Mac OS X you may run into the following error when running `./bootstrap`:
 
 The following steps may fix the problem.
 
-1. Install [MacPorts](http://www.macports.org/), and then run:
+1. Install [Homebrew](http://brew.sh/) or [MacPorts](http://www.macports.org/), and then run:
+
+   Homebrew
+
+        $ brew update
+        $ brew tap homebrew/dupes
+        $ brew install apple-gcc42
+
+   MacPorts:
 
         $ sudo port selfupdate
         $ sudo port install apple-gcc42
