@@ -1,3 +1,10 @@
+# 0.7.0 (unreleased)
+
+BACKWARDS INCOMPATIBILITIES
+
+* Use Java 7 by default.
+
+
 # 0.6.1 (September 09, 2014)
 
 BACKWARDS INCOMPATIBILITIES

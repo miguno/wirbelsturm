@@ -247,8 +247,8 @@ The machines are aptly named:
     supervisor1
     supervisor2
 
-The default Java version in Wirbelsturm is OpenJDK 6.  That means, for instance, that you must compile your own (Kafka,
-Storm, Hadoop, ...) code with Java 6, too.  If needed you can change the JDK package via the Puppet class parameter
+The default Java version in Wirbelsturm is OpenJDK 7.  That means, for instance, that you must compile your own (Kafka,
+Storm, Hadoop, ...) code with Java 7, too.  If needed you can change the JDK package via the Puppet class parameter
 `$java_package_name` of [puppet-wirbelsturm_common](https://github.com/miguno/puppet-wirbelsturm_common).  Here is how
 to do this via Hiera (the example below modifies [common.yaml](puppet/manifests/hieradata/common.yaml)):
 
@@ -258,10 +258,10 @@ classes:
   - wirbelsturm_common
 
 # The config value must match the (RPM) package name of the desired JRE/JDK version
-wirbelsturm_common::java_package_name: 'java-1.6.0-sun'
+wirbelsturm_common::java_package_name: 'java-1.7.0-sun'
 ```
 
-_Important: When deploying Storm in production it is strongly recommended to use Oracle JRE/JDK 6 instead of OpenJDK 6._
+_Important: When deploying Storm in production it is recommended to use Oracle JRE/JDK 7 instead of OpenJDK 7._
 
 The default configuration sets the Java heap size of the various Storm processes (Nimbus, UI, Supervisor, worker
 processes) to 256MB each.  This is enough to play around with Storm but of course not sufficient to perform large-scale
