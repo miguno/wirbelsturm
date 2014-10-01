@@ -811,7 +811,7 @@ More is better, of course.
 
 Several users have asked how they can re-use their existing Wirbelsturm setup that they created for local development
 and testing in order to deploy "real" environments, e.g. backed by a couple of bare-metal machines.  A different but
-related use case is situations where you cannot or are not allwed to use Wirbelsturm and/or Vagrant to deploy to
+related use case is situations where you cannot or are not allowed to use Wirbelsturm and/or Vagrant to deploy to
 non-local environments (i.e. to anything but your local computer).  Of course, it is up to you then to manage the
 machines (booting machines, configuring networking, etc.), which is normally taken care of by Wirbelsturm/Vagrant.
 
@@ -861,7 +861,7 @@ However we strongly recommend to write or use such Puppet modules that expose th
 through _class parameters_.  This decouples the module's logic (code/manifests) from its configuration, and thereby
 allows you to configure the module's behavior through [Hiera](http://docs.puppetlabs.com/hiera/1/).  This Puppet
 recommendation is not specific to Wirbelsturm -- in fact, you will often (always?) want to follow this best practice
-everytime you write or use a Puppet module for your deployments.
+every time you write or use a Puppet module for your deployments.
 
 If your favorite Puppet module does not follow this style, you can of course still use it in Wirbelsturm.  However
 in this case you will most likely have to fork/modify the module whenever your configuration requirements change.
@@ -1045,7 +1045,7 @@ $ sh/vagrant-scp.sh nimbus1:/tmp/bar.txt .
 
 ## Force shutdown of VirtualBox vm when 'vagrant destroy' fails?
 
-On rare occassions Vagrant may fail to destroy (shutdown) a VirtualBox vm.  The error message will be similar
+On rare occasions Vagrant may fail to destroy (shutdown) a VirtualBox vm.  The error message will be similar
 to:
 
     There was an error while executing `VBoxManage`, a CLI used by Vagrant
@@ -1297,33 +1297,51 @@ A non-comprehensive list of features we are still considering to add to Wirbelst
 
 ## Submitting an example Storm topology
 
-_Note: The Storm project is currently working on integrating storm-starter (see below) into the core project._
-_Hence the instructions below are subject to change, too._
+_Note: The instructions below are subject to change._
 
 Once you have a Storm cluster up and running you can submit your first Storm topology.  We will use an example topology
-from [storm-starter](https://github.com/nathanmarz/storm-starter/) to run a first Storm topology in the cluster.
+from [storm-starter](https://github.com/apache/storm/tree/master/examples/storm-starter) to run a first Storm topology
+in the cluster.
+
+First you will need to install [Apache Maven](http://maven.apache.org/):
+
+```shell
+# Homebrew
+$ brew install maven
+# MacPorts
+$ sudo port intall maven3
+# sudo port select --set maven maven3
+```
 
 ```shell
 $ cd /tmp
-$ git clone git@github.com:nathanmarz/storm-starter.git
-$ cd storm-starter
-$ lein deps
-$ lein compile
-$ lein uberjar
+# Clone Storm
+$ git clone git://github.com/apache/incubator-storm.git
+# Build Storm
+$ cd incubator-storm
+$ mvn clean install -DskipTests=true
+
+# Build the storm-starter example
+$ cd examples/storm-starter
+$ mvn compile exec:java -Dstorm.topology=storm.starter.WordCountTopology
+$ mvn package
 ```
 
-The last command `lein uberjar` will create a jar file of the storm-starter code at the following location:
+The last command `mvn package` will create a jar file of the storm-starter code at the following location:
 
-    target/storm-starter-0.0.1-SNAPSHOT-standalone.jar
+    target/storm-starter-{version}-jar-with-dependencies.jar
 
 We can now use this jar file to submit and run the `ExclamationTopology` in our Storm cluster.  But first we must make
 this jar file available to the cluster machines.  To do so you must copy the jar file to the `shared/` folder on the
 host machine.  This folder is mounted automatically in each virtual machine under `/shared` (note the leading slash).
 
+_Note: The version number might be different for you, update the command to match. In the following examples we will use
+version 0.9.3-SNAPSHOT._
+
 ```shell
 # Run the following command on the host machine in the Wirbelsturm base directory
 # (i.e. where Vagrantfile is)
-$ cp /tmp/storm-starter/target/storm-starter-0.0.1-SNAPSHOT-standalone.jar shared/
+$ cp /tmp/incubator-storm/examples/storm-starter/target/storm-starter-0.9.3-SNAPSHOT-standalone.jar shared/
 ```
 
 For this example we will submit the topology from the `nimbus1` machine.  That being said you can use any cluster
@@ -1332,7 +1350,7 @@ machine on which Storm is installed.
 ```shell
 $ vagrant ssh nimbus1
 [vagrant@nimbus1 ~]$ /opt/storm/bin/storm jar \
-                        /shared/storm-starter-0.0.1-SNAPSHOT-standalone.jar \
+                        /shared/storm-starter-0.9.3-SNAPSHOT-standalone.jar \
                         storm.starter.ExclamationTopology exclamation-topology
 ```
 
