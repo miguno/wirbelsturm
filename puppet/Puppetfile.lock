@@ -1,5 +1,5 @@
 FORGE
-  remote: http://forge.puppetlabs.com
+  remote: https://forgeapi.puppetlabs.com
   specs:
     ispavailability/file_concat (0.1.0)
     puppetlabs/apt (1.5.2)
