@@ -88,7 +88,7 @@ Note: Make sure you replace `YOURKEYPAIR` with the name of your actual key pair.
 
 ```bash
 # Run the following commands from the top-level Wirbelsturm directory, i.e. where Vagrantfile is.
-$ INSTANCE_ID=`aws ec2 run-instances --user-data file://cloud-init/aws/cloud-config.erb --key-name YOURKEYPAIR --instance-type t2.micro --image-id ami-fb8e9292 | jq --raw-output '.Instances[0].InstanceId'`
+$ INSTANCE_ID=`aws ec2 run-instances --user-data file://cloud-init/aws/cloud-config.erb --key-name YOURKEYPAIR --instance-type t1.micro --image-id ami-fb8e9292 | jq --raw-output '.Instances[0].InstanceId'`
 $ aws ec2 describe-instances --instance-ids $INSTANCE_ID
 $ aws ec2 get-console-output --instance-id $INSTANCE_ID
 $ aws ec2 terminate-instances --instance-ids $INSTANCE_ID
@@ -98,7 +98,7 @@ If you need to specify a custom security group (e.g. `allow-ssh`), use the `--se
 
 ```bash
 # Same command as above, but additionally sets a custom security group
-$ INSTANCE_ID=`aws ec2 run-instances --user-data file://cloud-init/aws/cloud-config.erb --key-name YOURKEYPAIR --instance-type t2.micro --image-id ami-fb8e9292 --security-groups allow-ssh | jq --raw-output '.Instances[0].InstanceId'`
+$ INSTANCE_ID=`aws ec2 run-instances --user-data file://cloud-init/aws/cloud-config.erb --key-name YOURKEYPAIR --instance-type t1.micro --image-id ami-fb8e9292 --security-groups allow-ssh | jq --raw-output '.Instances[0].InstanceId'`
 ```
 
 <a name="aws-pre-configuration"></a>
