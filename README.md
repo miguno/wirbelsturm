@@ -20,7 +20,7 @@ Its direct value proposition is two-fold:
    [Hiera](http://docs.puppetlabs.com/hiera/1/) and with its notion of _environments_ and _roles_, these conventions
    should help to jumpstart new users and, of course, you can change this behavior if needed.
 2. ***Add a thin wrapper layer around Vagrant to simplify deploying multiple machines of the same kind.***  
-   This is very helpful when deploying software such as [Storm](http://storm.incubator.apache.org/),
+   This is very helpful when deploying software such as [Storm](http://storm.apache.org/),
    [Kafka](http://kafka.apache.org/) and [Hadoop](http://hadoop.apache.org/) clusters, where most of the machines look
    the same.  In native Vagrant you would be required to (say) manually maintain 30 configuration sections in
    `Vagrantfile` for deploying 30 Storm slave nodes, even though only their hostnames and IP addresses would change from
@@ -89,7 +89,7 @@ Table of Contents
 
 Assuming you are using a reasonably powerful computer and have already installed [Vagrant](http://www.vagrantup.com/)
 (1.6.1+) and [VirtualBox](https://www.virtualbox.org/) you can launch a multi-node
-[Apache Storm](http://storm.incubator.apache.org/) cluster on your local machine with the following commands.  This
+[Apache Storm](http://storm.apache.org/) cluster on your local machine with the following commands.  This
 Storm cluster is the default configuration example that ships with Wirbelsturm.  Note that the `bootstrap` command
 needs to be run only once, after a fresh checkout.
 
@@ -937,7 +937,7 @@ You will find more Puppet modules on [PuppetForge](https://forge.puppetlabs.com/
   <tr>
     <td><a href="https://github.com/miguno/puppet-storm">puppet-storm</a></td>
     <td>
-      Deploys <a href="http://storm.incubator.apache.org/">Apache Storm</a> 0.9.x, a distributed real-time computation
+      Deploys <a href="http://storm.apache.org/">Apache Storm</a> 0.9.x, a distributed real-time computation
       system.
     </td>
     <td><a href="https://github.com/miguno/wirbelsturm-rpm-storm">Yes</a></td>
@@ -1316,9 +1316,9 @@ $ sudo port intall maven3
 ```shell
 $ cd /tmp
 # Clone Storm
-$ git clone git://github.com/apache/incubator-storm.git
+$ git clone git://github.com/apache/storm.git
 # Build Storm
-$ cd incubator-storm
+$ cd storm
 $ mvn clean install -DskipTests=true
 
 # Build the storm-starter example
@@ -1329,7 +1329,7 @@ $ mvn package
 
 The last command `mvn package` will create a jar file of the storm-starter code at the following location:
 
-    target/storm-starter-{version}.jar
+    target/storm-starter-{version}-jar-with-dependencies.jar
 
 We can now use this jar file to submit and run the `ExclamationTopology` in our Storm cluster.  But first we must make
 this jar file available to the cluster machines.  To do so you must copy the jar file to the `shared/` folder on the
@@ -1341,7 +1341,7 @@ version 0.9.3-SNAPSHOT._
 ```shell
 # Run the following command on the host machine in the Wirbelsturm base directory
 # (i.e. where Vagrantfile is)
-$ cp /tmp/incubator-storm/examples/storm-starter/target/storm-starter-0.9.3-SNAPSHOT.jar shared/
+$ cp /tmp/storm/examples/storm-starter/target/storm-starter-0.9.3-SNAPSHOT-jar-with-dependencies.jar shared/
 ```
 
 For this example we will submit the topology from the `nimbus1` machine.  That being said you can use any cluster
@@ -1350,7 +1350,7 @@ machine on which Storm is installed.
 ```shell
 $ vagrant ssh nimbus1
 [vagrant@nimbus1 ~]$ /opt/storm/bin/storm jar \
-                        /shared/storm-starter-0.9.3-SNAPSHOT.jar \
+                        /shared/storm-starter-0.9.3-SNAPSHOT-jar-with-dependencies.jar \
                         storm.starter.ExclamationTopology exclamation-topology
 ```
 
