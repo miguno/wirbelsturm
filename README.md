@@ -304,13 +304,13 @@ Preferably Mac OS X users should also:
 
 ### Install Vagrant
 
-* [Download version 1.6.3 of Vagrant](http://downloads.vagrantup.com/) for your OS and install accordingly.
+* [Download version 1.6.5 of Vagrant](http://www.vagrantup.com/downloads.html) for your OS and install accordingly.
 
 Verify the installation of Vagrant:
 
 ```shell
 $ vagrant -v
-Vagrant version 1.6.3
+Vagrant version 1.6.5
 ```
 
 **Note for Mac OS X users:** To uninstall Vagrant run the `uninstall.tool` script that is included in the `.dmg` file.
