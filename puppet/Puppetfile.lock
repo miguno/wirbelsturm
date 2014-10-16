@@ -2,10 +2,10 @@ FORGE
   remote: http://forge.puppetlabs.com
   specs:
     ispavailability/file_concat (0.1.0)
-    puppetlabs/apt (1.5.2)
+    puppetlabs/apt (1.6.0)
       puppetlabs/stdlib (>= 2.2.1)
-    puppetlabs/concat (1.1.0)
-      puppetlabs/stdlib (>= 4.0.0)
+    puppetlabs/concat (1.1.1)
+      puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs/firewall (1.0.2)
     puppetlabs/nodejs (0.2.1)
       puppetlabs/apt (>= 0.0.3)
