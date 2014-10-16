@@ -1,5 +1,10 @@
 # 0.7.0 (unreleased)
 
+IMPROVEMENTS
+
+* Update puppet_wirbelsturm-common to 1.0.5, which by default installs netcat on each machine.
+* Update puppet-zookeeper to 1.0.8, which e.g. fixes ZK quorum deployments.
+
 BACKWARDS INCOMPATIBILITIES
 
 * Use Java 7 by default.

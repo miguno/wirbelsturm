@@ -986,7 +986,60 @@ Of course you can modify existing node roles or define your own.
 
 # Known issues and limitations
 
-* None.  Please let us know if you run into any!
+## ZooKeeper server fails to join quorum because of "UnknownHostException"
+
+_This issue only affects ZK quorum deployments.  Standalone ZK deployments are not affected._
+
+This issue is caused by a known bug in ZooKeeper 3.4+ that, as of October 2014, is not yet fixed:
+
+* [ZOOKEEPER-1848](https://issues.apache.org/jira/browse/ZOOKEEPER-1846):
+  Cached InetSocketAddresses prevent proper dynamic DNS resolution
+
+You can quickly test this condition why the following Ansible command:
+
+    # Here we test whether the machine `zookeeper1` has joined the quorum
+    $ ./ansible zookeeper* -m shell -a 'echo stat | nc 127.0.0.1 2181'
+
+A negative "failure" reply includes the string "This ZooKeeper instance is not currently serving requests", which means
+the ZK server has not joined the quorum, which typically indicates that it is affected by the ZK issue described here:
+
+    zookeeper3 | success | rc=0 >>
+    This ZooKeeper instance is not currently serving requests
+
+In comparison, a positive "success" message looks as follows:
+
+    zookeeper3 | success | rc=0 >>
+    Zookeeper version: 3.4.5-cdh4.7.0--1, built on 05/28/2014 16:33 GMT
+    Clients:
+     /127.0.0.1:48714[0](queued=0,recved=1,sent=0)
+
+    Latency min/avg/max: 0/0/0
+    Received: 1
+    Sent: 0
+    Connections: 1
+    Outstanding: 0
+    Zxid: 0x100000000
+    Mode: follower   # <<< this ZK server has joined the quorum as a follower
+    Node count: 4
+
+Another telling sign is to inspect the ZK log files for `java.net.UnknownHostException` entries:
+
+    $ ./ansible zookeeper* -m shell -a 'grep java.net.UnknownHostException /var/log/zookeeper/zookeeper.log | tail'
+    zookeeper3 | success | rc=0 >>
+    java.net.UnknownHostException: zookeeper2
+
+But what is going on here?  This ZK issue is triggered when the ZK process is started at a time when the hostnames of
+some ZK quorum members (here: `zookeeper2`) are not resolvable, and due to the ZK bug above (`InetSocketAddress` being
+cached forever) the ZK process is not to be able to recover from this condition.
+
+Currently the only remedy is to restart the problematic ZK process, i.e. the one that is complaining about unknown
+hosts.  You can use the [ansible](ansible) wrapper script in Wirbelsturm to trigger such restarts:
+
+    # Restart the ZK process on `zookeeper3`
+    $ ./ansible zookeeper3 -m shell -a 'supervisorctl restart zookeeper' --sudo
+
+    # Restart the ZK processes on all ZK machines
+    $ ./ansible zookeeper* -m shell -a 'supervisorctl restart zookeeper' --sudo
 
 
 <a name="faq"></a>
