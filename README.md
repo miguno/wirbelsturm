@@ -12,14 +12,14 @@ is based.
 
 Its direct value proposition is two-fold:
 
-1. ***Provide a working integration of [Vagrant](http://www.vagrantup.com/) and [Puppet](https://puppetlabs.com/).***  
+1. ***Provide a working integration of [Vagrant](http://www.vagrantup.com/) and [Puppet](https://puppetlabs.com/).***
    Vagrant is used to create and manage machines, Puppet is used for provisioning those machines (e.g. to install and
    configure software packages).  Because Wirbelsturm uses Vagrant you can basically deploy to any target platform
    that Vagrant supports -- local VMs, AWS, OpenStack, etc. -- although Wirbelsturm does not support all of those out
    of the box yet.  While Wirbelsturm's Puppet setup is slightly opinionated with its preference for
    [Hiera](http://docs.puppetlabs.com/hiera/1/) and with its notion of _environments_ and _roles_, these conventions
    should help to jumpstart new users and, of course, you can change this behavior if needed.
-2. ***Add a thin wrapper layer around Vagrant to simplify deploying multiple machines of the same kind.***  
+2. ***Add a thin wrapper layer around Vagrant to simplify deploying multiple machines of the same kind.***
    This is very helpful when deploying software such as [Storm](http://storm.apache.org/),
    [Kafka](http://kafka.apache.org/) and [Hadoop](http://hadoop.apache.org/) clusters, where most of the machines look
    the same.  In native Vagrant you would be required to (say) manually maintain 30 configuration sections in
