@@ -995,7 +995,12 @@ This issue is caused by a known bug in ZooKeeper 3.4+ that, as of October 2014, 
 * [ZOOKEEPER-1848](https://issues.apache.org/jira/browse/ZOOKEEPER-1846):
   Cached InetSocketAddresses prevent proper dynamic DNS resolution
 
-You can quickly test this condition why the following Ansible command:
+Unfortunately this issue is very reliably triggered when using Vagrant (and thus Wirbelsturm) to deploy ZK quorums to
+local VMs. :-(
+
+You can quickly test whether your deployment is affected via the following Ansible command, which sends the
+[stat](http://zookeeper.apache.org/doc/trunk/zookeeperAdmin.html#The+Four+Letter+Words) Four Letter Command to all
+ZK servers:
 
     # Here we test whether the machine `zookeeper1` has joined the quorum
     $ ./ansible zookeeper* -m shell -a 'echo stat | nc 127.0.0.1 2181'
@@ -1022,7 +1027,7 @@ In comparison, a positive "success" message looks as follows:
     Mode: follower   # <<< this ZK server has joined the quorum as a follower
     Node count: 4
 
-Another telling sign is to inspect the ZK log files for `java.net.UnknownHostException` entries:
+Another telling sign is `java.net.UnknownHostException` errors in the ZK log files:
 
     $ ./ansible zookeeper* -m shell -a 'grep java.net.UnknownHostException /var/log/zookeeper/zookeeper.log | tail'
     zookeeper3 | success | rc=0 >>
