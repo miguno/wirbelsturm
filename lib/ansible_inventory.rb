@@ -51,7 +51,7 @@ def host_info(host, running_hosts)
   if running_hosts.include? host
     ssh_config = `vagrant ssh-config #{host}`
     if not ssh_config.empty?
-      m = /HostName (?<ip>[\d.]+)\n\s*User (?<user>\w+)\n\s*Port (?<port>\d+)(\n.*)*IdentityFile (?<ssh_key>.*)\n/.match(ssh_config)
+      m = /HostName (?<ip>[\d.]+)(\n.*)*\sUser (?<user>[\w-]+)(\n.*)*\sPort (?<port>\d+)(\n.*)*\sIdentityFile (?<ssh_key>.*)\n/.match(ssh_config)
       host_data["ansible_ssh_host"] = m[:ip]
       host_data["ansible_ssh_port"] = m[:port]
       host_data["ansible_ssh_user"] = m[:user]
