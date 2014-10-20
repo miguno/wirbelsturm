@@ -11,7 +11,7 @@ puts "| CREATING AWS SECURITY GROUP FOR WIRBELSTURM |"
 puts "+---------------------------------------------+"
 
 SECURITY_GROUP="wirbelsturm"
-VERSION="1.0"
+VERSION="1.1"
 
 warn
 warn "Note: By default each Wirbelsturm machine runs its own local firewall."
@@ -49,7 +49,12 @@ puts "Enable access to Kafka"
 ec2-authorize -P tcp -p 9092 $SECURITY_GROUP || exit 1
 
 puts "Enable access to Zookeeper"
+# 2181 (for client connections)
+# 2888 (for communication between servers in the ZK ensemble)
+# 3888 (for leader election, used only by servers in the ZK ensemble)
 ec2-authorize -P tcp -p 2181 $SECURITY_GROUP || exit 1
+ec2-authorize -P tcp -p 2888 $SECURITY_GROUP || exit 1
+ec2-authorize -P tcp -p 3888 $SECURITY_GROUP || exit 1
 
 puts "Enable access to Redis"
 ec2-authorize -P tcp -p 6379 $SECURITY_GROUP || exit 1
