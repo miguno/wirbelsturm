@@ -13,6 +13,7 @@ vagrantfile_dir = File.expand_path(File.dirname(__FILE__))
 config_file = ENV['WIRBELSTURM_CONFIG_FILE'] || File.join(vagrantfile_dir, 'wirbelsturm.yaml')
 wirbelsturm_config = YAML.load_file(config_file)
 nodes = JSON.parse(compile_node_catalog(config_file), :symbolize_names => true)
+wirbelsturm_version = IO.read(File.join(vagrantfile_dir, 'VERSION')).strip!
 
 ###
 ### Main Vagrant
@@ -74,6 +75,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           'Name' => c.vm.hostname,
           'role' => node_opts[:node_role],
           'environment' => wirbelsturm_config['environment'],
+          'created_by' => "wirbelsturm-v#{wirbelsturm_version}",
         }
         aws.user_data = aws_cloud_config(c.vm.hostname, node_opts[:node_role], base_dir=vagrantfile_dir)
 
