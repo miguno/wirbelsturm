@@ -11,7 +11,7 @@ include Wirbelsturm
 
 vagrantfile_dir = File.expand_path(File.dirname(__FILE__))
 config_file = ENV['WIRBELSTURM_CONFIG_FILE'] || File.join(vagrantfile_dir, 'wirbelsturm.yaml')
-wirbelsturmConfig = YAML.load_file(config_file)
+wirbelsturm_config = YAML.load_file(config_file)
 nodes = JSON.parse(compile_node_catalog(config_file), :symbolize_names => true)
 
 ###
@@ -59,11 +59,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ### AWS provider
       ###
       c.vm.provider :aws do |aws, override|
-        aws.access_key_id = wirbelsturmConfig['aws']['deploy_user']['aws_access_key']
-        aws.secret_access_key = wirbelsturmConfig['aws']['deploy_user']['aws_secret_key']
-        aws.keypair_name = wirbelsturmConfig['aws']['keypair_name']
-        override.ssh.private_key_path = wirbelsturmConfig['aws']['private_key_path']
-        override.ssh.username = wirbelsturmConfig['aws']['local_user']
+        aws.access_key_id = wirbelsturm_config['aws']['deploy_user']['aws_access_key']
+        aws.secret_access_key = wirbelsturm_config['aws']['deploy_user']['aws_secret_key']
+        aws.keypair_name = wirbelsturm_config['aws']['keypair_name']
+        override.ssh.private_key_path = wirbelsturm_config['aws']['private_key_path']
+        override.ssh.username = wirbelsturm_config['aws']['local_user']
         override.ssh.pty = true # Enable pty/tty to prevent sudo problems on RHEL OS family
 
         aws.region = "us-east-1"
@@ -73,7 +73,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         aws.tags = {
           'Name' => c.vm.hostname,
           'role' => node_opts[:node_role],
-          'environment' => wirbelsturmConfig['environment'],
+          'environment' => wirbelsturm_config['environment'],
         }
         aws.user_data = aws_cloud_config(c.vm.hostname, node_opts[:node_role], base_dir=vagrantfile_dir)
 
@@ -99,7 +99,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         # Note: Facts injected by puppet.facter ARE NOT available in the VM when you run `facter`.
         puppet.facter = {
           'node_role' => node_opts[:node_role],
-          'node_env'  => wirbelsturmConfig['environment'],
+          'node_env'  => wirbelsturm_config['environment'],
           'vagrant'  => true,
         }
       end
