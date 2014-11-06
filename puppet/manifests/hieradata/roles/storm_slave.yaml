@@ -1,4 +1,4 @@
 ---
 classes:
-  #- storm::logviewer # Uncomment to enable the logviewer daemon
+  - storm::logviewer
   - storm::supervisor
