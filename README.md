@@ -1374,9 +1374,10 @@ $ sudo port intall maven3
 ```shell
 $ cd /tmp
 # Clone Storm
-$ git clone git://github.com/apache/storm.git
+$ git clone git://github.com/apache/incubator-storm.git
 # Build Storm
-$ cd storm
+$ cd incubator-storm
+
 $ mvn clean install -DskipTests=true
 
 # Build the storm-starter example
@@ -1387,7 +1388,7 @@ $ mvn package
 
 The last command `mvn package` will create a jar file of the storm-starter code at the following location:
 
-    target/storm-starter-{version}-jar-with-dependencies.jar
+    target/storm-starter-{version}.jar
 
 We can now use this jar file to submit and run the `ExclamationTopology` in our Storm cluster.  But first we must make
 this jar file available to the cluster machines.  To do so you must copy the jar file to the `shared/` folder on the
@@ -1399,7 +1400,7 @@ version 0.9.3-SNAPSHOT._
 ```shell
 # Run the following command on the host machine in the Wirbelsturm base directory
 # (i.e. where Vagrantfile is)
-$ cp /tmp/storm/examples/storm-starter/target/storm-starter-0.9.3-SNAPSHOT-jar-with-dependencies.jar shared/
+$ cp /tmp/incubator-storm/examples/storm-starter/target/storm-starter-0.9.3-SNAPSHOT.jar shared/
 ```
 
 For this example we will submit the topology from the `nimbus1` machine.  That being said you can use any cluster
@@ -1408,7 +1409,7 @@ machine on which Storm is installed.
 ```shell
 $ vagrant ssh nimbus1
 [vagrant@nimbus1 ~]$ /opt/storm/bin/storm jar \
-                        /shared/storm-starter-0.9.3-SNAPSHOT-jar-with-dependencies.jar \
+                        /shared/storm-starter-0.9.3-SNAPSHOT.jar \
                         storm.starter.ExclamationTopology exclamation-topology
 ```
 
