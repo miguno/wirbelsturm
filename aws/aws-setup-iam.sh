@@ -18,26 +18,32 @@ DEPLOY_USER="wirbelsturm-deploy"
 DEPLOY_USER_POLICY_FILE=file://$MY_DIR/deploy-iam-user.json
 TIMESTAMP=`date +"%Y%m%d-%H%M%S"`
 
+read -e -p "AWS profile [default]: " PROFILE
+
+if [ -z $PROFILE ]; then
+  PROFILE="default"
+fi
+
 ###
 ### IAM Group
 ###
 
 puts "Creating Wirbelsturm IAM group..."
-aws iam create-group --group-name $IAM_GROUP --path $IAM_PATH || exit 1
+aws --profile $PROFILE iam create-group --group-name $IAM_GROUP --path $IAM_PATH || exit 1
 
 ###
 ### Deploy IAM user
 ###
 
 puts "Creating deploy IAM user '$DEPLOY_USER'..."
-aws iam create-user --user-name $DEPLOY_USER --path $IAM_PATH || exit 1
-aws iam add-user-to-group --user-name $DEPLOY_USER --group-name $IAM_GROUP
-KEYS=`aws iam create-access-key --user-name $DEPLOY_USER`
+aws --profile $PROFILE iam create-user --user-name $DEPLOY_USER --path $IAM_PATH || exit 1
+aws --profile $PROFILE iam add-user-to-group --user-name $DEPLOY_USER --group-name $IAM_GROUP
+KEYS=`aws --profile $PROFILE iam create-access-key --user-name $DEPLOY_USER`
 DEPLOY_USER_ACCESS_KEY=`echo $KEYS | jq --raw-output '.AccessKey.AccessKeyId'`
 DEPLOY_USER_SECRET_KEY=`echo $KEYS | jq --raw-output '.AccessKey.SecretAccessKey'`
 
 puts "Applying security policy to IAM user '$DEPLOY_USER'..."
-aws iam put-user-policy --user-name $DEPLOY_USER --policy-document $DEPLOY_USER_POLICY_FILE \
+aws --profile $PROFILE iam put-user-policy --user-name $DEPLOY_USER --policy-document $DEPLOY_USER_POLICY_FILE \
   --policy-name "Deploy_IAM_user_of_Wirbelsturm_v$TIMESTAMP" || exit 1
 
 ###
@@ -45,14 +51,14 @@ aws iam put-user-policy --user-name $DEPLOY_USER --policy-document $DEPLOY_USER_
 ###
 
 puts "Creating in-instance IAM user '$IN_INSTANCE_USER'..."
-aws iam create-user --user-name $IN_INSTANCE_USER --path $IAM_PATH || exit 1
-aws iam add-user-to-group --user-name $IN_INSTANCE_USER --group-name $IAM_GROUP
-KEYS=`aws iam create-access-key --user-name $IN_INSTANCE_USER`
+aws --profile $PROFILE iam create-user --user-name $IN_INSTANCE_USER --path $IAM_PATH || exit 1
+aws --profile $PROFILE iam add-user-to-group --user-name $IN_INSTANCE_USER --group-name $IAM_GROUP
+KEYS=`aws --profile $PROFILE iam create-access-key --user-name $IN_INSTANCE_USER`
 IN_INSTANCE_USER_ACCESS_KEY=`echo $KEYS | jq --raw-output '.AccessKey.AccessKeyId'`
 IN_INSTANCE_USER_SECRET_KEY=`echo $KEYS | jq --raw-output '.AccessKey.SecretAccessKey'`
 
 puts "Applying security policy to IAM user '$IN_INSTANCE_USER'..."
-aws iam put-user-policy --user-name $IN_INSTANCE_USER --policy-document $IN_INSTANCE_USER_POLICY_FILE \
+aws --profile $PROFILE iam put-user-policy --user-name $IN_INSTANCE_USER --policy-document $IN_INSTANCE_USER_POLICY_FILE \
   --policy-name "In-instance_IAM_user_of_Wirbelsturm_v$TIMESTAMP" || exit 1
 
 ###
