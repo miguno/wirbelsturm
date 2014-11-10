@@ -4,7 +4,7 @@ MY_DIR=`echo $(cd $(dirname $0); pwd)`
 . $MY_DIR/../sh/common.sh
 
 puts "+-------------------------------------------+"
-puts "| CREATING LAUNCH LINUX AMI FOR WIRBELSTURM |"
+puts "| CREATING CUSTOM LINUX AMI FOR WIRBELSTURM |"
 puts "+-------------------------------------------+"
 
 read -e -p "AWS profile [default]: " PROFILE
