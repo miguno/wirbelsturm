@@ -33,7 +33,7 @@ runcmd:
   - . /etc/environment
   - [ mkdir, -p, /etc/aws ]
   - [ chmod, 750, /etc/aws ]
-  - [ sh, -c, 'echo "# Credentials of deploy IAM user" > /etc/aws/aws-credentials.sh' ]
+  - [ sh, -c, 'echo "# Credentials of in-instance IAM user" > /etc/aws/aws-credentials.sh' ]
   - [ sh, -c, 'echo "export AWS_ACCESS_KEY=<%= @aws_access_key %>" >> /etc/aws/aws-credentials.sh' ]
   - [ sh, -c, 'echo "export AWS_SECRET_KEY=<%= @aws_secret_key %>" >> /etc/aws/aws-credentials.sh' ]
   - [ sh, -c, 'echo "# For boto -- same information but different variables" >> /etc/aws/aws-credentials.sh' ]
