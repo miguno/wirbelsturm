@@ -343,7 +343,7 @@ _VPC however you must specify the security groups by their **id** (e.g. `sg-123a
 
 <a name="custom-ami-creation"></a>
 
-## One step
+## One Step Custom AMI creation
 
 Simply run
 
