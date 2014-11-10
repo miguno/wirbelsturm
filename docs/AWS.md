@@ -69,7 +69,7 @@ $ unzip awscli-bundle.zip
 $ sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
 # - Homebrew
-brew install awscli
+$ brew install awscli
 
 # Configure
 $ aws configure --profile PROFILE_NAME
