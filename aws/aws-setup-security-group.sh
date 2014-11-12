@@ -92,6 +92,9 @@ puts "Enable access to Kafka"
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 9092 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Zookeeper"
+# 2181 (for client connections)
+# 2888 (for communication between servers in the ZK ensemble)
+# 3888 (for leader election, used only by servers in the ZK ensemble)
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2181 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2888 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 3888 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
