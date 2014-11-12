@@ -78,7 +78,7 @@ aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --p
 
 puts "Enable access to Storm master"
 # 6627 (thrift/Nimbus)
-# 8080 (UI)
+# 8080 (UI, also Graphite)
 # 8081 (logs)
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 6627 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 8080 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1

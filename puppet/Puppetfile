@@ -67,3 +67,7 @@ mod 'miguno/wirbelsturm_yumrepos',
 mod 'miguno/zookeeper',
   :git => 'https://github.com/miguno/puppet-zookeeper.git',
   :ref => '1.0.8'
+
+mod 'jhoblitt/ganglia',
+  :git => 'https://github.com/jhoblitt/puppet-ganglia.git',
+  :ref => 'v1.3.0'

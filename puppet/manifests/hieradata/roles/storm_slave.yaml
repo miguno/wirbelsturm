@@ -2,3 +2,18 @@
 classes:
   - storm::logviewer
   - storm::supervisor
+  - diamond
+
+## Diamond
+diamond::graphite_host: 'monitor1'
+diamond::collectors:
+  CPUCollector: {}
+#    options:
+#      path: cpu
+  DiskSpaceCollector: {}
+  DiskUsageCollector: {}
+  LoadAverageCollector: {}
+  MemoryCollector: {}
+  NetworkCollector: {}
+  SockstatCollector: {}
+  VMStatCollector: {}
