@@ -10,7 +10,8 @@ puts "+---------------------------------------------+"
 puts "| CREATING AWS SECURITY GROUP FOR WIRBELSTURM |"
 puts "+---------------------------------------------+"
 
-VERSION="1.1"
+SECURITY_GROUP="wirbelsturm"
+VERSION="1.2"
 
 warn
 warn "Note: By default each Wirbelsturm machine runs its own local firewall."
@@ -46,6 +47,7 @@ if [ -z $SECURITY_GROUP ]; then
   SECURITY_GROUP="wirbelsturm"
 fi
 
+
 read -e -p "VPC ID (Optional) []: " VPC_ID
 
 puts "Creating '$SECURITY_GROUP' security group for Wirbelsturm..."
@@ -54,6 +56,7 @@ if [ -z $VPC_ID ]; then
 else
 	SG_OUT=`aws --profile $PROFILE ec2 --region $REGION create-security-group --group-name $SECURITY_GROUP --description "Wirbelsturm cluster (security policy v$VERSION)" --vpc-id $VPC_ID`
 fi
+
 
 if [ $? -ne 0 ]; then
   warn "Note: If you want to delete the security group you can do so with:"
@@ -90,6 +93,8 @@ aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --p
 
 puts "Enable access to Zookeeper"
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2181 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2888 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 3888 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Redis"
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 6379 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
