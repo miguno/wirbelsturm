@@ -70,6 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         aws.region_config wirbelsturmConfig['aws']['region'], :ami => node_opts[:aws][:ami]
         aws.instance_type = node_opts[:aws][:instance_type]
         aws.security_groups = node_opts[:aws][:security_groups]
+        aws.instance_ready_timeout = 180
         aws.tags = {
           'Name' => c.vm.hostname,
           'role' => node_opts[:node_role],
