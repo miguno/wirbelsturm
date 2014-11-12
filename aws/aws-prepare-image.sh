@@ -10,7 +10,7 @@ SUDOERS_FILE=/etc/sudoers.d/999-vagrant-cloud-init-requiretty
 ### Configuration end ###
 
 # Resize root partition
-sudo resize2fs /dev/sda1
+sudo resize2fs /dev/sdf
 
 sudo yum update -y
 # Base packages we want to have available in all instances
