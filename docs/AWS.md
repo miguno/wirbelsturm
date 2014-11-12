@@ -68,8 +68,21 @@ $ wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
 $ unzip awscli-bundle.zip
 $ sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
+# - Homebrew
+$ brew install awscli
+
 # Configure
-$ aws configure
+$ aws configure --profile PROFILE_NAME
+
+# Or create a ~/.aws/credentials file with the following contents, 
+# [default] is the profile name, you can have several
+[default]
+aws_access_key_id = your_access_key_id
+aws_secret_access_key = your_secret_access_key
+
+[another_profile_name]
+aws_access_key_id = another_access_key_id
+aws_secret_access_key = another_secret_access_key
 ```
 
 The last command will prompt you for your AWS Access Key ID and Secret Access Key, and the default AWS region and
@@ -329,6 +342,14 @@ _VPC however you must specify the security groups by their **id** (e.g. `sg-123a
 
 
 <a name="custom-ami-creation"></a>
+
+## One Step Custom AMI creation
+
+Simply run
+
+    $ /aws/aws-create-ami.sh
+
+By default this uses PV EBS-Backed 64-bit, US West Oregon) [ami-55a7ea65], which is different to the steps below.
 
 ## Custom AMI creation
 
