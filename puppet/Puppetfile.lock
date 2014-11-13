@@ -2,17 +2,17 @@ FORGE
   remote: https://forgeapi.puppetlabs.com
   specs:
     ispavailability-file_concat (0.1.0)
-    puppetlabs-apt (1.6.0)
+    puppetlabs-apt (1.7.0)
       puppetlabs-stdlib (>= 2.2.1)
-    puppetlabs-concat (1.1.1)
+    puppetlabs-concat (1.1.2)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
-    puppetlabs-firewall (1.0.2)
-    puppetlabs-nodejs (0.2.1)
+    puppetlabs-firewall (1.2.0)
+    puppetlabs-nodejs (0.6.1)
       puppetlabs-apt (>= 0.0.3)
       puppetlabs-stdlib (>= 2.0.0)
-    puppetlabs-ntp (3.0.4)
-      puppetlabs-stdlib (>= 0.1.6)
-    puppetlabs-stdlib (4.1.0)
+    puppetlabs-ntp (3.3.0)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs-stdlib (4.4.0)
 
 GIT
   remote: https://github.com/jfryman/puppet-nginx.git
@@ -23,14 +23,6 @@ GIT
       puppetlabs-apt (>= 1.0.0)
       puppetlabs-concat (>= 1.0.0)
       puppetlabs-stdlib (>= 0.1.6)
-
-GIT
-  remote: https://github.com/jhoblitt/puppet-ganglia.git
-  ref: v1.3.0
-  sha: 657828f1471517511211bc0f6a5f1fdfbdd98ac1
-  specs:
-    jhoblitt-ganglia (1.3.0)
-      puppetlabs-stdlib (>= 3.0.0)
 
 GIT
   remote: https://github.com/miguno/puppet-diamond.git
@@ -52,13 +44,6 @@ GIT
   sha: 6e8a40e5d39d17fa769f68299836538ddbdc03c2
   specs:
     miguno-kafka (2.0.3)
-
-GIT
-  remote: https://github.com/miguno/puppet-limits.git
-  ref: master
-  sha: 13a6ddc1e98f1606d9367fc4047aa6b8c90b822d
-  specs:
-    miguno-limits (0.0.1)
 
 GIT
   remote: https://github.com/miguno/puppet-redis.git
@@ -127,15 +112,22 @@ GIT
 
 GIT
   remote: https://github.com/saz/puppet-timezone.git
-  ref: v2.0.0
-  sha: aeeaa520b611d2531e37e3979efd8a739d15330f
+  ref: v3.1.1
+  sha: b3a848de34e03be6b8d9d9bdfcbecdcf2915b229
   specs:
-    saz-timezone (2.0.0)
+    saz-timezone (3.1.1)
+      puppetlabs-stdlib (>= 2.3.0)
+
+GIT
+  remote: https://github.com/scottrutherford/puppet-limits.git
+  ref: v0.0.1
+  sha: e4256716bfbbdcb1378cef1ca4861f887ff2c526
+  specs:
+    miguno-limits (0.0.1)
 
 DEPENDENCIES
   ispavailability-file_concat (~> 0.1.0)
   jfryman-nginx (>= 0)
-  jhoblitt-ganglia (>= 0)
   miguno-diamond (>= 0)
   miguno-graphite (>= 0)
   miguno-kafka (>= 0)
@@ -149,9 +141,9 @@ DEPENDENCIES
   miguno-wirbelsturm_common (>= 0)
   miguno-wirbelsturm_yumrepos (>= 0)
   miguno-zookeeper (>= 0)
-  puppetlabs-firewall (~> 1.0.0)
-  puppetlabs-nodejs (~> 0.2.0)
-  puppetlabs-ntp (~> 3.0.0)
-  puppetlabs-stdlib (~> 4.1.0)
+  puppetlabs-firewall (~> 1.2.0)
+  puppetlabs-nodejs (~> 0.6.0)
+  puppetlabs-ntp (~> 3.3.0)
+  puppetlabs-stdlib (~> 4.4.0)
   saz-timezone (>= 0)
 

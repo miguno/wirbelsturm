@@ -67,7 +67,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.ssh.pty = true # Enable pty/tty to prevent sudo problems on RHEL OS family
 
         aws.region = wirbelsturmConfig['aws']['region']
-        aws.region_config wirbelsturmConfig['aws']['region'], :ami => node_opts[:aws][:ami]
+        aws.region_config wirbelsturmConfig['aws']['region'] do |region|
+          region.ami = node_opts[:aws][:ami]
+          region.availability_zone = wirbelsturmConfig['aws']['zone'] if wirbelsturmConfig['aws']['zone']
+        end
         aws.instance_type = node_opts[:aws][:instance_type]
         aws.security_groups = node_opts[:aws][:security_groups]
         aws.instance_ready_timeout = 180

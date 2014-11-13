@@ -104,6 +104,10 @@ aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --p
 puts "Enable access to Redis"
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 6379 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
+puts "Enable access to Graphite"
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2003 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2004 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+
 puts "------------------------------------------------------------------------"
 puts "Summary of security group:"
 aws --profile $PROFILE ec2 --region $REGION describe-security-groups --group-ids $GROUP_ID
