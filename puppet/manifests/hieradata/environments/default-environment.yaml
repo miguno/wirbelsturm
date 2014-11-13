@@ -11,7 +11,7 @@ classes:
 wirbelsturm_common::ipv6_disable: true
 wirbelsturm_common::ipv6_manage: true
 wirbelsturm_common::manage_ntp: true
-wirbelsturm_common::puppet_package_ensure: '3.3.1-1.el6'
+wirbelsturm_common::puppet_package_ensure: '3.7.3-1.el6'
 
 # Storm
 storm::zookeeper_servers:

@@ -22,7 +22,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   nodes.each_pair do |node_name,node_opts|
-    config.vm.define node_name do |c|
+    config.vm.define node_name do |c|    
       c.vm.hostname = node_name.to_s
       c.vm.box = "centos6-compatible"
       c.vm.network :private_network, ip: node_opts[:ip]
@@ -73,12 +73,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         end
         aws.instance_type = node_opts[:aws][:instance_type]
         aws.security_groups = node_opts[:aws][:security_groups]
-        aws.instance_ready_timeout = 180
+        aws.instance_ready_timeout = 240
         aws.tags = {
           'Name' => c.vm.hostname,
           'role' => node_opts[:node_role],
           'environment' => wirbelsturmConfig['environment'],
         }
+        aws.block_device_mapping = [
+          {
+            'DeviceName' => "/dev/sdf",
+            'Ebs.VolumeSize' => 40,
+            'Ebs.DeleteOnTermination' => true,
+            'Ebs.VolumeType' => 'io1',
+            'Ebs.Iops' => 400
+          }
+        ]
         aws.user_data = aws_cloud_config(c.vm.hostname, node_opts[:node_role], base_dir=vagrantfile_dir)
 
         # The 'elastic_ip' parameter requires vagrant-aws >= 0.3.0.

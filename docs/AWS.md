@@ -349,7 +349,7 @@ Simply run
 
     $ /aws/aws-create-ami.sh
 
-By default this uses PV EBS-Backed 64-bit, US West Oregon) [ami-55a7ea65], which is different to the steps below.
+By default this uses HVM EBS-Backed 64-bit, US West Oregon) [ami-b5a7ea85], which is different to the steps below.
 
 ## Custom AMI creation
 

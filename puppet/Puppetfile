@@ -2,7 +2,7 @@ forge 'https://forgeapi.puppetlabs.com'
 
 # Hosted on public Puppet Forge
 #
-mod 'puppetlabs/firewall', '1.2.x'
+mod 'puppetlabs/firewall', '1.1.x'
 mod 'puppetlabs/nodejs', '0.6.x'
 mod 'puppetlabs/ntp', '3.3.x'
 mod 'puppetlabs/stdlib', '4.4.x'

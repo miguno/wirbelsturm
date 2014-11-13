@@ -78,11 +78,11 @@ aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --p
 
 puts "Enable access to Storm master"
 # 6627 (thrift/Nimbus)
-# 8080 (UI, also Graphite)
-# 8081 (logs)
+# 8080 (UI, also Graphite), defaults to allow access from any IP - should be locked down in production
+# 8000 (logviewer)
 aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 6627 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
-aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 8080 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
-aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 8081 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 8080 --cidr $SOURCE_CIDR --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 8000 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Storm slaves"
 # 3772 (drpc), 3773 (drpc invocations)
