@@ -4,6 +4,10 @@ classes:
   - zookeeper::service
   - diamond
 
+zookeeper::params {
+  data_dir => '/dev/sdf/zookeeper'
+}
+
 ## Diamond
 diamond::graphite_host: 'monitor1'
 diamond::collectors:
@@ -17,3 +21,16 @@ diamond::collectors:
   NetworkCollector: {}
   SockstatCollector: {}
   VMStatCollector: {}
+
+# Log rotation @ 4:15am PST (12:15pm UTC)
+# cron::job {
+#   'zookeeper_logrotate':
+#     minute      => '15',
+#     hour        => '12',
+#     date        => '*',
+#     month       => '*',
+#     weekday     => '*',
+#     user        => 'root',
+#     command     => '',
+#     environment => [ 'MAILTO=root', 'PATH="/usr/bin:/bin"' ];
+#   }

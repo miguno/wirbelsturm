@@ -13,6 +13,7 @@ FORGE
     puppetlabs-ntp (3.3.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-stdlib (4.4.0)
+    torrancew-cron (0.1.0)
 
 GIT
   remote: https://github.com/jfryman/puppet-nginx.git
@@ -146,4 +147,5 @@ DEPENDENCIES
   puppetlabs-ntp (~> 3.3.0)
   puppetlabs-stdlib (~> 4.4.0)
   saz-timezone (>= 0)
+  torrancew-cron (= 0.1.0)
 
