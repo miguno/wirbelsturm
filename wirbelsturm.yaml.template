@@ -2,6 +2,8 @@
 domain: your-wirbelsturm-sub.domain.com
 environment: default-environment
 aws:
+  region: us-east-1
+  zone: us-east-1a
   local_user: ec2-user
   rclocal_url: https://s3.amazonaws.com/yum.miguno.com/bootstrap/aws/rc.local
   keypair_name: CHANGEME       # Example: wirbelsturm

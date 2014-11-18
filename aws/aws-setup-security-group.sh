@@ -29,10 +29,10 @@ if [ -z $PROFILE ]; then
   PROFILE="default"
 fi
 
-read -e -p "AWS region [us-west-2]: " REGION
+read -e -p "AWS region [us-east-1]: " REGION
 
 if [ -z $REGION ]; then
-  REGION="us-west-2"
+  REGION="us-east-1"
 fi
 
 read -e -p "Source CIDR [0.0.0.0/0]: " SOURCE_CIDR

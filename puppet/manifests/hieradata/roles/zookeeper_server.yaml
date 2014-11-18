@@ -4,9 +4,9 @@ classes:
   - zookeeper::service
   - diamond
 
-zookeeper::params: {
-  data_dir => '/dev/sdf/zookeeper'
-}
+# zookeeper::params: {
+#   data_dir => '/dev/sdf/zookeeper'
+# }
 
 ## Diamond
 diamond::graphite_host: 'monitor1'

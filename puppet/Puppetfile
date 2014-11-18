@@ -23,7 +23,7 @@ mod 'miguno/kafka',
   :ref => '2.0.3'
 
 mod 'miguno/limits',
-  :git => 'https://github.com/scottrutherford/puppet-limits.git',
+  :git => 'https://github.com/miguno/puppet-limits.git',
   :ref => 'v0.0.1'
 
 mod 'jfryman/nginx',

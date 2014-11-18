@@ -13,16 +13,16 @@ if [ -z $PROFILE ]; then
   PROFILE="default"
 fi
 
-read -e -p "AWS region [us-west-2]: " REGION
+read -e -p "AWS region [us-east-1]: " REGION
 
 if [ -z $REGION ]; then
-  REGION="us-west-2"
+  REGION="us-east-1"
 fi
 
-read -e -p "Linux AMI (default HVM EBS-Backed 64-bit, US West Oregon) [ami-b5a7ea85]: " AMI
+read -e -p "Linux AMI (default HVM EBS-Backed 64-bit, US East N.Virginia) [ami-b66ed3de]: " AMI
 
 if [ -z $AMI ]; then
-  AMI="ami-b5a7ea85"
+  AMI="ami-b66ed3de"
 fi
 
 SI_OUT=`aws --profile $PROFILE ec2 --region $REGION run-instances \
