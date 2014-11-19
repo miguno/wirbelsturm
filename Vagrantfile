@@ -79,15 +79,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           'role' => node_opts[:node_role],
           'environment' => wirbelsturmConfig['environment'],
         }
-        aws.block_device_mapping = [
-          {
-            'DeviceName' => "/dev/xvda",
-            'Ebs.VolumeSize' => 40,
-            'Ebs.DeleteOnTermination' => true,
-            'Ebs.VolumeType' => 'io1',
-            'Ebs.Iops' => 400
-          }
-        ]
+        
+        aws.block_device_mapping = [{
+          'DeviceName' => "/dev/xvda",
+          'Ebs.DeleteOnTermination' => true,
+          'Ebs.VolumeType' => node_opts[:aws][:volume_type],
+          'Ebs.VolumeSize' => node_opts[:aws][:volume_size],
+          'Ebs.Iops' => node_opts[:aws][:volume_size] * 10
+        }]
+
         aws.user_data = aws_cloud_config(c.vm.hostname, node_opts[:node_role], base_dir=vagrantfile_dir)
 
         # The 'elastic_ip' parameter requires vagrant-aws >= 0.3.0.
