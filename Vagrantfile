@@ -81,7 +81,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         }
         aws.block_device_mapping = [
           {
-            'DeviceName' => "/dev/sdf",
+            'DeviceName' => "/dev/xvda",
             'Ebs.VolumeSize' => 40,
             'Ebs.DeleteOnTermination' => true,
             'Ebs.VolumeType' => 'io1',

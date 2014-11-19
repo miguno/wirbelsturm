@@ -28,7 +28,7 @@ fi
 SI_OUT=`aws --profile $PROFILE ec2 --region $REGION run-instances \
     --key-name wirbelsturm \
     --instance-type t2.micro \
-    --block-device-mappings "[{\"DeviceName\":\"/dev/sdf\",\"Ebs\":{\"DeleteOnTermination\":true,\"VolumeSize\":40,\"VolumeType\":\"io1\",\"Iops\":400}}]" \
+    --block-device-mappings "[{\"DeviceName\":\"/dev/xvda\",\"Ebs\":{\"DeleteOnTermination\":true,\"VolumeSize\":40,\"VolumeType\":\"io1\",\"Iops\":400}}]" \
     --security-groups wirbelsturm \
     --image-id $AMI` || exit 1
 INSTANCE_ID=`echo $SI_OUT | jq --raw-output '.Instances[0].InstanceId'`
