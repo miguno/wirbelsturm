@@ -1375,6 +1375,17 @@ $ sudo port intall maven3
 $ cd /tmp
 # Clone Storm
 $ git clone git://github.com/apache/storm.git
+
+# At this point you may want to perform a checkout of the exact version of Storm
+# that is running in Wirbelsturm (or your "real" Storm cluster).
+#
+# The Storm team uses git tags to label release versions.  The following command,
+# for example, checks out the code for Storm 0.9.3:
+#
+#     $ git checkout v0.9.3
+#
+# You can list all available tags by running `git tag`
+
 # Build Storm
 $ cd storm
 $ mvn clean install -DskipTests=true
