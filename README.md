@@ -1384,7 +1384,7 @@ $ git clone git://github.com/apache/storm.git
 #
 #     $ git checkout v0.9.3
 #
-# You can list all available tags by running `git tag`
+# You can list all available tags by running `git tag`.
 
 # Build Storm
 $ cd storm
