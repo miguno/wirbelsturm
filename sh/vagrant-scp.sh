@@ -29,4 +29,4 @@ if [ -z "$VAGRANT_HOSTNAME" ]; then
 fi
 
 SCP_OPTIONS=`vagrant ssh-config $VAGRANT_HOSTNAME | awk -v ORS=" " '{print "-o " $1 "=" $2}'`
-scp $SCP_OPTIONS "$@" || echo "ERROR: Transfer failed."
+scp $SCP_OPTIONS "$@" || echo "ERROR: Transfer failed." ; exit 1
