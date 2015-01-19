@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.require_version ">= 1.6.1"
+Vagrant.require_version ">= 1.7.2"
 
 require 'yaml'
 require_relative 'lib/aws_bootstrap'
@@ -87,15 +87,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       ###
       ### Puppet provisioning
       ###
+      puppet_temp_dir = '/tmp/vagrant-puppet'
       c.vm.provision :puppet do |puppet|
         puppet.module_path = 'puppet/modules'
         puppet.manifests_path = 'puppet/manifests'
         puppet.manifest_file  = 'site.pp'
         puppet.hiera_config_path = 'puppet/manifests/hiera.yaml'
+        puppet.options = "--modulepath=#{puppet_temp_dir}/modules-8048a9ab32fda4a984b584e79dfe8cb7"
         # Do not add a counter suffix to the `temp_dir` value of Vagrant's Puppet module.  While the counter may be
         # prevent issues for Vagrant setups in general it causes problems for how Wirbelsturm uses Vagrant(file).
         # `temp_dir` is undocumented, see plugins/provisioners/puppet/config/puppet.rb in Vagrant.
-        puppet.temp_dir = '/tmp/vagrant-puppet'
+        puppet.temp_dir = puppet_temp_dir
         puppet.working_directory = puppet.temp_dir
 
         # Note: Facts injected by puppet.facter ARE NOT available in the VM when you run `facter`.

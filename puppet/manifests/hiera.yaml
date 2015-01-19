@@ -4,7 +4,7 @@
 :yaml:
   # TODO: Possibly use variable interpolation to dynamically configure :datadir:
   #       For example by seting a top-level variable in site.pp and then use %{::var_name} here.
-  :datadir: 'manifests/hieradata'
+  :datadir: 'manifests-846018e2aa141a5eb79a64b4015fc5f3/hieradata'
 :hierarchy:
   # Note: We have observed that in some situations the Puppet fact 'fqdn' is not set.  For this reason we opted to
   #       define the Hiera hierarchy based on 'hostname' instead.

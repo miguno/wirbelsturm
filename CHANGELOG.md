@@ -1,5 +1,18 @@
 # 0.7.0 (unreleased)
 
+BACKWARDS INCOMPATIBILITIES
+
+* Requires Vagrant 1.7.2 or later.
+* Because of the upgrade to Vagrant 1.7.2, we were forced to change the locations/names of the Puppet manifests and
+  modules directories on the target machines.  See the "BREAKING CHANGES" section in the
+  [Vagrant Changelog for 1.7.2](https://github.com/mitchellh/vagrant/blob/master/CHANGELOG.md#172-january-6-2015).
+  Vagrant 1.7.2+ adds MD5-hash based suffixes to the manifests and modules directories, which broke our assumption
+  on where to find these directories on the target machines (so we actually belong to the "minor number of people" who
+  are affected by this change in Vagrant).  The new directories look like:
+  `modules-8048a9ab32fda4a984b584e79dfe8cb7`.  Thankfully, in the current Vagrant implementation these suffixes are
+  identical across deployments in our case, so the current fix simply renames the respective directory locations.
+
+
 IMPROVEMENTS
 
 * Update puppet_wirbelsturm-common to 1.0.5, which by default installs netcat on each machine.
