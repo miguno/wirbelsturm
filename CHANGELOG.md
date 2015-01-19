@@ -11,6 +11,7 @@ BACKWARDS INCOMPATIBILITIES
   are affected by this change in Vagrant).  The new directories look like:
   `modules-8048a9ab32fda4a984b584e79dfe8cb7`.  Thankfully, in the current Vagrant implementation these suffixes are
   identical across deployments in our case, so the current fix simply renames the respective directory locations.
+* We use Java 7 by default.
 
 
 IMPROVEMENTS
@@ -18,9 +19,9 @@ IMPROVEMENTS
 * Update puppet_wirbelsturm-common to 1.0.5, which by default installs netcat on each machine.
 * Update puppet-zookeeper to 1.0.8, which e.g. fixes ZK quorum deployments.
 
-BACKWARDS INCOMPATIBILITIES
+BUG FIXES
 
-* Use Java 7 by default.
+* `vagrant-scp.sh` now exits with a non-zero exit code in case of errors.
 
 
 # 0.6.1 (September 09, 2014)
