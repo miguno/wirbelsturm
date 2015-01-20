@@ -10,7 +10,7 @@ SUDOERS_FILE=/etc/sudoers.d/999-vagrant-cloud-init-requiretty
 ### Configuration end ###
 
 # Resize root partition
-sudo resize2fs /dev/sda1
+sudo resize2fs /dev/xvda
 
 sudo yum update -y
 # Base packages we want to have available in all instances
@@ -21,7 +21,7 @@ sudo yum install wget screen git python-boto -y
 ###
 
 # Install PuppetLabs official yum repository for RHEL6
-sudo rpm -ivh https://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm
+sudo rpm -ivh https://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-11.noarch.rpm
 # Ensure we get the latest version of Puppet (3.x) by adding a 'priority' setting to the PuppetLabs repo,
 # otherwise we may end up with an outdated Puppet 2.7 version from the default Amazon yum repo.
 sudo cp puppetlabs.repo $PUPPET_REPO_FILE

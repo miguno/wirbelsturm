@@ -23,7 +23,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   nodes.each_pair do |node_name,node_opts|
-    config.vm.define node_name do |c|
+    config.vm.define node_name do |c|    
       c.vm.hostname = node_name.to_s
       c.vm.box = "centos6-compatible"
       c.vm.network :private_network, ip: node_opts[:ip]
@@ -67,16 +67,29 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.ssh.username = wirbelsturm_config['aws']['local_user']
         override.ssh.pty = true # Enable pty/tty to prevent sudo problems on RHEL OS family
 
-        aws.region = "us-east-1"
-        aws.region_config "us-east-1", :ami => node_opts[:aws][:ami]
+        aws.region = wirbelsturmConfig['aws']['region']
+        aws.region_config wirbelsturmConfig['aws']['region'] do |region|
+          region.ami = node_opts[:aws][:ami]
+          region.availability_zone = wirbelsturmConfig['aws']['zone'] if wirbelsturmConfig['aws']['zone']
+        end
         aws.instance_type = node_opts[:aws][:instance_type]
         aws.security_groups = node_opts[:aws][:security_groups]
+        aws.instance_ready_timeout = 240
         aws.tags = {
           'Name' => c.vm.hostname,
           'role' => node_opts[:node_role],
           'environment' => wirbelsturm_config['environment'],
           'created_by' => "wirbelsturm-v#{wirbelsturm_version}",
         }
+        
+        aws.block_device_mapping = [{
+          'DeviceName' => "/dev/xvda",
+          'Ebs.DeleteOnTermination' => true,
+          'Ebs.VolumeType' => node_opts[:aws][:volume_type],
+          'Ebs.VolumeSize' => node_opts[:aws][:volume_size],
+          'Ebs.Iops' => node_opts[:aws][:volume_size] * 10
+        }]
+
         aws.user_data = aws_cloud_config(c.vm.hostname, node_opts[:node_role], base_dir=vagrantfile_dir)
 
         # The 'elastic_ip' parameter requires vagrant-aws >= 0.3.0.

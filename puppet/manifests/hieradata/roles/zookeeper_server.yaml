@@ -2,3 +2,22 @@
 classes:
   - wirbelsturm_yumrepos::cloudera_cdh4
   - zookeeper::service
+  - diamond
+
+# zookeeper::params: {
+#   data_dir => '/dev/sdf/zookeeper'
+# }
+
+## Diamond
+diamond::graphite_host: 'monitor1'
+diamond::collectors:
+  CPUCollector: {}
+#    options:
+#      path: cpu
+  DiskSpaceCollector: {}
+  DiskUsageCollector: {}
+  LoadAverageCollector: {}
+  MemoryCollector: {}
+  NetworkCollector: {}
+  SockstatCollector: {}
+  VMStatCollector: {}

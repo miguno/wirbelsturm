@@ -11,16 +11,16 @@ classes:
 wirbelsturm_common::ipv6_disable: true
 wirbelsturm_common::ipv6_manage: true
 wirbelsturm_common::manage_ntp: true
-wirbelsturm_common::puppet_package_ensure: '3.3.1-1.el6'
+wirbelsturm_common::puppet_package_ensure: '3.7.3-1.el6'
 
 # Storm
 storm::zookeeper_servers:
   - 'zookeeper1'
 storm::nimbus_host: 'nimbus1'
-storm::nimbus_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::nimbus_childopts:     '-Xmx512m -Djava.net.preferIPv4Stack=true'
 storm::ui_childopts:         '-Xmx256m -Djava.net.preferIPv4Stack=true'
 storm::supervisor_childopts: '-Xmx256m -Djava.net.preferIPv4Stack=true'
-storm::worker_childopts:     '-Xmx256m -Djava.net.preferIPv4Stack=true'
+storm::worker_childopts:     '-Xmx1g -Djava.net.preferIPv4Stack=true'
 storm::supervisor_slots_ports:
   - 6700
   - 6701

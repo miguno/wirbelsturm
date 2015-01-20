@@ -11,7 +11,7 @@ puts "| CREATING AWS SECURITY GROUP FOR WIRBELSTURM |"
 puts "+---------------------------------------------+"
 
 SECURITY_GROUP="wirbelsturm"
-VERSION="1.1"
+VERSION="1.2"
 
 warn
 warn "Note: By default each Wirbelsturm machine runs its own local firewall."
@@ -19,49 +19,98 @@ warn "      For this reason we use only a single, simple AWS security group"
 warn "      for Wirbelsturm."
 warn
 
+warn "Please configure the source CIDR. This sets the IP(s) which will be"
+warn "    allowed SSH access to the servers deployed with Wirbelsturm. The"
+warn "    default setting (0.0.0.0/0) allows SSH access from any IP."
+
+read -e -p "AWS profile [default]: " PROFILE
+
+if [ -z $PROFILE ]; then
+  PROFILE="default"
+fi
+
+read -e -p "AWS region [us-east-1]: " REGION
+
+if [ -z $REGION ]; then
+  REGION="us-east-1"
+fi
+
+read -e -p "Source CIDR [0.0.0.0/0]: " SOURCE_CIDR
+
+if [ -z $SOURCE_CIDR ]; then
+  SOURCE_CIDR="0.0.0.0/0"
+fi
+
+read -e -p "Security group name [wirbelsturm]: " SECURITY_GROUP
+
+if [ -z $SECURITY_GROUP ]; then
+  SECURITY_GROUP="wirbelsturm"
+fi
+
+
+read -e -p "VPC ID (Optional) []: " VPC_ID
+
 puts "Creating '$SECURITY_GROUP' security group for Wirbelsturm..."
-ec2-create-group $SECURITY_GROUP -d "Wirbelsturm cluster (security policy v$VERSION)"
+if [ -z $VPC_ID ]; then
+	SG_OUT=`aws --profile $PROFILE ec2 --region $REGION create-security-group --group-name $SECURITY_GROUP --description "Wirbelsturm cluster (security policy v$VERSION)"`
+else
+	SG_OUT=`aws --profile $PROFILE ec2 --region $REGION create-security-group --group-name $SECURITY_GROUP --description "Wirbelsturm cluster (security policy v$VERSION)" --vpc-id $VPC_ID`
+fi
+
+
 if [ $? -ne 0 ]; then
   warn "Note: If you want to delete the security group you can do so with:"
   warn
-  warn "    $ ec2-delete-group $SECURITY_GROUP"
+  warn "    $ aws ec2 --region $REGION delete-security-group --group-name $SECURITY_GROUP"
+  warn
+  warn "Note: VPC security groups cannot be deleted by group name. Instead use the following command substituting the secruity group ID for GROUP_ID:"
+  warn
+  warn "    $ aws ec2 --region $REGION delete-security-group --group-id GROUP_ID"
   warn
   warn "DELETING A GROUP WILL DELETE ALL OF ITS RULES AND IS NOT REVERSIBLE."
   exit 1
 fi
 
+GROUP_ID=`echo $SG_OUT | jq --raw-output '.GroupId'`
+
 puts "Enable SSH access"
-ec2-authorize -P tcp -p 22 $SECURITY_GROUP || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 22 --cidr $SOURCE_CIDR --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Storm master"
 # 6627 (thrift/Nimbus)
-# 8080 (UI)
-ec2-authorize -P tcp -p 6627 $SECURITY_GROUP || exit 1
-ec2-authorize -P tcp -p 8080 $SECURITY_GROUP || exit 1
+# 8080 (UI, also Graphite), defaults to allow access from any IP - should be locked down in production
+# 8000 (logviewer)
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 6627 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 8080 --cidr $SOURCE_CIDR --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 8000 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Storm slaves"
 # 3772 (drpc), 3773 (drpc invocations)
 # 67xx supervisor ports
-ec2-authorize -P tcp -p 3772-3773 $SECURITY_GROUP || exit 1
-ec2-authorize -P tcp -p 6700-6799 $SECURITY_GROUP || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 3772-3773 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 6700-6799 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Kafka"
-ec2-authorize -P tcp -p 9092 $SECURITY_GROUP || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 9092 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Zookeeper"
 # 2181 (for client connections)
 # 2888 (for communication between servers in the ZK ensemble)
 # 3888 (for leader election, used only by servers in the ZK ensemble)
-ec2-authorize -P tcp -p 2181 $SECURITY_GROUP || exit 1
-ec2-authorize -P tcp -p 2888 $SECURITY_GROUP || exit 1
-ec2-authorize -P tcp -p 3888 $SECURITY_GROUP || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2181 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2888 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 3888 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "Enable access to Redis"
-ec2-authorize -P tcp -p 6379 $SECURITY_GROUP || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 6379 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+
+puts "Enable access to Graphite"
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2003 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
+aws --profile $PROFILE ec2 --region $REGION authorize-security-group-ingress --protocol tcp --port 2004 --source-group $GROUP_ID --group-id $GROUP_ID > /dev/null || exit 1
 
 puts "------------------------------------------------------------------------"
 puts "Summary of security group:"
-ec2-describe-group $SECURITY_GROUP
+aws --profile $PROFILE ec2 --region $REGION describe-security-groups --group-ids $GROUP_ID
 puts "------------------------------------------------------------------------"
 
 success "You can now use the AWS security group '$SECURITY_GROUP' for your Wirbelsturm cluster."

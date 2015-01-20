@@ -2,6 +2,8 @@
 domain: your-wirbelsturm-sub.domain.com
 environment: default-environment
 aws:
+  region: us-east-1
+  zone: us-east-1a
   local_user: ec2-user
   rclocal_url: https://s3.amazonaws.com/yum.miguno.com/bootstrap/aws/rc.local
   keypair_name: CHANGEME       # Example: wirbelsturm
@@ -28,8 +30,10 @@ nodes:
       virtualbox:
         memory: 512
       aws:
-        instance_type: m1.xlarge
+        instance_type: c3.large
         ami: ami-abc12345
+        volume_type: io1
+        volume_size: 40
         security_groups:
           - wirbelsturm
   # Deploys Storm master machines running Storm's Nimbus and UI daemons.
@@ -47,8 +51,10 @@ nodes:
           - guest: 8080 # Storm UI
             host: 28080
       aws:
-        instance_type: m1.xlarge
+        instance_type: c3.large
         ami: ami-abc12345
+        volume_type: io1
+        volume_size: 40
         security_groups:
           - wirbelsturm
   # Deploys Storm slave machines running Storm's Supervisor daemons.
@@ -61,8 +67,10 @@ nodes:
       virtualbox:
         memory: 1024
       aws:
-        instance_type: c1.xlarge
+        instance_type: c3.large
         ami: ami-abc12345
+        volume_type: io1
+        volume_size: 40
         security_groups:
           - wirbelsturm
 #  # Deploys Kafka brokers.
@@ -75,8 +83,10 @@ nodes:
 #      virtualbox:
 #        memory: 1536
 #      aws:
-#        instance_type: m2.2xlarge
+#        instance_type: r3.2xlarge
 #        ami: ami-abc12345
+#        volume_type: io1
+#        volume_size: 40
 #        security_groups:
 #          - wirbelsturm
 #  # Deploys Redis server instances.
@@ -89,8 +99,10 @@ nodes:
 #      virtualbox:
 #        memory: 512
 #      aws:
-#        instance_type: m2.2xlarge
+#        instance_type: r3.8xlarge
 #        ami: ami-abc12345
+#        volume_type: io1
+#        volume_size: 160
 #        security_groups:
 #          - wirbelsturm
 #  # Deploys single-node Storm clusters, with Nimbus/Supervisor/UI (and ZooKeeper) all running on the same machine.
@@ -106,8 +118,10 @@ nodes:
 #          - guest: 8080 # Storm UI
 #            host: 28081
 #      aws:
-#        instance_type: m1.xlarge
+#        instance_type: c3.xlarge
 #        ami: ami-abc12345
+#        volume_type: io1
+#        volume_size: 40
 #        security_groups:
 #          - wirbelsturm
 #  # Deploys Wirbelsturm build servers.
@@ -120,8 +134,10 @@ nodes:
 #      virtualbox:
 #        memory: 1024
 #      aws:
-#        instance_type: t1.micro
+#        instance_type: c3.large
 #        ami: ami-abc12345
+#        volume_type: io1
+#        volume_size: 40
 #        security_groups:
 #          - wirbelsturm
 #  # Deploys monitoring servers running Graphite (through nginx) and Diamond.
@@ -137,7 +153,9 @@ nodes:
 #          - guest: 8080 # Graphite Web UI -- login with user "admin" and password "wirbelsturm"
 #            host: 38080
 #      aws:
-#        instance_type: m2.2xlarge
+#        instance_type: c3.large
 #        ami: ami-abc12345
+#        volume_type: io1
+#        volume_size: 40
 #        security_groups:
 #          - wirbelsturm

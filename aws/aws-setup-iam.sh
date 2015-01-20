@@ -10,48 +10,56 @@ puts "+----------------------------------------+"
 puts "| CREATING AWS IAM USERS FOR WIRBELSTURM |"
 puts "+----------------------------------------+"
 
-IAM_PATH="/wirbelsturm"
+IAM_PATH="/wirbelsturm/"
 IAM_GROUP="wirbelsturm"
 IN_INSTANCE_USER="wirbelsturm-ininstance"
-IN_INSTANCE_USER_POLICY_FILE=$MY_DIR/in-instance-iam-user.json
+IN_INSTANCE_USER_POLICY_FILE=file://$MY_DIR/in-instance-iam-user.json
 DEPLOY_USER="wirbelsturm-deploy"
-DEPLOY_USER_POLICY_FILE=$MY_DIR/deploy-iam-user.json
+DEPLOY_USER_POLICY_FILE=file://$MY_DIR/deploy-iam-user.json
 TIMESTAMP=`date +"%Y%m%d-%H%M%S"`
+
+read -e -p "AWS profile [default]: " PROFILE
+
+if [ -z $PROFILE ]; then
+  PROFILE="default"
+fi
 
 ###
 ### IAM Group
 ###
 
 puts "Creating Wirbelsturm IAM group..."
-iam-groupcreate -g $IAM_GROUP -p $IAM_PATH || exit 1
+aws --profile $PROFILE iam create-group --group-name $IAM_GROUP --path $IAM_PATH || exit 1
 
 ###
 ### Deploy IAM user
 ###
 
 puts "Creating deploy IAM user '$DEPLOY_USER'..."
-iam-usercreate -u $DEPLOY_USER -g $IAM_GROUP -p $IAM_PATH || exit 1
-KEYS=`iam-useraddkey -u $DEPLOY_USER`
-DEPLOY_USER_ACCESS_KEY=`echo $KEYS | awk '{ print $1 }'`
-DEPLOY_USER_SECRET_KEY=`echo $KEYS | awk '{ print $2 }'`
+aws --profile $PROFILE iam create-user --user-name $DEPLOY_USER --path $IAM_PATH || exit 1
+aws --profile $PROFILE iam add-user-to-group --user-name $DEPLOY_USER --group-name $IAM_GROUP
+KEYS=`aws --profile $PROFILE iam create-access-key --user-name $DEPLOY_USER`
+DEPLOY_USER_ACCESS_KEY=`echo $KEYS | jq --raw-output '.AccessKey.AccessKeyId'`
+DEPLOY_USER_SECRET_KEY=`echo $KEYS | jq --raw-output '.AccessKey.SecretAccessKey'`
 
 puts "Applying security policy to IAM user '$DEPLOY_USER'..."
-iam-useruploadpolicy -u $DEPLOY_USER -f $DEPLOY_USER_POLICY_FILE \
-  -p "Deploy_IAM_user_of_Wirbelsturm_v$TIMESTAMP" || exit 1
+aws --profile $PROFILE iam put-user-policy --user-name $DEPLOY_USER --policy-document $DEPLOY_USER_POLICY_FILE \
+  --policy-name "Deploy_IAM_user_of_Wirbelsturm_v$TIMESTAMP" || exit 1
 
 ###
 ### In-instance IAM user
 ###
 
 puts "Creating in-instance IAM user '$IN_INSTANCE_USER'..."
-iam-usercreate -u $IN_INSTANCE_USER -g $IAM_GROUP -p $IAM_PATH || exit 1
-KEYS=`iam-useraddkey -u $IN_INSTANCE_USER`
-IN_INSTANCE_USER_ACCESS_KEY=`echo $KEYS | awk '{ print $1 }'`
-IN_INSTANCE_USER_SECRET_KEY=`echo $KEYS | awk '{ print $2 }'`
+aws --profile $PROFILE iam create-user --user-name $IN_INSTANCE_USER --path $IAM_PATH || exit 1
+aws --profile $PROFILE iam add-user-to-group --user-name $IN_INSTANCE_USER --group-name $IAM_GROUP
+KEYS=`aws --profile $PROFILE iam create-access-key --user-name $IN_INSTANCE_USER`
+IN_INSTANCE_USER_ACCESS_KEY=`echo $KEYS | jq --raw-output '.AccessKey.AccessKeyId'`
+IN_INSTANCE_USER_SECRET_KEY=`echo $KEYS | jq --raw-output '.AccessKey.SecretAccessKey'`
 
 puts "Applying security policy to IAM user '$IN_INSTANCE_USER'..."
-iam-useruploadpolicy -u $IN_INSTANCE_USER -f $IN_INSTANCE_USER_POLICY_FILE \
-  -p "In-instance_IAM_user_of_Wirbelsturm_v$TIMESTAMP" || exit 1
+aws --profile $PROFILE iam put-user-policy --user-name $IN_INSTANCE_USER --policy-document $IN_INSTANCE_USER_POLICY_FILE \
+  --policy-name "In-instance_IAM_user_of_Wirbelsturm_v$TIMESTAMP" || exit 1
 
 ###
 ### Post installation

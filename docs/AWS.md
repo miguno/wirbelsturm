@@ -46,40 +46,51 @@ run commands such as `vagrant up`.  In this section we describe how to do this f
 
 ### EC2 CLI utilities
 
-```bash
-$ brew install ec2-ami-tools ec2-api-tools aws-iam-tools
-```
-
-Add lines similar to the following to `~/.bashrc` if they do not exist yet.
-
-_Note: Newer versions of the EC2 CLI utilities may have different paths/settings.  Make sure you follow the_
-_respective installation instructions correctly._
+First you will need to have the `wget`, `unzip`, and `jq` commands installed:
 
 ```bash
-export JAVA_HOME=`/usr/libexec/java_home`
-export EC2_HOME="/usr/local/Cellar/ec2-api-tools/1.6.12.0/libexec"
-export EC2_AMITOOL_HOME="/usr/local/Cellar/ec2-ami-tools/1.4.0.9/libexec"
-export AWS_IAM_HOME="/usr/local/opt/aws-iam-tools/libexec"
-# AWS keypairs and credentials
-export EC2_PRIVATE_KEY=/path/to/your.pem
-export AWS_ACCESS_KEY=CHANGEME
-export AWS_SECRET_KEY=CHANGEME
-# Add CLI utilities to PATH
-export PATH=$PATH:$EC2_HOME/bin:$EC2_AMITOOL_HOME/bin
+# - Homebrew
+$ brew install wget
+$ brew install unzip
+$ brew install jq
+
+# - MacPorts
+$ sudo port install wget
+$ sudo port install unzip
+$ sudo port install jq
 ```
 
-Tip: If you have both JDK 6 and JDK 7 installed you can explicitly enable the use of JDK 6 (which is the default version
-of JDK for Wirbelsturm) with:
+Then install the AWS CLI tools:
 
 ```bash
-export JAVA_HOME=`/usr/libexec/java_home -v 1.6`
+# Install AWS CLI tools
+$ wget https://s3.amazonaws.com/aws-cli/awscli-bundle.zip
+$ unzip awscli-bundle.zip
+$ sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+# - Homebrew
+$ brew install awscli
+
+# Configure
+$ aws configure --profile PROFILE_NAME
+
+# Or create a ~/.aws/credentials file with the following contents, 
+# [default] is the profile name, you can have several
+[default]
+aws_access_key_id = your_access_key_id
+aws_secret_access_key = your_secret_access_key
+
+[another_profile_name]
+aws_access_key_id = another_access_key_id
+aws_secret_access_key = another_secret_access_key
 ```
 
-And because you now have security credentials in `~/.bashrc` you should restrict the access permissions to it:
+The last command will prompt you for your AWS Access Key ID and Secret Access Key, and the default AWS region and
+default output format. Set the first three appropriately and leave the default output format blank, this will default to
+JSON output. We will use the `jq` command for processing the JSON output.
 
-```bash
-$ chmod 600 ~/.bashrc
-```
+See [Install the AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) for additional information
+and alternate installation methods.
 
 
 ### Test drive
@@ -89,17 +100,18 @@ In this example we will launch a `t1.micro` instance with the AMI `ami-fb8e9292`
 Note: Make sure you replace `YOURKEYPAIR` with the name of your actual key pair.
 
 ```bash
-$ INSTANCE_ID=`ec2-run-instances --user-data-file cloud-config --key YOURKEYPAIR --instance-type t1.micro ami-fb8e9292 | grep "^INSTANCE" | awk '{ print $2 }'`
-$ ec2-describe-instances  $INSTANCE_ID
-$ ec2-get-console-output  $INSTANCE_ID
-$ ec2-terminate-instances $INSTANCE_ID
+# Run the following commands from the top-level Wirbelsturm directory, i.e. where Vagrantfile is.
+$ INSTANCE_ID=`aws ec2 run-instances --user-data file://cloud-init/aws/cloud-config.erb --key-name YOURKEYPAIR --instance-type t1.micro --image-id ami-fb8e9292 | jq --raw-output '.Instances[0].InstanceId'`
+$ aws ec2 describe-instances --instance-ids $INSTANCE_ID
+$ aws ec2 get-console-output --instance-id $INSTANCE_ID
+$ aws ec2 terminate-instances --instance-ids $INSTANCE_ID
 ```
 
-If you need to specify a custom security group (e.g. `allow-ssh`), use the `--group` parameter:
+If you need to specify a custom security group (e.g. `allow-ssh`), use the `--security-groups` parameter:
 
 ```bash
 # Same command as above, but additionally sets a custom security group
-$ INSTANCE_ID=`ec2-run-instances --user-data-file cloud-config --key YOURKEYPAIR --instance-type t1.micro --group allow-ssh ami-fb8e9292 | grep "^INSTANCE" | awk '{ print $2 }'`
+$ INSTANCE_ID=`aws ec2 run-instances --user-data file://cloud-init/aws/cloud-config.erb --key-name YOURKEYPAIR --instance-type t1.micro --image-id ami-fb8e9292 --security-groups allow-ssh | jq --raw-output '.Instances[0].InstanceId'`
 ```
 
 <a name="aws-pre-configuration"></a>
@@ -201,7 +213,7 @@ Here are the instructions to create such an EC2 key pair via the Amazon EC2 cons
   "wirbelsturm" then the private key file will be named `wirbelsturm.pem`.
 
 Save this `.pem` file in a secure location, e.g. `~/.ssh/wirbelsturm.pem`.  Make your to restrict access to this
-file with `chmod 600 ~/.ssh/wirbelsturm.pem`.
+file with `chmod 400 ~/.ssh/wirbelsturm.pem`.
 
 Then you must update the settings `keypair_name` and `private_key_path` in the `aws` section of your `wirbelsturm.yaml`.
 If you followed the example above, `keypair_name` must be set to `wirbelsturm` and `private_key_path` must be set to
@@ -331,6 +343,14 @@ _VPC however you must specify the security groups by their **id** (e.g. `sg-123a
 
 <a name="custom-ami-creation"></a>
 
+## One Step Custom AMI creation
+
+Simply run
+
+    $ /aws/aws-create-ami.sh
+
+By default this uses HVM EBS-Backed 64-bit, US West Oregon) [ami-b5a7ea85], which is different to the steps below.
+
 ## Custom AMI creation
 
 _The instructions below use the Amazon Linux 2014.03.1 AMI [ami-fb8e9292](http://aws.amazon.com/amazon-linux-ami/) as_
@@ -349,27 +369,82 @@ _setting may solve the provisioning issue above.  However we have not yet tested
 _Wirbelsturm._
 
 Launch the stock image `ami-fb8e9292` that will we modify to come up with our final image.  Make sure you use the
-correct settings for `--key` (cf. `keypair_name` in `wirbelsturm.yaml`) and `--group` (cf. the `security_groups`
+correct settings for `--key-name` (cf. `keypair_name` in `wirbelsturm.yaml`) and `--security-groups` (cf. the `security_groups`
 entries in `wirbelsturm.yaml`).
 
-    $ ec2-run-instances \
-        --region us-east-1 \
-        --key wirbelsturm \
+    $ aws ec2 run-instances \
+        --key-name wirbelsturm \
         --instance-type t1.micro \
-        --block-device-mapping '/dev/sda1=:40:true:io1:400' \
-        --group wirbelsturm \
-        ami-fb8e9292
+        --block-device-mappings "[{\"DeviceName\":\"/dev/sda1\",\"Ebs\":{\"DeleteOnTermination\":true,\"VolumeSize\":40,\"VolumeType\":\"io1\",\"Iops\":400}}]" \
+        --security-groups wirbelsturm \
+        --image-id ami-fb8e9292
 
 The command above will print an output similar to the following:
 
-    RESERVATION  r-acfa279b  047236524511  wirbelsturm
-    INSTANCE     i-fd8b3dae  ami-fb8e9292  pending      wirbelsturm  0  t1.micro  [...]
+    {
+        "OwnerId": "123456789012",
+        "ReservationId": "r-12345678",
+        "Groups": [
+            {
+                "GroupName": "wirbelsturm",
+                "GroupId": "sg-12345678"
+            }
+        ],
+        "Instances": [
+            {
+                "Monitoring": {
+                    "State": "disabled"
+                },
+                "PublicDnsName": null,
+                "KernelId": "aki-919dcaf8",
+                "State": {
+                    "Code": 0,
+                    "Name": "pending"
+                },
+                "EbsOptimized": false,
+                "LaunchTime": "2014-09-23T16:08:06.000Z",
+                "ProductCodes": [],
+                "StateTransitionReason": null,
+                "InstanceId": "i-fd8b3dae",
+                "ImageId": "ami-fb8e9292",
+                "PrivateDnsName": null,
+                "KeyName": "wirbelsturm",
+                "SecurityGroups": [
+                    {
+                        "GroupName": "wirbelsturm",
+                        "GroupId": "sg-12345678"
+                    }
+                ],
+                "ClientToken": null,
+                "InstanceType": "t1.micro",
+                "NetworkInterfaces": [],
+                "Placement": {
+                    "Tenancy": "default",
+                    "GroupName": null,
+                    "AvailabilityZone": "us-east-1c"
+                },
+                "Hypervisor": "xen",
+                "BlockDeviceMappings": [],
+                "Architecture": "x86_64",
+                "StateReason": {
+                    "Message": "pending",
+                    "Code": "pending"
+                },
+                "RootDeviceName": "/dev/sda1",
+                "VirtualizationType": "paravirtual",
+                "RootDeviceType": "ebs",
+                "AmiLaunchIndex": 0
+            }
+        ]
+    }
 
-Here the instance ID is the first field after `INSTANCE`, in this example it is `i-fd8b3dae`.
+Here the instance ID is the JSON value `ImageId` in the object located in `Instances` array, in this example it is `i-fd8b3dae`.
 
 Find out the public hostname of the newly launched instance.
 
-    $ ec2-describe-instances <instance-id>
+    $ aws ec2 describe-instances --instance-ids <instance-id>
+
+It will be the JSON value `PublicDnsName` in the object located in the `Instances` array under the `Reservations` array.
 
 Upload the code to modify the stock image according to our needs.
 
@@ -385,37 +460,68 @@ logout).
 
 Now save the image for later re-use.
 
-    $ ec2-create-image \
+    $ aws ec2 create-image \
         --name wirbelsturm-base-2014.03 \
         --description 'Stock ami-fb8e9292 (Amazon Linux 2014.03.1) with Puppet 3.5.x and fix for vagrant-aws issue #72' \
-        --region us-east-1 \
-        --hide-tags \
-        <instance-id>
-    IMAGE ami-abc12345   <<<< Make sure to write this down and use it in wirbelsturm.yaml
+        --instance-id <instance-id>
+    {
+        "ImageId": "ami-abc12345"    <<<< Make sure to write this down and use it in wirbelsturm.yaml
+    }
 
 **Important Note: It may take a few minutes until the new image is available for use.**
 
 Get information about the newly created image:
 
-    $ ec2-describe-images <image-id>
-    IMAGE ami-abc12345  047336254512/wirbelsturm-base 047336254512  available private   x86_64  machineaki-88aa75e1     ebs paravirtual xen
-    BLOCKDEVICEMAPPING  EBS /dev/sda1   snap-d8c7978b 40  true  io1 400
+    $ aws ec2 describe-images --image-ids <image-id>
+    {
+        "Images": [
+            {
+                "VirtualizationType": "paravirtual",
+                "Name": "wirbelsturm-base-2014.03",
+                "Hypervisor": "xen",
+                "ImageId": "ami-abc12345",
+                "RootDeviceType": "ebs",
+                "State": "available",
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": 40,
+                            "Encrypted": false,
+                            "VolumeType": "io1",
+                            "DeleteOnTermination": true,
+                            "SnapshotId": "snap-12345678",
+                            "Iops": 400
+                        }
+                    }
+                ],
+                "Architecture": "x86_64",
+                "ImageLocation": "123456789012/wirbelsturm-base-2014.03",
+                "KernelId": "aki-919dcaf8",
+                "OwnerId": "123456789012",
+                "RootDeviceName": "/dev/sda1",
+                "Public": false,
+                "ImageType": "machine",
+                "Description": "Stock ami-fb8e9292 (Amazon Linux 2014.03.01) with Puppet 3.5.x and fix for vagrant-aws issue #72"
+            }
+        ]
+    }
 
 In case you made a mistake you can delete your custom AMI and start from scratch:
 
     # WARNING: This command DELETES the custom AMI!
-    $ ec2-deregister <image-id>
+    $ aws ec2 deregister-image --image-id <image-id>
 
 Lastly, terminate the running EC2 instance that you used for creating the custom AMI:
 
-    $ ec2-terminate-instances <instance-id>
+    $ aws ec2 terminate-instances --instance-ids <instance-id>
 
 
 <a name="deploy"></a>
 
 # Deploy to AWS/ECS2
 
-_This section assumes you have succesfully completed the one-time AWS setup instructions above._
+_This section assumes you have successfully completed the one-time AWS setup instructions above._
 
 To deploy to AWS you only need to set the `--provider=aws` parameter:
 
@@ -430,7 +536,7 @@ To deploy to AWS you only need to set the `--provider=aws` parameter:
 **other in DNS via Route 53.**
 
 You only need to give the `--provider=...` parameter when launching new machines.  Any other commands such as
-`vagrant status`, `vagrant ssh`, and `vagrant destroy` automatically now whether the target machines reside in AWS or
+`vagrant status`, `vagrant ssh`, and `vagrant destroy` automatically know whether the target machines reside in AWS or
 elsewhere.
 
 
@@ -448,7 +554,7 @@ account.
 ## Strange error message when trying to `vagrant up` via AWS
 
 You might be getting a "weird" error message when deploying to AWS, and the error message may not tell you any useful
-information what actually caused the problem.  In that case you may want to apply the following patch, which
+information about what actually caused the problem.  In that case you may want to apply the following patch, which
 unfortunately is not yet merged into the official `vagrant-aws` plugin.
 
 Patch `lib/vagrant-aws/action/run_instance.rb` under `~/.vagrant.d/gems/gems/vagrant-aws*/` according to
@@ -514,7 +620,13 @@ section describes the base setup for managing this repository.
 Install and configure `s3cmd`.
 
 ```bash
+# Install s3cmd
+# - Homebrew
 $ brew install s3cmd
+# - MacPorts
+$ sudo port install s3cmd
+
+# Configure s3cmd
 $ s3cmd --configure
 ```
 
