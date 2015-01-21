@@ -14,6 +14,7 @@ wirbelsturm_common::manage_ntp: true
 wirbelsturm_common::puppet_package_ensure: '3.3.1-1.el6'
 
 # Storm
+storm::package_ensure: '0.9.3-1.miguno'
 storm::zookeeper_servers:
   - 'zookeeper1'
 storm::nimbus_host: 'nimbus1'
