@@ -1057,6 +1057,53 @@ hosts.  You can use the [ansible](ansible) wrapper script in Wirbelsturm to trig
 we built Wirbelsturm with the sole intent to conveniently deploy Storm clusters, but the name stuck as we moved along.
 
 
+## Define exact versions of software to be installed?
+
+It depends on the Puppet modules you use what needs to be done to, say, tell Wirbelsturm (via Puppet) that you want
+to install Storm version `0.9.2-incubating` specifically.
+
+The Puppet modules included in Wirbelsturm use Hiera for configuration, so here you must update Hiera data to configure
+which exact version of Storm should be installed.
+
+The following Hiera snippet shows at the example of [puppet-storm](https://github.com/miguno/puppet-storm) how you
+tell Wirbelsturm to install Storm version `0.9.2-incubating` when deploying the default environment in Wirbelsturm:
+
+```yaml
+# In puppet/manifests/hieradata/environments/default-environment.yaml
+
+# puppet-storm exposes the `package_ensure` parameter, which allows you to define which version
+# of the Storm RPM package should be installed.
+# See also https://docs.puppetlabs.com/references/latest/type.html#package-attribute-ensure.
+#
+# NOTE: The name of this parameter may be different across the Puppet modules you use,
+#       and some Puppet modules may not even support such a parameter at all (ours do).
+storm::package_ensure: '0.9.2_incubating-1.miguno'
+```
+
+You can find out which exact version identifier (here: `0.9.2_incubating-1.miguno`) you need by inspecting the RPM
+package that is used to install the software:
+
+```
+$ rpm -qpi storm-0.9.2_incubating.el6.x86_64.rpm
+Name        : storm                        Relocations: /opt/storm
+Version     : 0.9.2_incubating                  Vendor: Storm Project
+Release     : 1.miguno                      Build Date: Mon Jun 30 12:03:16 2014
+Install Date: (not installed)            Build Host: build1
+Group       : default                       Source RPM: storm-0.9.2_incubating-1.miguno.src.rpm
+Size        : 22881927                         License: unknown
+Signature   : RSA/SHA1, Mon Jun 30 12:08:14 2014, Key ID b31f46760aa7be3f
+Packager    : <michael@michael-noll.com>
+URL         : http://storm-project.net
+Summary     : Distributed real-time computation system
+Architecture: x86_64
+Description :
+Distributed real-time computation system
+```
+
+In the example above, you would combine the "Version" and the "Release" fields, and use the result as the value of
+`storm::package_ensure`.
+
+
 ## Where to start reading the code?
 
 Wirbelsturm is based on Vagrant.  This means the entry point for the code is [Vagrantfile](Vagrantfile).  The
