@@ -98,10 +98,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_common.git
-  ref: 1.0.5
-  sha: 42211df5e42b0398656b1296306bf3f328dd983d
+  ref: 1.0.6
+  sha: f91777dd7c469fcdc1b7391e22d00e9552a6d9bd
   specs:
-    miguno/wirbelsturm_common (1.0.5)
+    miguno/wirbelsturm_common (1.0.6)
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_yumrepos.git
