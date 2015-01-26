@@ -1,2 +1,5 @@
 ---
-kafka::broker_id: 0
+# If you want to run more than one Kafka broker, then create additional kafka<N>.yaml files (e.g. kafka2.yaml,
+# kafka3.yaml) and set a unique broker id in each file (e.g. kafka2.yaml uses a broker_id of 1, kafka3.yaml
+# uses a broker_id of 2).
+kafka::broker_id: 1
