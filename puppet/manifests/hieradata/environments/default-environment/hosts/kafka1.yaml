@@ -1,4 +1,5 @@
 ---
+kafka::broker_id: 0
 kafka::config_map:
   controlled.shutdown.enable: true
   log.roll.hours: 48
