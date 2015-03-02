@@ -17,6 +17,7 @@ BACKWARDS INCOMPATIBILITIES
 IMPROVEMENTS
 
 * Update puppet_wirbelsturm-common to 1.0.5, which by default installs netcat on each machine.
+* Update puppet-storm to 1.0.14.
 * Update puppet-zookeeper to 1.0.8, which e.g. fixes ZK quorum deployments.
 
 BUG FIXES
