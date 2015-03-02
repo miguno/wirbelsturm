@@ -45,6 +45,16 @@ puts "+---------------------------+"
 if [ $skip_ruby -eq 1 ]; then
     puts "Skipping prepration of Ruby environment.  You must take care of this manually!"
 else
+    puts -n "Checking for curl: "
+    which curl &>/dev/null
+    if [ $? -ne 0 ]; then
+      error "NOT FOUND"
+      warn "Please download and install curl and then re-run ${MYSELF}"
+      exit 1
+    else
+      success "OK"
+    fi
+
     puts "Preparing Ruby environment..."
     curl -L https://raw.githubusercontent.com/miguno/ruby-bootstrap/master/ruby-bootstrap.sh | bash -s
 fi
