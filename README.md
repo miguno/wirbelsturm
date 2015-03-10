@@ -105,7 +105,7 @@ taken you less time and effort than brewing yourself an espresso. :-)
 
 > Tip: If you run into networking related issues (e.g. "unknown host" errors), try to deploy the cluster via our
 > `./deploy` script instead of running `vagrant up`.  The only additional prerequisite for `./deploy` is the
-> installation of the `parallel` tool -- see section [Install Prerequisites](#install-prerequisites) for details.
+> installation of the GNU `parallel` tool -- see section [Install Prerequisites](#install-prerequisites) for details.
 
 Let's take a look at which virtual machines back this cluster behind the scenes:
 
