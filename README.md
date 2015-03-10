@@ -103,6 +103,10 @@ $ vagrant up      # <<< ...and this step also depends on how powerful your compu
 Done -- you now have a fully functioning Storm cluster up and running on your computer!  The deployment should have
 taken you less time and effort than brewing yourself an espresso. :-)
 
+> Tip: If you run into networking related issues (e.g. "unknown host" errors), try to deploy the cluster via our
+> `./deploy` script instead of running `vagrant up`.  The only additional prerequisite for `./deploy` is the
+> installation of the `parallel` tool -- see section [Install Prerequisites](#install-prerequisites) for details.
+
 Let's take a look at which virtual machines back this cluster behind the scenes:
 
 ```
@@ -293,8 +297,10 @@ install those packages on that laptop.
 
 1. [Vagrant](http://www.vagrantup.com/) 1.6.1+
 2. [VirtualBox](https://www.virtualbox.org/) 4.3.x
-3. Optional: [GNU parallel](http://www.gnu.org/software/parallel/), only needed if you want to benefit from parallel
-   provisioning via our [deploy](deploy) script to speed up deployments
+3. Optional but recommended: [GNU parallel](http://www.gnu.org/software/parallel/).
+    * This step is only needed if you want to benefit from parallel provisioning via our [deploy](deploy) script to
+      speed up deployments.  If in doubt, do install `parallel` because `./deploy` is superior to the standard
+      `vagrant up`.
 
 Preferably Mac OS X users should also:
 
@@ -394,13 +400,14 @@ To perform a local deployment on your host machine with the default settings you
 following two commands:
 
 ```shell
-# Option 1: Deploy with sequential provisioning, using native Vagrant
-#           (You must use this if you haven't installed the `parallel` tool)
-$ vagrant up
-
-# Option 2: Deploy with parallel provisioning (faster).
+# Option 1 (recommended):
+#           Deploy with parallel provisioning (faster).
 #           Logs are stored under `provisioning-logs/`.
 $ ./deploy
+
+# Option 2: Deploy with sequential provisioning, using native Vagrant
+#           (You must use this if you haven't installed the `parallel` tool)
+$ vagrant up
 ```
 
 The `deploy` script is a simple wrapper for `vagrant up`.  In contrast to the standard `vagrant up` behavior
