@@ -310,7 +310,7 @@ Preferably Mac OS X users should also:
 
 ### Install Vagrant
 
-* [Download version 1.7.2 of Vagrant](http://www.vagrantup.com/downloads.html) for your OS and install accordingly.
+* [Download version 1.7.2 of Vagrant](https://www.vagrantup.com/downloads.html) for your OS and install accordingly.
 
 Verify the installation of Vagrant:
 
