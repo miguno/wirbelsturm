@@ -431,7 +431,8 @@ Note that the "running" state of a VM only means that it is booted -- it does no
 fully provisioned.
 
 You can also instruct Wirbelsturm/Vagrant to use a file other than the default `wirbelsturm.yaml`.  You only need to
-set the `WIRBELSTURM_CONFIG_FILE` environment variable appropriately:
+set the `WIRBELSTURM_CONFIG_FILE` environment variable appropriately.  This is one way of using Wirbelsturm to deploy
+multiple environments (think: `wirbelsturm-testing.yaml` and `wirbelsturm-production.yaml`).
 
     # Examples
     $ WIRBELSTURM_CONFIG_FILE=/path/to/your/custom-wirbelsturm.yaml ./deploy
