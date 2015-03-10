@@ -331,10 +331,11 @@ Vagrant version 1.7.2
 `.dmg` file.
 
 
-### Install GNU parallel (optional)
+### Install GNU parallel (optional but recommended)
 
 _You only need to install GNU parallel if you like to start your clusters via [deploy](deploy) to benefit from parallel
-and thus faster provisioning.  If you do not you can safely omit the installation of GNU parallel._
+and thus faster provisioning.  If you do not you can safely omit the installation of GNU parallel.  If in doubt, do_
+_install `parallel` because you will most likely prefer to deploy via the `./deploy` script._
 
 Install `parallel` on the _host_ machine:
 
