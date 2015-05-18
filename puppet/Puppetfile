@@ -62,7 +62,7 @@ mod 'miguno/wirbelsturm_common',
 
 mod 'miguno/wirbelsturm_yumrepos',
   :git => 'https://github.com/miguno/puppet-wirbelsturm_yumrepos.git',
-  :ref => '1.0.2'
+  :ref => '1.0.3'
 
 mod 'miguno/zookeeper',
   :git => 'https://github.com/miguno/puppet-zookeeper.git',

@@ -2,9 +2,9 @@ FORGE
   remote: http://forge.puppetlabs.com
   specs:
     ispavailability/file_concat (0.1.0)
-    puppetlabs/apt (1.7.0)
+    puppetlabs/apt (1.8.0)
       puppetlabs/stdlib (>= 2.2.1)
-    puppetlabs/concat (1.2.0)
+    puppetlabs/concat (1.2.2)
       puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs/firewall (1.0.2)
     puppetlabs/nodejs (0.2.1)
@@ -48,7 +48,7 @@ GIT
 GIT
   remote: https://github.com/miguno/puppet-limits.git
   ref: master
-  sha: 13a6ddc1e98f1606d9367fc4047aa6b8c90b822d
+  sha: 3ed0bdd886272c9ba5745f7b3a6515513e9f98fe
   specs:
     miguno/limits (0.0.1)
 
@@ -105,10 +105,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-wirbelsturm_yumrepos.git
-  ref: 1.0.2
-  sha: e5a50a2cb74fbf409d5325d574465ba0dca97b71
+  ref: 1.0.3
+  sha: cf9795e8d6761ab726cb87b844c39fc9621a81d3
   specs:
-    miguno/wirbelsturm_yumrepos (1.0.2)
+    miguno/wirbelsturm_yumrepos (1.0.3)
 
 GIT
   remote: https://github.com/miguno/puppet-zookeeper.git
