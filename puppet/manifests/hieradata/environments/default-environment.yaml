@@ -2,6 +2,7 @@
 classes:
   - supervisor
   - timezone
+  - wirbelsturm_yumrepos::confluent
   - wirbelsturm_yumrepos::epel
   - wirbelsturm_yumrepos::miguno
   - wirbelsturm_yumrepos::nginx
