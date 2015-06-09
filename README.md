@@ -88,7 +88,7 @@ Table of Contents
 # Quick start (local Storm cluster)
 
 Assuming you are using a reasonably powerful computer and have already installed [Vagrant](http://www.vagrantup.com/)
-(1.6.1+) and [VirtualBox](https://www.virtualbox.org/) you can launch a multi-node
+(1.7.2+) and [VirtualBox](https://www.virtualbox.org/) you can launch a multi-node
 [Apache Storm](http://storm.apache.org/) cluster on your local machine with the following commands.  This
 Storm cluster is the default configuration example that ships with Wirbelsturm.  Note that the `bootstrap` command
 needs to be run only once, after a fresh checkout.
@@ -102,6 +102,10 @@ $ vagrant up      # <<< ...and this step also depends on how powerful your compu
 
 Done -- you now have a fully functioning Storm cluster up and running on your computer!  The deployment should have
 taken you less time and effort than brewing yourself an espresso. :-)
+
+> Tip: If you run into networking related issues (e.g. "unknown host" errors), try to deploy the cluster via our
+> `./deploy` script instead of running `vagrant up`.  The only additional prerequisite for `./deploy` is the
+> installation of the GNU `parallel` tool -- see section [Install Prerequisites](#install-prerequisites) for details.
 
 Let's take a look at which virtual machines back this cluster behind the scenes:
 
@@ -291,10 +295,12 @@ Wirbelsturm depends on the following software packages _on the host machine from
 machine on which you execute commands such as `vagrant up`.  So if you are running Wirbelsturm on your laptop, you must
 install those packages on that laptop.
 
-1. [Vagrant](http://www.vagrantup.com/) 1.6.1+
+1. [Vagrant](http://www.vagrantup.com/) 1.7.2+
 2. [VirtualBox](https://www.virtualbox.org/) 4.3.x
-3. Optional: [GNU parallel](http://www.gnu.org/software/parallel/), only needed if you want to benefit from parallel
-   provisioning via our [deploy](deploy) script to speed up deployments
+3. Optional but recommended: [GNU parallel](http://www.gnu.org/software/parallel/).
+    * This step is only needed if you want to benefit from parallel provisioning via our [deploy](deploy) script to
+      speed up deployments.  If in doubt, do install `parallel` because `./deploy` is superior to the standard
+      `vagrant up`.
 
 Preferably Mac OS X users should also:
 
@@ -304,13 +310,13 @@ Preferably Mac OS X users should also:
 
 ### Install Vagrant
 
-* [Download version 1.6.5 of Vagrant](http://www.vagrantup.com/downloads.html) for your OS and install accordingly.
+* [Download version 1.7.2 of Vagrant](https://www.vagrantup.com/downloads.html) for your OS and install accordingly.
 
 Verify the installation of Vagrant:
 
 ```shell
 $ vagrant -v
-Vagrant version 1.6.5
+Vagrant version 1.7.2
 ```
 
 **Note for Mac OS X users:** To uninstall Vagrant run the `uninstall.tool` script that is included in the `.dmg` file.
@@ -325,10 +331,11 @@ Vagrant version 1.6.5
 `.dmg` file.
 
 
-### Install GNU parallel (optional)
+### Install GNU parallel (optional but recommended)
 
 _You only need to install GNU parallel if you like to start your clusters via [deploy](deploy) to benefit from parallel
-and thus faster provisioning.  If you do not you can safely omit the installation of GNU parallel._
+and thus faster provisioning.  If you do not you can safely omit the installation of GNU parallel.  If in doubt, do_
+_install `parallel` because you will most likely prefer to deploy via the `./deploy` script._
 
 Install `parallel` on the _host_ machine:
 
@@ -394,13 +401,14 @@ To perform a local deployment on your host machine with the default settings you
 following two commands:
 
 ```shell
-# Option 1: Deploy with sequential provisioning, using native Vagrant
-#           (You must use this if you haven't installed the `parallel` tool)
-$ vagrant up
-
-# Option 2: Deploy with parallel provisioning (faster).
+# Option 1 (recommended):
+#           Deploy with parallel provisioning (faster).
 #           Logs are stored under `provisioning-logs/`.
 $ ./deploy
+
+# Option 2: Deploy with sequential provisioning, using native Vagrant
+#           (You must use this if you haven't installed the `parallel` tool)
+$ vagrant up
 ```
 
 The `deploy` script is a simple wrapper for `vagrant up`.  In contrast to the standard `vagrant up` behavior
@@ -423,7 +431,8 @@ Note that the "running" state of a VM only means that it is booted -- it does no
 fully provisioned.
 
 You can also instruct Wirbelsturm/Vagrant to use a file other than the default `wirbelsturm.yaml`.  You only need to
-set the `WIRBELSTURM_CONFIG_FILE` environment variable appropriately:
+set the `WIRBELSTURM_CONFIG_FILE` environment variable appropriately.  This is one way of using Wirbelsturm to deploy
+multiple environments (think: `wirbelsturm-testing.yaml` and `wirbelsturm-production.yaml`).
 
     # Examples
     $ WIRBELSTURM_CONFIG_FILE=/path/to/your/custom-wirbelsturm.yaml ./deploy
