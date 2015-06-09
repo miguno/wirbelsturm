@@ -43,7 +43,7 @@ mod 'miguno/storm',
 
 mod 'miguno/supervisor',
   :git => 'https://github.com/miguno/puppet-supervisor.git',
-  :ref => '1.0.1'
+  :ref => '1.0.2'
 
 mod 'miguno/sysctl',
   :git => 'https://github.com/miguno/puppet-sysctl.git'

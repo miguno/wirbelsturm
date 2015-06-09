@@ -77,10 +77,10 @@ GIT
 
 GIT
   remote: https://github.com/miguno/puppet-supervisor.git
-  ref: 1.0.1
-  sha: 34e19b624c5501993bfa982a5b8565cfac565fd0
+  ref: 1.0.2
+  sha: ba8d46baecd8eb2ec97730687c614e7d34975f33
   specs:
-    miguno/supervisor (1.0.1)
+    miguno/supervisor (1.0.2)
 
 GIT
   remote: https://github.com/miguno/puppet-sysctl.git
