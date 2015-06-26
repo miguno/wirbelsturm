@@ -16,6 +16,8 @@ BACKWARDS INCOMPATIBILITIES
 
 IMPROVEMENTS
 
+* Deploy the [Avro schema registry](http://confluent.io/docs/current/schema-registry/docs/intro.html) of
+  [Confluent Platform](http://confluent.io/) on `kafka1` (first Kafka broker).
 * Update puppet_wirbelsturm-common to 1.0.5, which by default installs netcat on each machine.
 * Update puppet-storm to 1.0.14.
 * Update puppet-zookeeper to 1.0.8, which e.g. fixes ZK quorum deployments.
