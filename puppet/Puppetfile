@@ -33,6 +33,10 @@ mod 'miguno/redis',
   :git => 'https://github.com/miguno/puppet-redis.git',
   :ref => '1.0.4'
 
+mod 'miguno/schema_registry',
+  :git => 'https://github.com/miguno/puppet-schema_registry.git',
+  :ref => '0.1.0'
+
 mod 'miguno/statsd',
   :git => 'https://github.com/miguno/puppet-statsd.git',
   :ref => '1.0.4'

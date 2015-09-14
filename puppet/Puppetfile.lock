@@ -60,6 +60,13 @@ GIT
     miguno/redis (1.0.4)
 
 GIT
+  remote: https://github.com/miguno/puppet-schema_registry.git
+  ref: 0.1.0
+  sha: a11e8e605ad7de3c0517cef853e413152015a446
+  specs:
+    miguno/schema_registry (0.1.1)
+
+GIT
   remote: https://github.com/miguno/puppet-statsd.git
   ref: 1.0.4
   sha: 6d3ae9456fb752857f995778d9155625c10473bb
@@ -132,6 +139,7 @@ DEPENDENCIES
   miguno/kafka (>= 0)
   miguno/limits (>= 0)
   miguno/redis (>= 0)
+  miguno/schema_registry (>= 0)
   miguno/statsd (>= 0)
   miguno/storm (>= 0)
   miguno/supervisor (>= 0)
